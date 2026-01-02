@@ -1,0 +1,28 @@
+[package]
+name = "cognitive-shield"
+version = "1.0.0"
+description = "The Universal Translation Layer for Human Communication"
+authors = ["G.O.D. DAO"]
+license = ""
+repository = ""
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+tauri = { version = "2.0", features = ["shell-open", "window-close", "window-hide", "window-show", "window-maximize", "window-minimize", "window-unmaximize", "window-unminimize", "window-start-dragging", "notification-all", "vibration-all", "clipboard-all", "fs-read-file", "fs-write-file", "fs-read-dir", "fs-create-dir", "fs-remove-dir", "fs-remove-file", "fs-rename-file", "fs-exists", "path-all", "dialog-open", "dialog-save"] }
+tauri-plugin-shell = { version = "2.0", features = ["open"] }
+tauri-plugin-notification = { version = "2.0", features = [] }
+tauri-plugin-vibration = { version = "2.0", features = [] }
+tauri-plugin-clipboard-manager = { version = "2.0", features = [] }
+tauri-plugin-fs = { version = "2.0", features = [] }
+tauri-plugin-dialog = { version = "2.0", features = [] }
+
+[features]
+# This feature is used for production builds or when `devPath` points to the filesystem
+# DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]
+

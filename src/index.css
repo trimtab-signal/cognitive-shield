@@ -1,0 +1,278 @@
+/**
+ * COGNITIVE SHIELD - Global Styles
+ * Brutalist + Warm aesthetic with geometric undertones
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Root variables */
+:root {
+  --bg-primary: #0a0a0b;
+  --bg-secondary: #141416;
+  --bg-tertiary: #1c1c1f;
+  --bg-accent: #2a2a2e;
+  
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-accent: #a78bfa;
+  
+  --border-default: #27272a;
+  --border-hover: #3f3f46;
+  --border-accent: #a78bfa;
+  
+  --voltage-low: #22c55e;
+  --voltage-medium: #eab308;
+  --voltage-high: #ef4444;
+  
+  --font-display: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+/* Base */
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* Horizontal scrollbar for nav */
+nav::-webkit-scrollbar {
+  height: 6px;
+}
+
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: var(--bg-accent);
+  border-radius: 3px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--text-accent);
+  color: var(--bg-primary);
+}
+
+/* Focus */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
+}
+
+/* Links */
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Inputs */
+input, textarea, select, button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* Buttons */
+button {
+  font-family: var(--font-display);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--text-accent); }
+  50% { box-shadow: 0 0 40px var(--text-accent), 0 0 60px var(--text-accent); }
+}
+
+/* Component animations */
+.payload-card {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.catchers-mitt {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Voltage meter animations */
+.gauge-fill {
+  transition: width 0.5s ease-out, background-color 0.3s ease;
+}
+
+/* Tetrahedron pattern (decorative) */
+.tetra-pattern {
+  background-image: 
+    linear-gradient(30deg, var(--border-default) 12%, transparent 12.5%, transparent 87%, var(--border-default) 87.5%, var(--border-default)),
+    linear-gradient(150deg, var(--border-default) 12%, transparent 12.5%, transparent 87%, var(--border-default) 87.5%, var(--border-default)),
+    linear-gradient(30deg, var(--border-default) 12%, transparent 12.5%, transparent 87%, var(--border-default) 87.5%, var(--border-default)),
+    linear-gradient(150deg, var(--border-default) 12%, transparent 12.5%, transparent 87%, var(--border-default) 87.5%, var(--border-default)),
+    linear-gradient(60deg, var(--bg-accent) 25%, transparent 25.5%, transparent 75%, var(--bg-accent) 75%, var(--bg-accent)),
+    linear-gradient(60deg, var(--bg-accent) 25%, transparent 25.5%, transparent 75%, var(--bg-accent) 75%, var(--bg-accent));
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+}
+
+/* Haptic feedback simulation */
+@media (prefers-reduced-motion: no-preference) {
+  button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Pulse animation for live status indicators */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Spin animation */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Breathing animation for grounding */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  25% { transform: scale(1.2); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 1; }
+  75% { transform: scale(1); opacity: 0.8; }
+}
+
+/* Status glow animation */
+@keyframes statusGlow {
+  0%, 100% {
+    box-shadow: 0 0 4px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 12px currentColor;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-default: #52525b;
+    --text-muted: #a1a1aa;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .app {
+    padding: 16px 12px !important;
+  }
+
+  nav {
+    gap: 6px !important;
+    padding: 3px !important;
+  }
+
+  nav button {
+    padding: 8px 10px !important;
+    font-size: 11px !important;
+  }
+
+  nav button span {
+    display: none;
+  }
+
+  nav button svg {
+    margin: 0 !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+}
+
