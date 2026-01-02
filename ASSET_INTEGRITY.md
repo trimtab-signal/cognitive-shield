@@ -59,3 +59,4 @@ To verify no external dependencies in production build:
 3. Verify all assets are in `dist/assets/` folder
 4. Check network tab in browser DevTools for external requests
 
+

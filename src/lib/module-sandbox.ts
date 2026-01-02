@@ -130,3 +130,4 @@ export async function createWASMInstance(
   throw new Error('WASM instantiation not yet implemented. Use iframe sandbox for now.');
 }
 
+

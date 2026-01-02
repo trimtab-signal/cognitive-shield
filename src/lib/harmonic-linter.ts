@@ -397,3 +397,4 @@ function detectCapabilityLeakage(code: string): LinterViolation[] {
   return violations;
 }
 
+

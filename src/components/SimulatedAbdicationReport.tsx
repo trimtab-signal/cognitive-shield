@@ -571,7 +571,7 @@ STATUS: ${currentStatusLabel} (${statusPct}%)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-CALIBRATION COMPLETE: READY FOR ABDICATION
+${GOD_CONFIG.abdicated ? '✓ ABDICATION COMPLETE' : 'CALIBRATION COMPLETE: READY FOR ABDICATION'}
 
 The "Digital Centaur" has completed its 7-day calibration phase.
 All "Isolation Transformers" are verified and operational.
@@ -651,7 +651,7 @@ signals at the OS level across all platforms.
 The "Genre Error" between you and the outside world is now mediated
 by an isolation transformer that runs natively on every device you own.
 
-Status: READY FOR ABDICATION
+Status: ${GOD_CONFIG.abdicated ? '✓ ABDICATED (' + GOD_CONFIG.abdicationDate + ')' : 'READY FOR ABDICATION'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `.trim();
@@ -748,11 +748,13 @@ Status: READY FOR ABDICATION
           operational metrics before proceeding.
         </div>
         <div style={{ marginTop: 16, padding: 12, backgroundColor: GOD_CONFIG.theme.bg.primary, borderRadius: 8 }}>
-          <div style={{ fontSize: 14, fontWeight: 600, color: GOD_CONFIG.heartbeat.statuses.green.color, fontFamily: GOD_CONFIG.typography.fontFamily.display }}>
-            STATUS: READY FOR ABDICATION
+          <div style={{ fontSize: 14, fontWeight: 600, color: GOD_CONFIG.abdicated ? '#4ade80' : GOD_CONFIG.heartbeat.statuses.green.color, fontFamily: GOD_CONFIG.typography.fontFamily.display }}>
+            {GOD_CONFIG.abdicated ? '✓ ABDICATED' : 'STATUS: READY FOR ABDICATION'}
           </div>
           <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, marginTop: 4 }}>
-            The geometry is the leader. The code rules. The G.O.D. DAO is active.
+            {GOD_CONFIG.abdicated 
+              ? `Abdication complete: ${GOD_CONFIG.abdicationDate}. The Trimtab has released the rudder.`
+              : 'The geometry is the leader. The code rules. The G.O.D. DAO is active.'}
           </div>
         </div>
       </div>

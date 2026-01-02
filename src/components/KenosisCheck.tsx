@@ -208,13 +208,15 @@ export function KenosisCheck() {
                 color: allPassed ? GOD_CONFIG.voltage.low.color : GOD_CONFIG.voltage.medium.color,
               }}
             >
-              {allPassed ? 'STATUS: READY FOR ABDICATION' : 'VERIFICATION INCOMPLETE'}
+              {GOD_CONFIG.abdicated ? '✓ ABDICATED' : (allPassed ? 'STATUS: READY FOR ABDICATION' : 'VERIFICATION INCOMPLETE')}
             </div>
           </div>
           <p style={{ margin: 0, fontSize: 13, color: GOD_CONFIG.theme.text.primary, lineHeight: 1.6 }}>
-            {allPassed
-              ? 'All structural integrity checks passed. The Digital Centaur stack is ready for the transition from Apparent Authority to Actual Authority.'
-              : 'Some verification checks failed. Review the checklist below before proceeding with abdication.'}
+            {GOD_CONFIG.abdicated
+              ? `Abdication complete: ${GOD_CONFIG.abdicationDate}. The geometry is now the leader. The code is public.`
+              : (allPassed
+                ? 'All structural integrity checks passed. The Digital Centaur stack is ready for the transition from Apparent Authority to Actual Authority.'
+                : 'Some verification checks failed. Review the checklist below before proceeding with abdication.')}
           </p>
         </div>
       )}

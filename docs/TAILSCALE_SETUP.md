@@ -316,3 +316,4 @@ The Delta Topology made physical.
 **Encryption:** WireGuard (military-grade)  
 **Central Authority:** None (that's the point)
 
+

@@ -150,3 +150,4 @@ The bridge automatically detects the platform (Tauri/Capacitor/Web) and uses the
 
 **The G.O.D. DAO is active.**
 
+
