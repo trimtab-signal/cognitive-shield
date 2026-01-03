@@ -8,7 +8,7 @@
  */
 
 import { useState, useEffect, useMemo, lazy, Suspense } from 'react';
-import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical, Wind } from 'lucide-react';
+import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical, Wind, Moon } from 'lucide-react';
 import GOD_CONFIG from './god.config';
 import useShieldStore from './store/shield.store';
 import { computeTabStatuses, getStatusColor, type TabStatus } from './lib/tab-status';
@@ -44,8 +44,9 @@ const ModuleDashboard = lazy(() => import('./components/ModuleDashboard'));
 const SonicShield = lazy(() => import('./components/SonicShield'));
 const NerdLab = lazy(() => import('./components/NerdLab'));
 const BreathEngine = lazy(() => import('./components/BreathEngine'));
+const Grimoire = lazy(() => import('./components/Grimoire'));
 
-type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'about';
+type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'about';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('shield');
@@ -272,6 +273,7 @@ function App() {
             { id: 'compose' as Tab, label: 'Compose', icon: Send },
             { id: 'safe' as Tab, label: 'Safe', icon: Heart },
             { id: 'love-letter' as Tab, label: 'Love Letter', icon: HeartHandshake },
+            { id: 'grimoire' as Tab, label: 'Grimoire', icon: Moon },
             { id: 'heartbeat' as Tab, label: 'Heartbeat', icon: Radio },
             { id: 'tetrahedron' as Tab, label: 'Tetrahedron', icon: Box },
             { id: 'first-light' as Tab, label: 'First Light', icon: CheckCircle2 },
@@ -613,6 +615,14 @@ function App() {
           <div className="manifesto-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>Loading Geodesic Manifesto...</div>}>
               <GeodesicManifesto />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'grimoire' && (
+          <div className="grimoire-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🌙 Loading The Grimoire...</div>}>
+              <Grimoire />
             </Suspense>
           </div>
         )}
