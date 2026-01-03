@@ -8,7 +8,7 @@
  */
 
 import { useState, useEffect, useMemo, lazy, Suspense } from 'react';
-import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake } from 'lucide-react';
+import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music } from 'lucide-react';
 import GOD_CONFIG from './god.config';
 import useShieldStore from './store/shield.store';
 import { computeTabStatuses, getStatusColor, type TabStatus } from './lib/tab-status';
@@ -41,8 +41,9 @@ const FAQ = lazy(() => import('./components/FAQ'));
 const FeatureShowcase = lazy(() => import('./components/FeatureShowcase'));
 const LoveLetterProtocol = lazy(() => import('./components/LoveLetterProtocol'));
 const ModuleDashboard = lazy(() => import('./components/ModuleDashboard'));
+const SonicShield = lazy(() => import('./components/SonicShield'));
 
-type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'about';
+type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'sonic' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'about';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('shield');
@@ -283,6 +284,7 @@ function App() {
             { id: 'module-manager' as Tab, label: 'Modules', icon: Package },
             { id: 'my-modules' as Tab, label: 'My Modules', icon: Box },
             { id: 'somatic' as Tab, label: 'Somatic', icon: Brain },
+            { id: 'sonic' as Tab, label: 'Sonic', icon: Music },
             { id: 'math' as Tab, label: 'Math', icon: Calculator },
             { id: 'story' as Tab, label: 'The Story', icon: Book },
             { id: 'faq' as Tab, label: 'FAQ', icon: HelpCircle },
@@ -535,6 +537,14 @@ function App() {
           <div className="somatic-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>Loading Somatic Regulation...</div>}>
               <SomaticRegulation />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'sonic' && (
+          <div className="sonic-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🎵 Loading Sonic Shield...</div>}>
+              <SonicShield />
             </Suspense>
           </div>
         )}
