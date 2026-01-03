@@ -296,6 +296,8 @@ function CoherenceMeter({ value }: { value: number }) {
       borderRadius: '0.5rem',
       padding: '1rem',
       marginTop: '1rem',
+      maxWidth: '400px',
+      margin: '1rem auto 0 auto',
     }}>
       <div style={{ 
         display: 'flex', 
@@ -512,9 +514,11 @@ export default function BreathEngine() {
       {/* Pattern Selector */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
-        gap: '0.5rem',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '0.75rem',
         marginBottom: '1.5rem',
+        maxWidth: '600px',
+        margin: '0 auto 1.5rem auto',
       }}>
         {PATTERNS.map(pattern => (
           <button
@@ -522,7 +526,7 @@ export default function BreathEngine() {
             onClick={() => !isRunning && setSelectedPattern(pattern)}
             disabled={isRunning}
             style={{
-              padding: '0.75rem',
+              padding: '1rem',
               background: selectedPattern.id === pattern.id 
                 ? pattern.color 
                 : 'rgba(255,255,255,0.05)',
@@ -532,13 +536,18 @@ export default function BreathEngine() {
               borderRadius: '0.5rem',
               color: '#fff',
               cursor: isRunning ? 'not-allowed' : 'pointer',
-              textAlign: 'left',
+              textAlign: 'center',
               opacity: isRunning && selectedPattern.id !== pattern.id ? 0.5 : 1,
               transition: 'all 0.2s ease',
+              minHeight: '70px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <div style={{ fontWeight: 'bold', fontSize: '0.85rem' }}>{pattern.name}</div>
-            <div style={{ fontSize: '0.7rem', opacity: 0.7, marginTop: '0.25rem' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '0.85rem', lineHeight: 1.3 }}>{pattern.name}</div>
+            <div style={{ fontSize: '0.75rem', opacity: 0.7, marginTop: '0.25rem' }}>
               +{pattern.spoonRestoration} 🥄
             </div>
           </button>
@@ -548,11 +557,13 @@ export default function BreathEngine() {
       {/* Pattern Description */}
       <div style={{
         background: 'rgba(0,0,0,0.3)',
-        padding: '0.75rem',
+        padding: '1rem',
         borderRadius: '0.5rem',
         marginBottom: '1.5rem',
         textAlign: 'center',
         fontSize: '0.9rem',
+        maxWidth: '500px',
+        margin: '0 auto 1.5rem auto',
       }}>
         {selectedPattern.description}
       </div>
@@ -652,6 +663,8 @@ export default function BreathEngine() {
           background: 'rgba(0,0,0,0.3)',
           padding: '1rem',
           borderRadius: '0.5rem',
+          maxWidth: '400px',
+          margin: '1.5rem auto 0 auto',
         }}>
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>Cycles</div>
@@ -681,6 +694,8 @@ export default function BreathEngine() {
         border: '1px solid rgba(100,100,255,0.2)',
         borderRadius: '0.5rem',
         fontSize: '0.85rem',
+        maxWidth: '500px',
+        margin: '1.5rem auto 0 auto',
       }}>
         <strong>🔬 The Physics:</strong>
         <br /><br />
