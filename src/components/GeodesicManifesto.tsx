@@ -2,7 +2,7 @@
  * GEODESIC MANIFESTO
  * The Deep Architecture: From Wye to Delta
  * 
- * "The Hub is offline. The Mesh is active."
+ * "The Mesh is operational. All systems resonant."
  */
 
 import { useState } from 'react';
@@ -591,7 +591,7 @@ export function GeodesicManifesto() {
           Status: GREEN BOARD
         </div>
         <div style={{ marginTop: 16, fontSize: 11, color: GOD_CONFIG.theme.text.muted }}>
-          The Hub is offline. The Mesh is active.
+          The Mesh is operational. All systems resonant.
         </div>
       </div>
 

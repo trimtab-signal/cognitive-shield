@@ -40,8 +40,9 @@ const TheStory = lazy(() => import('./components/TheStory'));
 const FAQ = lazy(() => import('./components/FAQ'));
 const FeatureShowcase = lazy(() => import('./components/FeatureShowcase'));
 const LoveLetterProtocol = lazy(() => import('./components/LoveLetterProtocol'));
+const ModuleDashboard = lazy(() => import('./components/ModuleDashboard'));
 
-type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'somatic' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'about';
+type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'about';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('shield');
@@ -280,6 +281,7 @@ function App() {
             { id: 'abdication' as Tab, label: 'Abdication', icon: Key },
             { id: 'module-maker' as Tab, label: 'Module Maker', icon: Code2 },
             { id: 'module-manager' as Tab, label: 'Modules', icon: Package },
+            { id: 'my-modules' as Tab, label: 'My Modules', icon: Box },
             { id: 'somatic' as Tab, label: 'Somatic', icon: Brain },
             { id: 'math' as Tab, label: 'Math', icon: Calculator },
             { id: 'story' as Tab, label: 'The Story', icon: Book },
@@ -517,6 +519,14 @@ function App() {
           <div className="module-manager-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>Loading Module Manager...</div>}>
               <ModuleManager />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'my-modules' && (
+          <div className="my-modules-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>Loading My Modules...</div>}>
+              <ModuleDashboard />
             </Suspense>
           </div>
         )}

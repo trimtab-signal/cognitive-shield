@@ -1,0 +1,25 @@
+{
+  "_type": "cognitive-shield-module",
+  "_version": "1.0",
+  "module": {
+    "name": "Spoon Tracker",
+    "description": "Track your daily energy spoons. Know when to rest, know when to push.",
+    "version": "1.0.0",
+    "sourceCode": "const SpoonTracker = () => {\n  const [spoons, setSpoons] = useLocalStorage('spoon-count', 12);\n  const [maxSpoons, setMaxSpoons] = useLocalStorage('max-spoons', 12);\n  const [log, setLog] = useLocalStorage('spoon-log', []);\n\n  const useSpoon = (cost = 1) => {\n    const newCount = Math.max(0, spoons - cost);\n    setSpoons(newCount);\n    setLog([...log.slice(-9), { action: 'used', cost, time: new Date().toLocaleTimeString(), remaining: newCount }]);\n  };\n\n  const restoreSpoon = () => {\n    const newCount = Math.min(maxSpoons, spoons + 1);\n    setSpoons(newCount);\n    setLog([...log.slice(-9), { action: 'restored', cost: 1, time: new Date().toLocaleTimeString(), remaining: newCount }]);\n  };\n\n  const reset = () => {\n    setSpoons(maxSpoons);\n    setLog([]);\n  };\n\n  const percentage = Math.round((spoons / maxSpoons) * 100);\n  const status = percentage > 60 ? 'success' : percentage > 30 ? 'warning' : 'error';\n\n  return (\n    <div className=\"flex-col\">\n      <div style={{ textAlign: 'center', marginBottom: 20 }}>\n        <div style={{ fontSize: 48, marginBottom: 8 }}>🥄</div>\n        <div style={{ fontSize: 36, fontWeight: 700 }} className={status}>\n          {spoons} / {maxSpoons}\n        </div>\n        <div className=\"text-muted text-sm\">\n          {percentage}% energy remaining\n        </div>\n\n        {/* Progress bar */}\n        <div style={{\n          height: 8,\n          backgroundColor: '#333',\n          borderRadius: 4,\n          marginTop: 12,\n          overflow: 'hidden',\n        }}>\n          <div style={{\n            width: `${percentage}%`,\n            height: '100%',\n            backgroundColor: status === 'success' ? '#4ade80' : status === 'warning' ? '#fb923c' : '#ef4444',\n            transition: 'width 0.3s ease',\n          }} />\n        </div>\n      </div>\n\n      <div className=\"flex\" style={{ justifyContent: 'center', gap: 12, marginBottom: 16 }}>\n        <button onClick={() => useSpoon(1)} disabled={spoons === 0}>\n          -1 Spoon\n        </button>\n        <button onClick={() => useSpoon(2)} disabled={spoons < 2}>\n          -2 Spoons\n        </button>\n        <button onClick={restoreSpoon} disabled={spoons >= maxSpoons} style={{ background: '#4ade80' }}>\n          +1 Rest\n        </button>\n      </div>\n\n      <button onClick={reset} style={{ background: '#666', width: '100%' }}>\n        Reset Day\n      </button>\n\n      {spoons <= 3 && spoons > 0 && (\n        <div className=\"card warning\" style={{ marginTop: 12, textAlign: 'center' }}>\n          ⚠️ Low energy. Consider resting.\n        </div>\n      )}\n\n      {spoons === 0 && (\n        <div className=\"card error\" style={{ marginTop: 12, textAlign: 'center' }}>\n          🛑 Empty. Rest is mandatory. You've got nothing left to give.\n        </div>\n      )}\n    </div>\n  );\n};\n\nexport default SpoonTracker;",
+    "manifest": {
+      "entryPoint": "SpoonTracker.tsx",
+      "dependencies": [],
+      "hooks": ["useLocalStorage"],
+      "permissions": [],
+      "topology": "delta",
+      "resonanceTarget": 0.35
+    },
+    "linterReport": {
+      "isStable": true,
+      "resonanceScore": 0.358,
+      "spoonCost": 1,
+      "violations": []
+    }
+  }
+}
+

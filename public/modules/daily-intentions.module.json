@@ -1,0 +1,25 @@
+{
+  "_type": "cognitive-shield-module",
+  "_version": "1.0",
+  "module": {
+    "name": "Daily Intentions",
+    "description": "Set your top 3 intentions for today. Simple, focused, achievable.",
+    "version": "1.0.0",
+    "sourceCode": "const DailyIntentions = () => {\n  const [intentions, setIntentions] = useLocalStorage('daily-intentions', ['', '', '']);\n  const [completed, setCompleted] = useLocalStorage('daily-completed', [false, false, false]);\n  const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });\n\n  const updateIntention = (index, value) => {\n    const newIntentions = [...intentions];\n    newIntentions[index] = value;\n    setIntentions(newIntentions);\n  };\n\n  const toggleComplete = (index) => {\n    const newCompleted = [...completed];\n    newCompleted[index] = !newCompleted[index];\n    setCompleted(newCompleted);\n  };\n\n  const completedCount = completed.filter(Boolean).length;\n\n  return (\n    <div className=\"flex-col\">\n      <div className=\"flex\" style={{ justifyContent: 'space-between', marginBottom: 16 }}>\n        <div>\n          <h3 style={{ margin: 0, fontSize: 18 }}>🎯 Today's Intentions</h3>\n          <p className=\"text-sm text-muted\">{today}</p>\n        </div>\n        <div style={{ textAlign: 'right' }}>\n          <div style={{ fontSize: 24, fontWeight: 700 }} className={completedCount === 3 ? 'success' : ''}>\n            {completedCount}/3\n          </div>\n          <p className=\"text-sm text-muted\">complete</p>\n        </div>\n      </div>\n\n      {[0, 1, 2].map((index) => (\n        <div key={index} className=\"card flex\" style={{ opacity: completed[index] ? 0.6 : 1 }}>\n          <button\n            onClick={() => toggleComplete(index)}\n            style={{\n              width: 28,\n              height: 28,\n              borderRadius: '50%',\n              border: completed[index] ? 'none' : '2px solid #666',\n              background: completed[index] ? '#4ade80' : 'transparent',\n              cursor: 'pointer',\n              display: 'flex',\n              alignItems: 'center',\n              justifyContent: 'center',\n              color: 'white',\n              fontSize: 14,\n              flexShrink: 0,\n            }}\n          >\n            {completed[index] ? '✓' : ''}\n          </button>\n          <input\n            type=\"text\"\n            placeholder={`Intention ${index + 1}...`}\n            value={intentions[index]}\n            onChange={(e) => updateIntention(index, e.target.value)}\n            style={{\n              flex: 1,\n              textDecoration: completed[index] ? 'line-through' : 'none',\n            }}\n          />\n        </div>\n      ))}\n\n      {completedCount === 3 && (\n        <div className=\"card success\" style={{ textAlign: 'center', marginTop: 8 }}>\n          🎉 All intentions complete! Great work today.\n        </div>\n      )}\n    </div>\n  );\n};\n\nexport default DailyIntentions;",
+    "manifest": {
+      "entryPoint": "DailyIntentions.tsx",
+      "dependencies": [],
+      "hooks": ["useLocalStorage"],
+      "permissions": [],
+      "topology": "delta",
+      "resonanceTarget": 0.35
+    },
+    "linterReport": {
+      "isStable": true,
+      "resonanceScore": 0.342,
+      "spoonCost": 1,
+      "violations": []
+    }
+  }
+}
+

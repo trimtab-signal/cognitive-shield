@@ -452,7 +452,17 @@ function ModuleCard({
   );
 }
 
-function ModuleDetailsPanel({ module, onClose }: { module: GeodesicModule; onClose: () => void }) {
+function ModuleDetailsPanel({ 
+  module, 
+  onClose,
+  onAbdicate 
+}: { 
+  module: GeodesicModule; 
+  onClose: () => void;
+  onAbdicate: () => void;
+}) {
+  const [showCode, setShowCode] = useState(false);
+
   return (
     <div
       style={{
@@ -550,6 +560,46 @@ function ModuleDetailsPanel({ module, onClose }: { module: GeodesicModule; onClo
             </div>
           </div>
         )}
+
+        {/* Source Code Section */}
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+            <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted }}>Source Code</div>
+            <button
+              onClick={() => setShowCode(!showCode)}
+              style={{
+                padding: '4px 12px',
+                backgroundColor: GOD_CONFIG.theme.bg.tertiary,
+                border: `1px solid ${GOD_CONFIG.theme.border.default}`,
+                borderRadius: 6,
+                color: GOD_CONFIG.theme.text.primary,
+                fontSize: 11,
+                cursor: 'pointer',
+              }}
+            >
+              {showCode ? 'Hide Code' : 'Show Code'}
+            </button>
+          </div>
+          {showCode && (
+            <pre
+              style={{
+                padding: 16,
+                backgroundColor: GOD_CONFIG.theme.bg.tertiary,
+                borderRadius: 8,
+                border: `1px solid ${GOD_CONFIG.theme.border.default}`,
+                fontSize: 11,
+                fontFamily: 'JetBrains Mono, Fira Code, monospace',
+                color: GOD_CONFIG.theme.text.secondary,
+                overflow: 'auto',
+                maxHeight: 300,
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word',
+              }}
+            >
+              {module.sourceCode || 'No source code available'}
+            </pre>
+          )}
+        </div>
 
         {module.abdicated && (
           <div

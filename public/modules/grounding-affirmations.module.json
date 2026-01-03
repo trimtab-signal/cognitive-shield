@@ -1,0 +1,25 @@
+{
+  "_type": "cognitive-shield-module",
+  "_version": "1.0",
+  "module": {
+    "name": "Grounding Affirmations",
+    "description": "Random grounding affirmations when you need them. One tap, one breath, one truth.",
+    "version": "1.0.0",
+    "sourceCode": "const GroundingAffirmations = () => {\n  const affirmations = [\n    { text: \"You are safe in this moment.\", emoji: \"🛡️\" },\n    { text: \"Your feelings are valid.\", emoji: \"💚\" },\n    { text: \"You don't have to figure it all out today.\", emoji: \"🌱\" },\n    { text: \"It's okay to take up space.\", emoji: \"✨\" },\n    { text: \"You are allowed to rest.\", emoji: \"🌙\" },\n    { text: \"Your best is enough.\", emoji: \"🌟\" },\n    { text: \"This feeling will pass.\", emoji: \"🌊\" },\n    { text: \"You are not a burden.\", emoji: \"💜\" },\n    { text: \"Progress, not perfection.\", emoji: \"🚀\" },\n    { text: \"You've survived 100% of your worst days.\", emoji: \"💪\" },\n    { text: \"It's okay to ask for help.\", emoji: \"🤝\" },\n    { text: \"You are worthy of love.\", emoji: \"❤️\" },\n    { text: \"One step at a time.\", emoji: \"👣\" },\n    { text: \"You are more than your productivity.\", emoji: \"🌺\" },\n    { text: \"Breathe. You've got this.\", emoji: \"🌬️\" },\n  ];\n\n  const [current, setCurrent] = React.useState(() => \n    affirmations[Math.floor(Math.random() * affirmations.length)]\n  );\n  const [isAnimating, setIsAnimating] = React.useState(false);\n\n  const getNew = () => {\n    setIsAnimating(true);\n    setTimeout(() => {\n      let newAffirmation;\n      do {\n        newAffirmation = affirmations[Math.floor(Math.random() * affirmations.length)];\n      } while (newAffirmation.text === current.text && affirmations.length > 1);\n      setCurrent(newAffirmation);\n      setIsAnimating(false);\n    }, 200);\n  };\n\n  return (\n    <div style={{ textAlign: 'center' }}>\n      <div \n        style={{ \n          fontSize: 64, \n          marginBottom: 16,\n          transition: 'transform 0.2s ease',\n          transform: isAnimating ? 'scale(0.8)' : 'scale(1)',\n        }}\n      >\n        {current.emoji}\n      </div>\n      \n      <div \n        style={{ \n          fontSize: 20, \n          fontWeight: 600, \n          lineHeight: 1.5,\n          marginBottom: 24,\n          minHeight: 60,\n          display: 'flex',\n          alignItems: 'center',\n          justifyContent: 'center',\n          opacity: isAnimating ? 0 : 1,\n          transition: 'opacity 0.2s ease',\n        }}\n      >\n        {current.text}\n      </div>\n\n      <button \n        onClick={getNew}\n        style={{ \n          fontSize: 16, \n          padding: '12px 32px',\n        }}\n      >\n        New Affirmation\n      </button>\n\n      <p className=\"text-sm text-muted\" style={{ marginTop: 16 }}>\n        Tap when you need a reminder 💚\n      </p>\n    </div>\n  );\n};\n\nexport default GroundingAffirmations;",
+    "manifest": {
+      "entryPoint": "GroundingAffirmations.tsx",
+      "dependencies": [],
+      "hooks": ["useState"],
+      "permissions": [],
+      "topology": "delta",
+      "resonanceTarget": 0.35
+    },
+    "linterReport": {
+      "isStable": true,
+      "resonanceScore": 0.328,
+      "spoonCost": 0,
+      "violations": []
+    }
+  }
+}
+
