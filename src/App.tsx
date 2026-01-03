@@ -8,7 +8,7 @@
  */
 
 import { useState, useEffect, useMemo, lazy, Suspense } from 'react';
-import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical } from 'lucide-react';
+import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical, Wind } from 'lucide-react';
 import GOD_CONFIG from './god.config';
 import useShieldStore from './store/shield.store';
 import { computeTabStatuses, getStatusColor, type TabStatus } from './lib/tab-status';
@@ -43,8 +43,9 @@ const LoveLetterProtocol = lazy(() => import('./components/LoveLetterProtocol'))
 const ModuleDashboard = lazy(() => import('./components/ModuleDashboard'));
 const SonicShield = lazy(() => import('./components/SonicShield'));
 const NerdLab = lazy(() => import('./components/NerdLab'));
+const BreathEngine = lazy(() => import('./components/BreathEngine'));
 
-type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'about';
+type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'about';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('shield');
@@ -285,6 +286,7 @@ function App() {
             { id: 'module-manager' as Tab, label: 'Modules', icon: Package },
             { id: 'my-modules' as Tab, label: 'My Modules', icon: Box },
             { id: 'somatic' as Tab, label: 'Somatic', icon: Brain },
+            { id: 'breath' as Tab, label: 'Breathe', icon: Wind },
             { id: 'sonic' as Tab, label: 'Sonic', icon: Music },
             { id: 'nerd-lab' as Tab, label: 'Nerd Lab', icon: FlaskConical },
             { id: 'math' as Tab, label: 'Math', icon: Calculator },
@@ -539,6 +541,14 @@ function App() {
           <div className="somatic-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>Loading Somatic Regulation...</div>}>
               <SomaticRegulation />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'breath' && (
+          <div className="breath-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🌬️ Loading Breath Engine...</div>}>
+              <BreathEngine />
             </Suspense>
           </div>
         )}
