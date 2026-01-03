@@ -224,7 +224,7 @@ function GameOfLife() {
     canvas.width = cols * cellSize;
     canvas.height = rows * cellSize;
 
-    ctx.fillStyle = '#0a0a1a';
+    ctx.fillStyle = GOD_CONFIG.theme.bg.primary;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     grid.forEach((row, i) => {
@@ -834,7 +834,7 @@ function PrimeSpiral() {
     canvas.width = width;
     canvas.height = height;
 
-    ctx.fillStyle = '#0a0a1a';
+    ctx.fillStyle = GOD_CONFIG.theme.bg.primary;
     ctx.fillRect(0, 0, width, height);
 
     const centerX = width / 2;
@@ -982,7 +982,7 @@ function SpectrumAnalyzer() {
           borderRadius: '0.5rem',
           display: 'block',
           margin: '0 auto',
-          background: '#0a0a1a',
+          background: GOD_CONFIG.theme.bg.primary,
         }}
       />
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
@@ -1007,11 +1007,12 @@ function SpectrumAnalyzer() {
 const btnStyle: React.CSSProperties = {
   padding: '0.5rem 1rem',
   borderRadius: '0.5rem',
-  border: 'none',
-  background: 'rgba(255,255,255,0.1)',
-  color: '#fff',
+  border: `1px solid ${GOD_CONFIG.theme.border.default}`,
+  background: GOD_CONFIG.theme.bg.tertiary,
+  color: GOD_CONFIG.theme.text.primary,
   cursor: 'pointer',
   fontSize: '0.9rem',
+  fontFamily: GOD_CONFIG.typography.fontFamily.body,
   transition: 'all 0.2s ease',
 };
 
@@ -1037,9 +1038,10 @@ export default function NerdLab() {
   return (
     <div style={{
       padding: '2rem',
-      background: 'linear-gradient(135deg, #1a1a2e 0%, #0a0a1a 100%)',
+      background: `linear-gradient(135deg, ${GOD_CONFIG.theme.bg.tertiary} 0%, ${GOD_CONFIG.theme.bg.primary} 100%)`,
       borderRadius: '1rem',
-      color: '#e0e0e0',
+      color: GOD_CONFIG.theme.text.primary,
+      fontFamily: GOD_CONFIG.typography.fontFamily.body,
       minHeight: '100%',
     }}>
       {/* Header */}
@@ -1047,11 +1049,12 @@ export default function NerdLab() {
         <h2 style={{ 
           fontSize: '2rem', 
           marginBottom: '0.5rem',
-          fontFamily: GOD_CONFIG.fonts?.display || 'Georgia, serif',
+          fontFamily: GOD_CONFIG.typography.fontFamily.display,
+          color: GOD_CONFIG.theme.text.primary,
         }}>
           🧪 Nerd Lab
         </h2>
-        <p style={{ opacity: 0.7, fontStyle: 'italic' }}>
+        <p style={{ color: GOD_CONFIG.theme.text.secondary, fontStyle: 'italic' }}>
           "The universe is not only queerer than we suppose, but queerer than we CAN suppose."
         </p>
       </div>
@@ -1071,11 +1074,12 @@ export default function NerdLab() {
             style={{
               padding: '0.5rem 1rem',
               borderRadius: '2rem',
-              border: activeTool === tool.id ? '2px solid #4ade80' : '1px solid rgba(255,255,255,0.2)',
-              background: activeTool === tool.id ? 'rgba(74,222,128,0.2)' : 'rgba(255,255,255,0.05)',
-              color: activeTool === tool.id ? '#4ade80' : '#fff',
+              border: activeTool === tool.id ? `2px solid ${GOD_CONFIG.theme.text.accent}` : `1px solid ${GOD_CONFIG.theme.border.default}`,
+              background: activeTool === tool.id ? `${GOD_CONFIG.theme.text.accent}20` : GOD_CONFIG.theme.bg.secondary,
+              color: activeTool === tool.id ? GOD_CONFIG.theme.text.accent : GOD_CONFIG.theme.text.primary,
               cursor: 'pointer',
               fontSize: '0.9rem',
+              fontFamily: GOD_CONFIG.typography.fontFamily.body,
               transition: 'all 0.2s ease',
             }}
           >
@@ -1089,16 +1093,19 @@ export default function NerdLab() {
         textAlign: 'center',
         marginBottom: '1.5rem',
         padding: '0.75rem',
-        background: 'rgba(100,100,255,0.1)',
+        background: `${GOD_CONFIG.theme.text.accent}10`,
+        border: `1px solid ${GOD_CONFIG.theme.text.accent}30`,
         borderRadius: '0.5rem',
+        color: GOD_CONFIG.theme.text.secondary,
       }}>
         <span style={{ fontSize: '1.5rem', marginRight: '0.5rem' }}>{currentTool?.icon}</span>
-        <strong>{currentTool?.name}</strong>: {currentTool?.description}
+        <strong style={{ color: GOD_CONFIG.theme.text.primary }}>{currentTool?.name}</strong>: {currentTool?.description}
       </div>
 
       {/* Tool Content */}
       <div style={{
-        background: 'rgba(0,0,0,0.2)',
+        background: GOD_CONFIG.theme.bg.secondary,
+        border: `1px solid ${GOD_CONFIG.theme.border.default}`,
         padding: '1.5rem',
         borderRadius: '0.75rem',
       }}>

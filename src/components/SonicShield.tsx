@@ -492,9 +492,10 @@ export default function SonicShield() {
   return (
     <div style={{
       padding: '2rem',
-      background: `linear-gradient(135deg, ${currentColor || '#1a1a2e'} 0%, #0a0a1a 100%)`,
+      background: `linear-gradient(135deg, ${currentColor || GOD_CONFIG.theme.bg.tertiary}20 0%, ${GOD_CONFIG.theme.bg.primary} 100%)`,
       borderRadius: '1rem',
-      color: '#e0e0e0',
+      color: GOD_CONFIG.theme.text.primary,
+      fontFamily: GOD_CONFIG.typography.fontFamily.body,
       minHeight: '100%',
       transition: 'background 1s ease',
     }}>
@@ -503,11 +504,12 @@ export default function SonicShield() {
         <h2 style={{ 
           fontSize: '2rem', 
           marginBottom: '0.5rem',
-          fontFamily: GOD_CONFIG.fonts?.display || 'Georgia, serif',
+          fontFamily: GOD_CONFIG.typography.fontFamily.display,
+          color: GOD_CONFIG.theme.text.primary,
         }}>
           🎵 Sonic Shield
         </h2>
-        <p style={{ opacity: 0.7, fontStyle: 'italic' }}>
+        <p style={{ color: GOD_CONFIG.theme.text.secondary, fontStyle: 'italic' }}>
           "When the music hits you, you feel no pain."
         </p>
       </div>
@@ -521,7 +523,8 @@ export default function SonicShield() {
         gap: '2px',
         marginBottom: '2rem',
         padding: '1rem',
-        background: 'rgba(0,0,0,0.3)',
+        background: GOD_CONFIG.theme.bg.secondary,
+        border: `1px solid ${GOD_CONFIG.theme.border.default}`,
         borderRadius: '0.5rem',
       }}>
         {visualizerData.map((value, i) => (
@@ -550,12 +553,13 @@ export default function SonicShield() {
           onClick={() => setActiveMode('soundscape')}
           style={{
             padding: '0.75rem 1.5rem',
-            background: activeMode === 'soundscape' ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.2)',
+            background: activeMode === 'soundscape' ? GOD_CONFIG.theme.bg.accent : GOD_CONFIG.theme.bg.secondary,
+            border: activeMode === 'soundscape' ? `1px solid ${GOD_CONFIG.theme.border.accent}` : `1px solid ${GOD_CONFIG.theme.border.default}`,
             borderRadius: '2rem',
-            color: '#fff',
+            color: GOD_CONFIG.theme.text.primary,
             cursor: 'pointer',
             fontWeight: activeMode === 'soundscape' ? 'bold' : 'normal',
+            fontFamily: GOD_CONFIG.typography.fontFamily.body,
             transition: 'all 0.3s ease',
           }}
         >
@@ -565,12 +569,13 @@ export default function SonicShield() {
           onClick={() => setActiveMode('binaural')}
           style={{
             padding: '0.75rem 1.5rem',
-            background: activeMode === 'binaural' ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.2)',
+            background: activeMode === 'binaural' ? GOD_CONFIG.theme.bg.accent : GOD_CONFIG.theme.bg.secondary,
+            border: activeMode === 'binaural' ? `1px solid ${GOD_CONFIG.theme.border.accent}` : `1px solid ${GOD_CONFIG.theme.border.default}`,
             borderRadius: '2rem',
-            color: '#fff',
+            color: GOD_CONFIG.theme.text.primary,
             cursor: 'pointer',
             fontWeight: activeMode === 'binaural' ? 'bold' : 'normal',
+            fontFamily: GOD_CONFIG.typography.fontFamily.body,
             transition: 'all 0.3s ease',
           }}
         >
@@ -599,14 +604,15 @@ export default function SonicShield() {
                 padding: '1rem',
                 background: selectedSoundscape === soundscape.id 
                   ? soundscape.color 
-                  : 'rgba(255,255,255,0.05)',
+                  : GOD_CONFIG.theme.bg.secondary,
                 border: selectedSoundscape === soundscape.id 
-                  ? '2px solid rgba(255,255,255,0.5)' 
-                  : '1px solid rgba(255,255,255,0.1)',
+                  ? `2px solid ${GOD_CONFIG.theme.border.accent}` 
+                  : `1px solid ${GOD_CONFIG.theme.border.default}`,
                 borderRadius: '0.75rem',
-                color: '#fff',
+                color: GOD_CONFIG.theme.text.primary,
                 cursor: 'pointer',
                 textAlign: 'center',
+                fontFamily: GOD_CONFIG.typography.fontFamily.body,
                 transition: 'all 0.3s ease',
               }}
             >
@@ -616,7 +622,7 @@ export default function SonicShield() {
               <div style={{ fontWeight: 'bold', marginBottom: '0.25rem' }}>
                 {soundscape.name}
               </div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.7 }}>
+              <div style={{ fontSize: '0.75rem', color: GOD_CONFIG.theme.text.muted }}>
                 {soundscape.description}
               </div>
             </button>
@@ -645,14 +651,15 @@ export default function SonicShield() {
                 padding: '1rem',
                 background: selectedBinaural === preset.id 
                   ? preset.color 
-                  : 'rgba(255,255,255,0.05)',
+                  : GOD_CONFIG.theme.bg.secondary,
                 border: selectedBinaural === preset.id 
-                  ? '2px solid rgba(255,255,255,0.5)' 
-                  : '1px solid rgba(255,255,255,0.1)',
+                  ? `2px solid ${GOD_CONFIG.theme.border.accent}` 
+                  : `1px solid ${GOD_CONFIG.theme.border.default}`,
                 borderRadius: '0.75rem',
-                color: '#fff',
+                color: GOD_CONFIG.theme.text.primary,
                 cursor: 'pointer',
                 textAlign: 'center',
+                fontFamily: GOD_CONFIG.typography.fontFamily.body,
                 transition: 'all 0.3s ease',
               }}
             >
@@ -662,7 +669,7 @@ export default function SonicShield() {
               <div style={{ fontWeight: 'bold', marginBottom: '0.25rem' }}>
                 {preset.name}
               </div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.7 }}>
+              <div style={{ fontSize: '0.75rem', color: GOD_CONFIG.theme.text.muted }}>
                 {preset.description}
               </div>
               <div style={{ 
@@ -680,15 +687,16 @@ export default function SonicShield() {
       {/* Headphones Warning for Binaural */}
       {activeMode === 'binaural' && (
         <div style={{
-          background: 'rgba(255,200,0,0.1)',
-          border: '1px solid rgba(255,200,0,0.3)',
+          background: '#fbbf2415',
+          border: '1px solid #fbbf2440',
           borderRadius: '0.5rem',
           padding: '0.75rem',
           marginBottom: '1.5rem',
           textAlign: 'center',
           fontSize: '0.9rem',
+          color: GOD_CONFIG.theme.text.secondary,
         }}>
-          🎧 <strong>Headphones required</strong> for binaural beats to work. 
+          🎧 <strong style={{ color: GOD_CONFIG.theme.text.primary }}>Headphones required</strong> for binaural beats to work. 
           The effect comes from the difference between left and right channels.
         </div>
       )}
@@ -772,20 +780,21 @@ export default function SonicShield() {
       <div style={{
         marginTop: '2rem',
         padding: '1rem',
-        background: 'rgba(0,0,0,0.3)',
+        background: GOD_CONFIG.theme.bg.secondary,
+        border: `1px solid ${GOD_CONFIG.theme.border.default}`,
         borderRadius: '0.5rem',
         textAlign: 'center',
       }}>
-        <div style={{ opacity: 0.6, marginBottom: '0.5rem' }}>
+        <div style={{ color: GOD_CONFIG.theme.text.muted, marginBottom: '0.5rem' }}>
           Now {isPlaying ? 'Playing' : 'Selected'}:
         </div>
-        <div style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+        <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: GOD_CONFIG.theme.text.primary }}>
           {activeMode === 'soundscape' 
             ? `${currentSoundscape?.icon} ${currentSoundscape?.name}`
             : `${currentBinaural?.icon} ${currentBinaural?.name}`
           }
         </div>
-        <div style={{ fontSize: '0.9rem', opacity: 0.7, marginTop: '0.25rem' }}>
+        <div style={{ fontSize: '0.9rem', color: GOD_CONFIG.theme.text.secondary, marginTop: '0.25rem' }}>
           {activeMode === 'soundscape' 
             ? currentSoundscape?.description
             : currentBinaural?.description
@@ -797,10 +806,11 @@ export default function SonicShield() {
       <div style={{
         marginTop: '2rem',
         padding: '1rem',
-        background: 'rgba(100,100,255,0.1)',
-        border: '1px solid rgba(100,100,255,0.2)',
+        background: `${GOD_CONFIG.theme.text.accent}10`,
+        border: `1px solid ${GOD_CONFIG.theme.text.accent}30`,
         borderRadius: '0.5rem',
         fontSize: '0.85rem',
+        color: GOD_CONFIG.theme.text.secondary,
       }}>
         <strong>🔬 The Physics:</strong>
         <br /><br />

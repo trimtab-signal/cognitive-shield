@@ -140,8 +140,8 @@ function SacredGeometry({
     const centerX = width / 2;
     const centerY = height / 2;
     
-    // Clear
-    ctx.fillStyle = '#0a0a1a';
+    // Clear - use theme background
+    ctx.fillStyle = GOD_CONFIG.theme.bg.primary;
     ctx.fillRect(0, 0, width, height);
     
     // Calculate size based on phase
@@ -292,7 +292,8 @@ function CoherenceMeter({ value }: { value: number }) {
   
   return (
     <div style={{
-      background: 'rgba(0,0,0,0.3)',
+      background: GOD_CONFIG.theme.bg.secondary,
+      border: `1px solid ${GOD_CONFIG.theme.border.default}`,
       borderRadius: '0.5rem',
       padding: '1rem',
       marginTop: '1rem',
@@ -304,6 +305,7 @@ function CoherenceMeter({ value }: { value: number }) {
         justifyContent: 'space-between',
         marginBottom: '0.5rem',
         fontSize: '0.9rem',
+        color: GOD_CONFIG.theme.text.secondary,
       }}>
         <span>Coherence</span>
         <span style={{ 
@@ -315,7 +317,7 @@ function CoherenceMeter({ value }: { value: number }) {
       </div>
       <div style={{
         height: '8px',
-        background: 'rgba(255,255,255,0.1)',
+        background: GOD_CONFIG.theme.bg.tertiary,
         borderRadius: '4px',
         overflow: 'hidden',
       }}>
@@ -323,10 +325,10 @@ function CoherenceMeter({ value }: { value: number }) {
           height: '100%',
           width: `${coherencePercent}%`,
           background: coherencePercent > 80 
-            ? 'linear-gradient(90deg, #22c55e, #4ade80)' 
+            ? GOD_CONFIG.theme.gradient.voltage.low
             : coherencePercent > 50 
-              ? 'linear-gradient(90deg, #f59e0b, #fbbf24)'
-              : 'linear-gradient(90deg, #dc2626, #ef4444)',
+              ? GOD_CONFIG.theme.gradient.voltage.medium
+              : GOD_CONFIG.theme.gradient.voltage.high,
           borderRadius: '4px',
           transition: 'width 0.3s ease',
         }} />
@@ -336,7 +338,7 @@ function CoherenceMeter({ value }: { value: number }) {
         justifyContent: 'space-between',
         marginTop: '0.25rem',
         fontSize: '0.7rem',
-        opacity: 0.6,
+        color: GOD_CONFIG.theme.text.muted,
       }}>
         <span>Chaos</span>
         <span>Mark 1 (0.35)</span>
@@ -492,21 +494,23 @@ export default function BreathEngine() {
   return (
     <div style={{
       padding: '2rem',
-      background: `linear-gradient(135deg, ${selectedPattern.color}20 0%, #0a0a1a 100%)`,
+      background: `linear-gradient(135deg, ${selectedPattern.color}15 0%, ${GOD_CONFIG.theme.bg.primary} 100%)`,
       borderRadius: '1rem',
-      color: '#e0e0e0',
+      color: GOD_CONFIG.theme.text.primary,
       minHeight: '100%',
+      fontFamily: GOD_CONFIG.typography.fontFamily.body,
     }}>
       {/* Header */}
       <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
         <h2 style={{ 
           fontSize: '2rem', 
           marginBottom: '0.5rem',
-          fontFamily: GOD_CONFIG.fonts?.display || 'Georgia, serif',
+          fontFamily: GOD_CONFIG.typography.fontFamily.display,
+          color: GOD_CONFIG.theme.text.primary,
         }}>
           🌬️ The Breath Engine
         </h2>
-        <p style={{ opacity: 0.7, fontStyle: 'italic' }}>
+        <p style={{ color: GOD_CONFIG.theme.text.secondary, fontStyle: 'italic' }}>
           "Master the breath, master the state."
         </p>
       </div>
@@ -529,12 +533,12 @@ export default function BreathEngine() {
               padding: '1rem',
               background: selectedPattern.id === pattern.id 
                 ? pattern.color 
-                : 'rgba(255,255,255,0.05)',
+                : GOD_CONFIG.theme.bg.secondary,
               border: selectedPattern.id === pattern.id 
-                ? '2px solid rgba(255,255,255,0.5)' 
-                : '1px solid rgba(255,255,255,0.1)',
+                ? `2px solid ${GOD_CONFIG.theme.border.accent}` 
+                : `1px solid ${GOD_CONFIG.theme.border.default}`,
               borderRadius: '0.5rem',
-              color: '#fff',
+              color: GOD_CONFIG.theme.text.primary,
               cursor: isRunning ? 'not-allowed' : 'pointer',
               textAlign: 'center',
               opacity: isRunning && selectedPattern.id !== pattern.id ? 0.5 : 1,
@@ -544,10 +548,11 @@ export default function BreathEngine() {
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
+              fontFamily: GOD_CONFIG.typography.fontFamily.body,
             }}
           >
             <div style={{ fontWeight: 'bold', fontSize: '0.85rem', lineHeight: 1.3 }}>{pattern.name}</div>
-            <div style={{ fontSize: '0.75rem', opacity: 0.7, marginTop: '0.25rem' }}>
+            <div style={{ fontSize: '0.75rem', color: GOD_CONFIG.theme.text.muted, marginTop: '0.25rem' }}>
               +{pattern.spoonRestoration} 🥄
             </div>
           </button>
@@ -556,7 +561,8 @@ export default function BreathEngine() {
 
       {/* Pattern Description */}
       <div style={{
-        background: 'rgba(0,0,0,0.3)',
+        background: GOD_CONFIG.theme.bg.secondary,
+        border: `1px solid ${GOD_CONFIG.theme.border.default}`,
         padding: '1rem',
         borderRadius: '0.5rem',
         marginBottom: '1.5rem',
@@ -564,6 +570,7 @@ export default function BreathEngine() {
         fontSize: '0.9rem',
         maxWidth: '500px',
         margin: '0 auto 1.5rem auto',
+        color: GOD_CONFIG.theme.text.secondary,
       }}>
         {selectedPattern.description}
       </div>
@@ -660,22 +667,23 @@ export default function BreathEngine() {
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '1rem',
           marginTop: '1.5rem',
-          background: 'rgba(0,0,0,0.3)',
+          background: GOD_CONFIG.theme.bg.secondary,
+          border: `1px solid ${GOD_CONFIG.theme.border.default}`,
           padding: '1rem',
           borderRadius: '0.5rem',
           maxWidth: '400px',
           margin: '1.5rem auto 0 auto',
         }}>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>Cycles</div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{cycleCount}</div>
+            <div style={{ fontSize: '0.75rem', color: GOD_CONFIG.theme.text.muted }}>Cycles</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: GOD_CONFIG.theme.text.primary }}>{cycleCount}</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>Duration</div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{formatTime(sessionDuration)}</div>
+            <div style={{ fontSize: '0.75rem', color: GOD_CONFIG.theme.text.muted }}>Duration</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: GOD_CONFIG.theme.text.primary }}>{formatTime(sessionDuration)}</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>Spoons</div>
+            <div style={{ fontSize: '0.75rem', color: GOD_CONFIG.theme.text.muted }}>Spoons</div>
             <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#4ade80' }}>+{spoonsRestored} 🥄</div>
           </div>
         </div>
@@ -690,14 +698,15 @@ export default function BreathEngine() {
       <div style={{
         marginTop: '1.5rem',
         padding: '1rem',
-        background: 'rgba(100,100,255,0.1)',
-        border: '1px solid rgba(100,100,255,0.2)',
+        background: `${GOD_CONFIG.theme.text.accent}10`,
+        border: `1px solid ${GOD_CONFIG.theme.text.accent}30`,
         borderRadius: '0.5rem',
         fontSize: '0.85rem',
         maxWidth: '500px',
         margin: '1.5rem auto 0 auto',
+        color: GOD_CONFIG.theme.text.secondary,
       }}>
-        <strong>🔬 The Physics:</strong>
+        <strong style={{ color: GOD_CONFIG.theme.text.primary }}>🔬 The Physics:</strong>
         <br /><br />
         The <strong>Triadic Kernel</strong> maps to breath:
         <ul style={{ margin: '0.5rem 0', paddingLeft: '1.5rem' }}>
