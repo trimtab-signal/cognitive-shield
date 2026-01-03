@@ -8,7 +8,7 @@
  */
 
 import { useState, useEffect, useMemo, lazy, Suspense } from 'react';
-import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical, Wind, Moon, Sparkles, Headphones } from 'lucide-react';
+import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical, Wind, Moon, Sparkles, Headphones, LifeBuoy } from 'lucide-react';
 import GOD_CONFIG from './god.config';
 import useShieldStore from './store/shield.store';
 import { computeTabStatuses, getStatusColor, type TabStatus } from './lib/tab-status';
@@ -47,8 +47,9 @@ const BreathEngine = lazy(() => import('./components/BreathEngine'));
 const Grimoire = lazy(() => import('./components/Grimoire'));
 const FamilyConstellation = lazy(() => import('./components/FamilyConstellation'));
 const Frequencies = lazy(() => import('./components/Frequencies'));
+const SurvivalGuide = lazy(() => import('./components/SurvivalGuide'));
 
-type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'about';
+type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'about';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('shield');
@@ -271,6 +272,7 @@ function App() {
           }}
         >
           {[
+            { id: 'survival' as Tab, label: '🆘 Survival', icon: LifeBuoy },
             { id: 'stars' as Tab, label: '✨ Our Stars', icon: Sparkles },
             { id: 'shield' as Tab, label: 'Shield', icon: Shield },
             { id: 'compose' as Tab, label: 'Compose', icon: Send },
@@ -643,6 +645,14 @@ function App() {
           <div className="frequencies-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🎵 Loading The Frequencies...</div>}>
               <Frequencies />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'survival' && (
+          <div className="survival-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🆘 Loading Survival Guide...</div>}>
+              <SurvivalGuide />
             </Suspense>
           </div>
         )}
