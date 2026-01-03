@@ -8,7 +8,7 @@
  */
 
 import { useState, useEffect, useMemo, lazy, Suspense } from 'react';
-import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical, Wind, Moon, Sparkles } from 'lucide-react';
+import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical, Wind, Moon, Sparkles, Headphones } from 'lucide-react';
 import GOD_CONFIG from './god.config';
 import useShieldStore from './store/shield.store';
 import { computeTabStatuses, getStatusColor, type TabStatus } from './lib/tab-status';
@@ -46,8 +46,9 @@ const NerdLab = lazy(() => import('./components/NerdLab'));
 const BreathEngine = lazy(() => import('./components/BreathEngine'));
 const Grimoire = lazy(() => import('./components/Grimoire'));
 const FamilyConstellation = lazy(() => import('./components/FamilyConstellation'));
+const Frequencies = lazy(() => import('./components/Frequencies'));
 
-type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'about';
+type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'about';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('shield');
@@ -292,6 +293,7 @@ function App() {
             { id: 'somatic' as Tab, label: 'Somatic', icon: Brain },
             { id: 'breath' as Tab, label: 'Breathe', icon: Wind },
             { id: 'sonic' as Tab, label: 'Sonic', icon: Music },
+            { id: 'frequencies' as Tab, label: 'Frequencies', icon: Headphones },
             { id: 'nerd-lab' as Tab, label: 'Nerd Lab', icon: FlaskConical },
             { id: 'math' as Tab, label: 'Math', icon: Calculator },
             { id: 'story' as Tab, label: 'The Story', icon: Book },
@@ -633,6 +635,14 @@ function App() {
           <div className="stars-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>✨ Loading Family Constellation...</div>}>
               <FamilyConstellation />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'frequencies' && (
+          <div className="frequencies-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🎵 Loading The Frequencies...</div>}>
+              <Frequencies />
             </Suspense>
           </div>
         )}
