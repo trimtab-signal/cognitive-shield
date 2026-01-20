@@ -41,53 +41,71 @@ import type {
 
 /**
  * Generate SIC-POVM states for 4 nodes (d=2 qubit space)
- * 
+ *
  * For d=2, we need 4 states with overlap condition:
  * |⟨ψ_j|ψ_k⟩|² = 1/(d+1) = 1/3 for j ≠ k
  */
 export function generateSICPOVMs(): SICPOVM[] {
   // For d=2, we use the standard SIC-POVM construction
   // These are 4 states on the Bloch sphere forming a regular tetrahedron
-  
+
+  // Standard SIC-POVM for qubits (d=2): 4 states forming a regular tetrahedron
+  // on the Bloch sphere. Each state |ψₖ⟩ has Bloch vector pointing to a
+  // tetrahedron vertex, with |⟨ψⱼ|ψₖ⟩|² = 1/3 for j≠k.
+  //
+  // The states are constructed as: |ψₖ⟩ = cos(θ/2)|0⟩ + e^(iφₖ)sin(θ/2)|1⟩
+  // where θ = arccos(rz) and φₖ gives the azimuthal angle.
+  //
+  // Bloch vectors (forming regular tetrahedron inscribed in unit sphere):
+  //   ψ₀: (0, 0, 1)                    - "north pole"
+  //   ψ₁: (2√2/3, 0, -1/3)             - front
+  //   ψ₂: (-√2/3, √(2/3), -1/3)        - back-left
+  //   ψ₃: (-√2/3, -√(2/3), -1/3)       - back-right
+  //
+  // POVM operators: Πₖ = (1/2)|ψₖ⟩⟨ψₖ| (factor of 1/d = 1/2)
+
+  const sqrt2 = Math.sqrt(2);
+  const sqrt6 = Math.sqrt(6);
+
   const sicPOVMs: SICPOVM[] = [
-    // State 0: |0⟩ (North pole)
+    // State 0: Bloch vector (0, 0, 1) → |ψ₀⟩ = |0⟩
+    // This IS a valid SIC state when the tetrahedron has one vertex at north pole
     {
       id: 0,
       state: [1, 0], // |0⟩
-      operator: [[1, 0], [0, 0]], // |0⟩⟨0|
+      operator: [[0.5, 0], [0, 0]], // Π₀ = (1/2)|0⟩⟨0|
     },
-    // State 1: (1/√3)|0⟩ + √(2/3)|1⟩
+    // State 1: Bloch vector (2√2/3, 0, -1/3)
+    // |ψ₁⟩ = cos(θ/2)|0⟩ + sin(θ/2)|1⟩ where cos(θ) = -1/3
+    // cos(θ/2) = √((1-1/3)/2) = √(1/3) = 1/√3
+    // sin(θ/2) = √((1+1/3)/2) = √(2/3)
     {
       id: 1,
       state: [1 / Math.sqrt(3), Math.sqrt(2 / 3)],
       operator: [
-        [1 / 3, Math.sqrt(2) / 3],
-        [Math.sqrt(2) / 3, 2 / 3],
-      ],
+        [1 / 6, sqrt2 / 6],
+        [sqrt2 / 6, 2 / 6],
+      ], // Π₁ = (1/2)|ψ₁⟩⟨ψ₁|
     },
-    // State 2: (1/√3)|0⟩ + e^(2πi/3)√(2/3)|1⟩
+    // State 2: Bloch vector (-√2/3, √6/3, -1/3), phase φ = 2π/3
+    // |ψ₂⟩ = (1/√3)|0⟩ + e^(2πi/3)√(2/3)|1⟩
     {
       id: 2,
-      state: [
-        1 / Math.sqrt(3),
-        Math.sqrt(2 / 3), // Real part only for visualization
-      ],
+      state: [1 / Math.sqrt(3), Math.sqrt(2 / 3)], // magnitude only for visualization
       operator: [
-        [1 / 3, (Math.sqrt(2) / 3) * Math.cos((2 * Math.PI) / 3)],
-        [(Math.sqrt(2) / 3) * Math.cos((2 * Math.PI) / 3), 2 / 3],
-      ],
+        [1 / 6, (sqrt2 / 6) * Math.cos((2 * Math.PI) / 3)],
+        [(sqrt2 / 6) * Math.cos((2 * Math.PI) / 3), 2 / 6],
+      ], // Π₂ = (1/2)|ψ₂⟩⟨ψ₂| (real part)
     },
-    // State 3: (1/√3)|0⟩ + e^(4πi/3)√(2/3)|1⟩
+    // State 3: Bloch vector (-√2/3, -√6/3, -1/3), phase φ = 4π/3
+    // |ψ₃⟩ = (1/√3)|0⟩ + e^(4πi/3)√(2/3)|1⟩
     {
       id: 3,
-      state: [
-        1 / Math.sqrt(3),
-        Math.sqrt(2 / 3), // Real part only for visualization
-      ],
+      state: [1 / Math.sqrt(3), Math.sqrt(2 / 3)], // magnitude only for visualization
       operator: [
-        [1 / 3, (Math.sqrt(2) / 3) * Math.cos((4 * Math.PI) / 3)],
-        [(Math.sqrt(2) / 3) * Math.cos((4 * Math.PI) / 3), 2 / 3],
-      ],
+        [1 / 6, (sqrt2 / 6) * Math.cos((4 * Math.PI) / 3)],
+        [(sqrt2 / 6) * Math.cos((4 * Math.PI) / 3), 2 / 6],
+      ], // Π₃ = (1/2)|ψ₃⟩⟨ψ₃| (real part)
     },
   ];
 
@@ -212,8 +230,8 @@ export function calculateOllivierRicciCurvature(
   const averageDistance = totalDistance / pairCount;
 
   // For a perfect tetrahedron, all edges should be equal
-  // Expected edge length for unit sphere: ~1.633
-  const expectedDistance = 1.633;
+  // Expected edge length for unit sphere: √(8/3) ≈ 1.6329931618...
+  const expectedDistance = Math.sqrt(8 / 3); // 1.6329931618554521
 
   // Calculate curvature: negative deviation = divergence, positive = convergence
   const kappa = (expectedDistance - averageDistance) / expectedDistance;
