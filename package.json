@@ -1,0 +1,72 @@
+{
+  "name": "master-project",
+  "version": "1.0.0",
+  "description": "Unified Sovereign Development Environment - GOD Protocol Implementation",
+  "private": true,
+  "scripts": {
+    "dev": "cd packages/frontend && npm run dev",
+    "build": "cd packages/frontend && npm run build",
+    "start": "cd packages/frontend && npm run start",
+    "wallet:dev": "cd packages/economics && npm run dev",
+    "ledger:serve": "cd packages/ledger && npm run serve",
+    "firmware:build": "cd packages/firmware && npm run build",
+    "legal:audit": "cd packages/legal && npm run audit",
+    "permaweb:deploy": "cd packages/permaweb && npm run deploy",
+    "install:all": "npm install && npm run install:packages",
+    "install:packages": "for dir in packages/*/; do (cd \"$dir\" && npm install); done"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^8.15.11",
+    "@react-three/drei": "^9.88.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "three": "^0.158.0",
+    "zustand": "^4.4.7",
+    "framer-motion": "^10.16.16",
+    "react-router-dom": "^6.20.1",
+    "idb-keyval": "^6.2.1",
+    "@noble/curves": "^1.2.0",
+    "@noble/hashes": "^1.3.3",
+    "@noble/post-quantum": "^0.2.0",
+    "tweetnacl": "^1.0.3",
+    "scrypt-js": "^3.0.1",
+    "bip39": "^3.1.0",
+    "hdkey": "^2.1.0",
+    "arweave": "^1.14.4",
+    "ethers": "^6.8.1",
+    "web3": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@types/three": "^0.158.0",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "@vitejs/plugin-react": "^4.2.1",
+    "tailwindcss": "^3.3.6",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "sovereign",
+    "quantum",
+    "blockchain",
+    "neuroscience",
+    "delta-topology",
+    "god-protocol",
+    "cognitive-shield",
+    "tetrahedron",
+    "fisher-escola"
+  ],
+  "author": "Digital Centaur",
+  "license": "AGPL-3.0-only"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@master-project/permaweb",
+  "version": "1.0.0",
+  "description": "Arweave/Permaweb integration for information sovereignty",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@master-project/core": "workspace:*",
+    "arweave": "^1.14.4",
+    "@bundlr-network/client": "^0.11.17",
+    "warp-contracts": "^1.4.46"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3",
+    "jest": "^29.7.0"
+  },
+  "keywords": [
+    "arweave",
+    "permaweb",
+    "information-sovereignty",
+    "decentralized-storage",
+    "blockchain"
+  ],
+  "author": "Digital Centaur",
+  "license": "AGPL-3.0-only"
+}

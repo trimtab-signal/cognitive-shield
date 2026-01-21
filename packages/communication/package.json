@@ -1,0 +1,31 @@
+{
+  "name": "@master-project/communication",
+  "version": "1.0.0",
+  "description": "VPI communication protocol for relational stabilization and dialect translation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@master-project/core": "workspace:*",
+    "compromise": "^14.10.0",
+    "natural": "^6.10.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3",
+    "jest": "^29.7.0"
+  },
+  "keywords": [
+    "communication",
+    "vpi",
+    "relational-stabilization",
+    "dialect-translation",
+    "impedance-matching"
+  ],
+  "author": "Digital Centaur",
+  "license": "AGPL-3.0-only"
+}

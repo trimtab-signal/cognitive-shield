@@ -1,0 +1,64 @@
+{
+  "name": "@master-project/frontend",
+  "version": "1.0.0",
+  "description": "Cognitive Shield Frontend - GOD Protocol Interface",
+  "main": "dist/index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite --host",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@master-project/core": "file:../core",
+    "@master-project/communication": "file:../communication",
+    "@master-project/permaweb": "file:../permaweb",
+    "@master-project/legal": "file:../legal",
+    "@master-project/economics": "file:../economics",
+    "@react-three/fiber": "^8.15.11",
+    "@react-three/drei": "^9.88.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "three": "^0.158.0",
+    "zustand": "^4.4.7",
+    "framer-motion": "^10.16.16",
+    "react-router-dom": "^6.20.1",
+    "idb-keyval": "^6.2.1",
+    "lucide-react": "^0.294.0",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@types/three": "^0.158.0",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "@vitejs/plugin-react": "^4.2.1",
+    "tailwindcss": "^3.3.6",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "vitest": "^1.0.4"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "three.js",
+    "sovereign",
+    "cognitive-shield",
+    "god-protocol"
+  ],
+  "author": "Digital Centaur",
+  "license": "AGPL-3.0-only"
+}

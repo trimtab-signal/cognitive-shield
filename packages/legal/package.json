@@ -1,0 +1,33 @@
+{
+  "name": "@master-project/legal",
+  "version": "1.0.0",
+  "description": "Legal framework and Adams Challenge automation for MASTER_PROJECT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@master-project/core": "workspace:*",
+    "pdfkit": "^0.13.0",
+    "docx": "^7.5.0",
+    "arweave": "^1.14.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/pdfkit": "^0.12.9",
+    "typescript": "^5.3.3",
+    "jest": "^29.7.0"
+  },
+  "keywords": [
+    "legal",
+    "adams-challenge",
+    "constitutional-law",
+    "case-management",
+    "evidence"
+  ],
+  "author": "Digital Centaur",
+  "license": "AGPL-3.0-only"
+}
