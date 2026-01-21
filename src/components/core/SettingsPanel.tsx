@@ -16,6 +16,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { SPACING, GRID_GAP, CARD_PADDING, SECTION_GAP, COLORS } from '../../config/design-system';
+import { MathOverlay } from '../dev/MathOverlay';
 import { navigatorService } from '../../services/navigator.service';
 import { HistoryService } from '../../services/history.service';
 import { useHeartbeatStore } from '../../stores/heartbeat.store';
@@ -24,6 +26,7 @@ import { NavigatorConfig } from '../../config/god.config';
 type AIProvider = 'ollama' | 'openai' | 'gemini';
 
 export const SettingsPanel: React.FC = () => {
+    // ...existing code...
   const [navigatorUrl, setNavigatorUrl] = useState('');
   const [aiProvider, setAiProvider] = useState<AIProvider>('ollama');
   const [ollamaUrl, setOllamaUrl] = useState('');
@@ -68,24 +71,38 @@ export const SettingsPanel: React.FC = () => {
     alert('Spoons reset to full capacity');
   };
 
+  const [showMath, setShowMath] = useState(false);
+  const [showGrid, setShowGrid] = useState(false);
   return (
     <div style={{
-      background: '#1F2937',
-      borderRadius: '12px',
-      border: '1px solid #374151',
-      padding: '20px',
+      background: CosmicTheme.backgroundGradient,
+      borderRadius: CosmicTheme.cardRadius,
+      border: `1px solid ${CosmicTheme.colors.delta}`,
+      padding: CosmicTheme.cardPadding,
       display: 'flex',
       flexDirection: 'column',
-      gap: '24px',
+      gap: CosmicTheme.sectionGap,
       height: '100%',
-      overflowY: 'auto'
+      overflowY: 'auto',
+      position: 'relative',
+      boxShadow: CosmicTheme.cosmicGlow,
     }}>
+      {/* Magical Math Overlay */}
+      {showMath && <MathOverlay />}
       <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#F3F4F6', margin: 0 }}>
-        Settings & Developer Tools
+        Settings & Magical Control Panel
       </h2>
 
       {/* Configuration */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ display: 'flex', gap: SPACING.md }}>
+                  <label style={{ fontSize: '13px', color: COLORS.cosmic }}>
+                    <input type="checkbox" checked={showMath} onChange={e => setShowMath(e.target.checked)} /> Show Math
+                  </label>
+                  <label style={{ fontSize: '13px', color: COLORS.delta }}>
+                    <input type="checkbox" checked={showGrid} onChange={e => setShowGrid(e.target.checked)} /> Show Grid
+                  </label>
+                </div>
         <h3 style={{ fontSize: '14px', color: '#9CA3AF', textTransform: 'uppercase', margin: 0 }}>
           System Configuration
         </h3>
@@ -209,6 +226,29 @@ export const SettingsPanel: React.FC = () => {
       </section>
 
       <div style={{ height: '1px', background: '#374151' }} />
+      {showGrid && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none',
+          zIndex: 100,
+        }}>
+          {[...Array(64)].map((_, i) => (
+            <div key={i} style={{
+              position: 'absolute',
+              top: i * SPACING.sm,
+              left: 0,
+              width: '100%',
+              height: '1px',
+              background: COLORS.cosmic,
+              opacity: OPACITY.subtle,
+            }} />
+          ))}
+        </div>
+      )}
 
       {/* Developer Tools */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

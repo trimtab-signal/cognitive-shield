@@ -8,10 +8,12 @@
  */
 
 import { useState, useEffect, useMemo, lazy, Suspense } from 'react';
+import { CosmicTheme } from './config/cosmic-theme';
 import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical, Wind, Moon, Sparkles, Headphones, LifeBuoy } from 'lucide-react';
 import GOD_CONFIG from './god.config';
 import useShieldStore from './store/shield.store';
 import { computeTabStatuses, getStatusColor, type TabStatus } from './lib/tab-status';
+import { triggerHapticPulse } from './lib/haptic-feedback';
 import MessageInput from './components/MessageInput';
 import CatchersMitt from './components/CatchersMitt';
 import ProcessedPayloadCard from './components/ProcessedPayloadCard';
@@ -48,12 +50,17 @@ const Grimoire = lazy(() => import('./components/Grimoire'));
 const FamilyConstellation = lazy(() => import('./components/FamilyConstellation'));
 const Frequencies = lazy(() => import('./components/Frequencies'));
 const SurvivalGuide = lazy(() => import('./components/SurvivalGuide'));
+const PhenixCompanion = lazy(() => import('./components/PhenixCompanion'));
+const CoherenceQuest = lazy(() => import('./components/CoherenceQuest'));
+const PerfectOnboarding = lazy(() => import('./components/PerfectOnboarding'));
+const CognitiveShieldLibrary = lazy(() => import('./components/CognitiveShieldLibrary'));
 
-type Tab = 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'about';
+type Tab = 'library' | 'onboarding' | 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'phenix' | 'coherence-quest' | 'about';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('shield');
   const [safeMenuOpen, setSafeMenuOpen] = useState(false);
+  const [phenixOpen, setPhenixOpen] = useState(false);
   const [tick, setTick] = useState(0);
 
   // Update tab statuses every second (for live computation)
@@ -72,9 +79,9 @@ function App() {
       className="app"
       style={{
         minHeight: '100vh',
-        backgroundColor: GOD_CONFIG.theme.bg.primary,
-        fontFamily: GOD_CONFIG.typography.fontFamily.body,
-        color: GOD_CONFIG.theme.text.primary,
+        background: CosmicTheme.backgroundGradient,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        color: CosmicTheme.colors.saturn,
       }}
     >
       {/* Geometric Background Pattern */}
@@ -85,11 +92,7 @@ function App() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: `
-            radial-gradient(circle at 20% 80%, ${GOD_CONFIG.theme.text.accent}08 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, #6366f115 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, #0ea5e908 0%, transparent 70%)
-          `,
+          background: CosmicTheme.backgroundGradient,
           pointerEvents: 'none',
           zIndex: 0,
         }}
@@ -103,16 +106,7 @@ function App() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: `
-            linear-gradient(30deg, ${GOD_CONFIG.theme.border.default}15 12%, transparent 12.5%, transparent 87%, ${GOD_CONFIG.theme.border.default}15 87.5%, ${GOD_CONFIG.theme.border.default}15),
-            linear-gradient(150deg, ${GOD_CONFIG.theme.border.default}15 12%, transparent 12.5%, transparent 87%, ${GOD_CONFIG.theme.border.default}15 87.5%, ${GOD_CONFIG.theme.border.default}15),
-            linear-gradient(30deg, ${GOD_CONFIG.theme.border.default}15 12%, transparent 12.5%, transparent 87%, ${GOD_CONFIG.theme.border.default}15 87.5%, ${GOD_CONFIG.theme.border.default}15),
-            linear-gradient(150deg, ${GOD_CONFIG.theme.border.default}15 12%, transparent 12.5%, transparent 87%, ${GOD_CONFIG.theme.border.default}15 87.5%, ${GOD_CONFIG.theme.border.default}15),
-            linear-gradient(60deg, ${GOD_CONFIG.theme.border.default}10 25%, transparent 25.5%, transparent 75%, ${GOD_CONFIG.theme.border.default}10 75%, ${GOD_CONFIG.theme.border.default}10),
-            linear-gradient(60deg, ${GOD_CONFIG.theme.border.default}10 25%, transparent 25.5%, transparent 75%, ${GOD_CONFIG.theme.border.default}10 75%, ${GOD_CONFIG.theme.border.default}10)
-          `,
-          backgroundSize: '80px 140px',
-          backgroundPosition: '0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px',
+          background: CosmicTheme.backgroundGradient,
           opacity: 0.3,
           pointerEvents: 'none',
           zIndex: 0,
@@ -272,7 +266,11 @@ function App() {
           }}
         >
           {[
+            { id: 'library' as Tab, label: '📚 Library', icon: BookOpen },
+            { id: 'onboarding' as Tab, label: '🎭 Onboarding', icon: Rocket },
             { id: 'survival' as Tab, label: '🆘 Survival', icon: LifeBuoy },
+            { id: 'phenix' as Tab, label: '🔥 PHENIX', icon: Shield },
+            { id: 'coherence-quest' as Tab, label: '🎮 Coherence Quest', icon: Box },
             { id: 'stars' as Tab, label: '✨ Our Stars', icon: Sparkles },
             { id: 'shield' as Tab, label: 'Shield', icon: Shield },
             { id: 'compose' as Tab, label: 'Compose', icon: Send },
@@ -367,6 +365,22 @@ function App() {
         </nav>
 
         {/* Tab Content */}
+        {activeTab === 'library' && (
+          <div className="library-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>📚 Loading Cognitive Shield Library...</div>}>
+              <CognitiveShieldLibrary />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'onboarding' && (
+          <div className="onboarding-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🎭 Loading Perfect Onboarding...</div>}>
+              <PerfectOnboarding />
+            </Suspense>
+          </div>
+        )}
+
         {activeTab === 'shield' && (
           <div className="shield-tab">
             <SettingsPanel />
@@ -452,7 +466,7 @@ function App() {
         {activeTab === 'tetrahedron' && (
           <div className="tetrahedron-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>Loading Tetrahedron Protocol...</div>}>
-              <TetrahedronProtocol />
+              <TetrahedronProtocol enableSimulation={true} />
             </Suspense>
           </div>
         )}
@@ -649,6 +663,56 @@ function App() {
           </div>
         )}
 
+        {activeTab === 'phenix' && (
+          <div className="phenix-tab">
+            <div style={{
+              padding: '24px',
+              textAlign: 'center',
+              color: GOD_CONFIG.theme.text.secondary,
+            }}>
+              <Shield size={48} color={GOD_CONFIG.theme.text.accent} style={{ marginBottom: 16 }} />
+              <h2 style={{
+                margin: '0 0 16px 0',
+                color: GOD_CONFIG.theme.text.primary,
+                fontSize: 20,
+                fontWeight: 600,
+              }}>
+                PHENIX Companion
+              </h2>
+              <p style={{ margin: '0 0 24px 0', fontSize: 16 }}>
+                Your prosthetic helper for ontological equilibrium, navigation, and integrated exchange.
+              </p>
+              <button
+                onClick={() => {
+                  triggerHapticPulse('medium');
+                  setPhenixOpen(true);
+                }}
+                style={{
+                  padding: '12px 24px',
+                  backgroundColor: GOD_CONFIG.theme.text.accent,
+                  border: 'none',
+                  borderRadius: 8,
+                  color: '#fff',
+                  fontSize: 16,
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                Open PHENIX Companion
+              </button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'coherence-quest' && (
+          <div className="coherence-quest-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🎮 Loading Coherence Quest...</div>}>
+              <CoherenceQuest />
+            </Suspense>
+          </div>
+        )}
+
         {activeTab === 'survival' && (
           <div className="survival-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🆘 Loading Survival Guide...</div>}>
@@ -788,14 +852,23 @@ function App() {
       </div>
 
       {/* You Are Safe Modal - The Fourth Node */}
-      <YouAreSafe 
-        isOpen={safeMenuOpen} 
+      <YouAreSafe
+        isOpen={safeMenuOpen}
         onClose={() => {
           setSafeMenuOpen(false);
           setSafeMenuPayload(null);
         }}
         payload={safeMenuPayload || undefined}
       />
+
+      {/* PHENIX Companion - The Prosthetic Interface */}
+      <Suspense fallback={null}>
+        <PhenixCompanion
+          isOpen={phenixOpen}
+          onClose={() => setPhenixOpen(false)}
+          initialMode="ARCHITECT"
+        />
+      </Suspense>
     </div>
   );
 }

@@ -16,6 +16,102 @@
  */
 
 import React, { useState } from 'react';
+import { SPACING, GRID_GAP, CARD_PADDING, SECTION_GAP, COLORS, FONT_SIZES } from '../../config/design-system';
+import { CosmicTheme } from '../../config/cosmic-theme';
+// Cosmic sparkle particle effect
+const CosmicSparkles: React.FC = () => (
+  <div style={{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    pointerEvents: 'none',
+    zIndex: 5,
+    overflow: 'hidden',
+  }}>
+    {[...Array(24)].map((_, i) => (
+      <div key={i} style={{
+        position: 'absolute',
+        top: `${Math.random() * 90 + 5}%`,
+        left: `${Math.random() * 90 + 5}%`,
+        width: `${Math.random() * 3 + 2}px`,
+        height: `${Math.random() * 3 + 2}px`,
+        borderRadius: '50%',
+        background: `radial-gradient(circle, ${CosmicTheme.colors.love} 0%, ${CosmicTheme.colors.cosmic} 80%, #fff0 100%)`,
+        opacity: Math.random() * 0.7 + 0.3,
+        boxShadow: `0 0 ${Math.random() * 16 + 8}px ${CosmicTheme.colors.cosmic}`,
+        animation: `sparkle-pop ${Math.random() * 2 + 1.5}s infinite ease-in-out`,
+      }} />
+    ))}
+    <style>{`
+      @keyframes sparkle-pop {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.3); opacity: 1; }
+      }
+    `}</style>
+  </div>
+);
+// Animated floating cosmic tetrahedron
+const FloatingTetrahedron: React.FC = () => (
+  <div style={{
+    position: 'absolute',
+    top: 32,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    zIndex: 10,
+    pointerEvents: 'none',
+    animation: 'float-tetra 6s ease-in-out infinite',
+  }}>
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+      <polygon points="32,8 56,56 8,56" fill={CosmicTheme.colors.cosmic} opacity="0.7" />
+      <polygon points="32,8 56,56 32,32" fill={CosmicTheme.colors.delta} opacity="0.5" />
+      <polygon points="32,8 8,56 32,32" fill={CosmicTheme.colors.love} opacity="0.5" />
+      <polygon points="8,56 56,56 32,32" fill={CosmicTheme.colors.unity} opacity="0.4" />
+      <circle cx="32" cy="32" r="6" fill={CosmicTheme.colors.aries} opacity="0.7" />
+    </svg>
+    <style>{`
+      @keyframes float-tetra {
+        0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+        50% { transform: translateX(-50%) translateY(-16px) scale(1.08); }
+      }
+    `}</style>
+  </div>
+);
+// Animated cosmic starfield background
+const StarfieldBG: React.FC = () => (
+  <div style={{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: 0,
+    pointerEvents: 'none',
+    overflow: 'hidden',
+  }}>
+    {[...Array(64)].map((_, i) => (
+      <div key={i} style={{
+        position: 'absolute',
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        width: `${Math.random() * 2 + 1}px`,
+        height: `${Math.random() * 2 + 1}px`,
+        borderRadius: '50%',
+        background: `radial-gradient(circle, ${COLORS.cosmic} 0%, #fff0 100%)`,
+        opacity: Math.random() * 0.7 + 0.3,
+        boxShadow: `0 0 ${Math.random() * 12 + 8}px ${COLORS.cosmic}`,
+        animation: `star-twinkle ${Math.random() * 3 + 2}s infinite ease-in-out`,
+      }} />
+    ))}
+    <style>{`
+      @keyframes star-twinkle {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+    `}</style>
+  </div>
+);
 import { BubblePop } from './BubblePop';
 import { BreathingOrb } from './BreathingOrb';
 import { PatternTap } from './PatternTap';
@@ -165,13 +261,27 @@ export const GamesHub: React.FC = () => {
 
   // Show game selector if no active game
   if (!activeGame) {
+        <CosmicSparkles />
+      <FloatingTetrahedron />
     return (
       <div style={{
-        background: '#1F2937',
-        borderRadius: '16px',
-        padding: '24px',
-        border: '1px solid #374151',
+        background: CosmicTheme.backgroundGradient,
+        borderRadius: CosmicTheme.cardRadius,
+        padding: CosmicTheme.cardPadding,
+        border: `1px solid ${CosmicTheme.colors.delta}`,
+        position: 'relative',
+        overflow: 'hidden',
+        boxShadow: CosmicTheme.cosmicGlow,
       }}>
+        <StarfieldBG />
+        {/* Cosmic Ratio Overlay */}
+        <div style={{
+          {...CosmicTheme.ratioOverlay.style}
+        >
+          <span style={CosmicTheme.ratioOverlay.style}>
+            {CosmicTheme.ratioOverlay.text}
+          </span>
+        </div>
         {/* Header */}
         <div style={{ 
           display: 'flex', 
@@ -229,8 +339,8 @@ export const GamesHub: React.FC = () => {
         {/* Game cards */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--grid-min), var(--grid-max)))',
-          gap: 'var(--space-md)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: CosmicTheme.gridGap,
           maxWidth: '100%'
         }}>
           {GAMES.map(game => (

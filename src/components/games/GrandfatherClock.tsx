@@ -14,9 +14,11 @@
  */
 
 import React, { useRef, useState, useEffect } from 'react';
+import './GrandfatherClock.css';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text, OrbitControls } from '@react-three/drei';
+import { Text, OrbitControls, Stars } from '@react-three/drei';
 import * as THREE from 'three';
+import { CosmicTheme } from '../../config/cosmic-theme';
 
 interface CosmicMoment {
   year: number;
@@ -93,13 +95,17 @@ const Pendulum: React.FC = () => {
       {/* Rod */}
       <mesh position={[0, -1.5, 0]}>
         <cylinderGeometry args={[0.02, 0.02, 3, 16]} />
-        <meshStandardMaterial color="#8B4513" metalness={0.6} />
+        <meshStandardMaterial color={CosmicTheme.colors.saturn} metalness={0.7} emissive={CosmicTheme.colors.cosmic} emissiveIntensity={0.15} />
       </mesh>
-      
-      {/* Bob (weight) */}
+      {/* Bob (weight) - glowing cosmic orb */}
       <mesh position={[0, -3, 0]}>
-        <sphereGeometry args={[0.2, 16, 16]} />
-        <meshStandardMaterial color="#DAA520" metalness={0.8} roughness={0.2} />
+        <sphereGeometry args={[0.22, 24, 24]} />
+        <meshStandardMaterial color={CosmicTheme.colors.cosmic} metalness={0.9} roughness={0.1} emissive={CosmicTheme.colors.love} emissiveIntensity={0.5} />
+      </mesh>
+      {/* Cosmic glow */}
+      <mesh position={[0, -3, 0]}>
+        <sphereGeometry args={[0.28, 24, 24]} />
+        <meshStandardMaterial color={CosmicTheme.colors.love} transparent opacity={0.18} emissive={CosmicTheme.colors.cosmic} emissiveIntensity={0.3} />
       </mesh>
     </group>
   );
@@ -117,28 +123,25 @@ const ClockHands: React.FC<{ time: Date }> = ({ time }) => {
 
   return (
     <group position={[0, 3, 0.1]}>
-      {/* Hour hand */}
+      {/* Hour hand - cosmic */}
       <mesh rotation={[0, 0, hourAngle]}>
-        <boxGeometry args={[0.05, 0.6, 0.02]} />
-        <meshStandardMaterial color="#2C3E50" />
+        <boxGeometry args={[0.06, 0.7, 0.03]} />
+        <meshStandardMaterial color={CosmicTheme.colors.delta} emissive={CosmicTheme.colors.cosmic} emissiveIntensity={0.2} />
       </mesh>
-      
-      {/* Minute hand */}
+      {/* Minute hand - cosmic */}
       <mesh rotation={[0, 0, minuteAngle]}>
-        <boxGeometry args={[0.04, 0.9, 0.02]} />
-        <meshStandardMaterial color="#34495E" />
+        <boxGeometry args={[0.04, 1.1, 0.02]} />
+        <meshStandardMaterial color={CosmicTheme.colors.love} emissive={CosmicTheme.colors.love} emissiveIntensity={0.3} />
       </mesh>
-      
-      {/* Second hand */}
+      {/* Second hand - quantum */}
       <mesh rotation={[0, 0, secondAngle]}>
-        <boxGeometry args={[0.02, 1, 0.01]} />
-        <meshStandardMaterial color="#E74C3C" emissive="#E74C3C" emissiveIntensity={0.5} />
+        <boxGeometry args={[0.02, 1.2, 0.01]} />
+        <meshStandardMaterial color={CosmicTheme.colors.signal} emissive={CosmicTheme.colors.signal} emissiveIntensity={0.7} />
       </mesh>
-
-      {/* Center cap */}
+      {/* Center cap - cosmic */}
       <mesh position={[0, 0, 0.05]}>
-        <cylinderGeometry args={[0.08, 0.08, 0.05, 16]} />
-        <meshStandardMaterial color="#C0C0C0" metalness={0.9} />
+        <cylinderGeometry args={[0.09, 0.09, 0.06, 16]} />
+        <meshStandardMaterial color={CosmicTheme.colors.cosmic} metalness={0.95} emissive={CosmicTheme.colors.love} emissiveIntensity={0.3} />
       </mesh>
     </group>
   );
@@ -169,38 +172,40 @@ const CuckooBird: React.FC<{ isOut: boolean }> = ({ isOut }) => {
 
   return (
     <group ref={birdRef} position={[0, isOut ? 5.5 : 4.8, 0.5]}>
-      {/* Body */}
+      {/* Body - cosmic */}
       <mesh>
-        <sphereGeometry args={[0.15, 16, 16]} />
-        <meshStandardMaterial color="#FFD700" />
+        <sphereGeometry args={[0.16, 24, 24]} />
+        <meshStandardMaterial color={CosmicTheme.colors.love} emissive={CosmicTheme.colors.cosmic} emissiveIntensity={0.5} />
       </mesh>
-      
-      {/* Head */}
-      <mesh position={[0, 0.12, 0.08]}>
-        <sphereGeometry args={[0.1, 16, 16]} />
-        <meshStandardMaterial color="#FFD700" />
+      {/* Head - cosmic */}
+      <mesh position={[0, 0.13, 0.09]}>
+        <sphereGeometry args={[0.11, 24, 24]} />
+        <meshStandardMaterial color={CosmicTheme.colors.cosmic} emissive={CosmicTheme.colors.love} emissiveIntensity={0.3} />
       </mesh>
-      
-      {/* Beak */}
-      <mesh position={[0, 0.12, 0.16]} rotation={[Math.PI / 2, 0, 0]}>
-        <coneGeometry args={[0.03, 0.08, 8]} />
-        <meshStandardMaterial color="#FF8C00" />
+      {/* Beak - quantum */}
+      <mesh position={[0, 0.13, 0.18]} rotation={[Math.PI / 2, 0, 0]}>
+        <coneGeometry args={[0.03, 0.09, 8]} />
+        <meshStandardMaterial color={CosmicTheme.colors.signal} />
       </mesh>
-      
-      {/* Wings (flapping when out) */}
+      {/* Wings (flapping when out) - cosmic */}
       <mesh 
         ref={leftWingRef}
-        position={[0.12, 0, 0]}
+        position={[0.13, 0, 0]}
       >
-        <boxGeometry args={[0.15, 0.08, 0.02]} />
-        <meshStandardMaterial color="#FFA500" />
+        <boxGeometry args={[0.16, 0.09, 0.02]} />
+        <meshStandardMaterial color={CosmicTheme.colors.delta} emissive={CosmicTheme.colors.love} emissiveIntensity={0.2} />
       </mesh>
       <mesh 
         ref={rightWingRef}
-        position={[-0.12, 0, 0]}
+        position={[-0.13, 0, 0]}
       >
-        <boxGeometry args={[0.15, 0.08, 0.02]} />
-        <meshStandardMaterial color="#FFA500" />
+        <boxGeometry args={[0.16, 0.09, 0.02]} />
+        <meshStandardMaterial color={CosmicTheme.colors.delta} emissive={CosmicTheme.colors.love} emissiveIntensity={0.2} />
+      </mesh>
+      {/* Cosmic glow */}
+      <mesh>
+        <sphereGeometry args={[0.22, 24, 24]} />
+        <meshStandardMaterial color={CosmicTheme.colors.love} transparent opacity={0.12} emissive={CosmicTheme.colors.cosmic} emissiveIntensity={0.2} />
       </mesh>
     </group>
   );
@@ -229,27 +234,36 @@ const TimelineSpiral: React.FC<{ selectedMoment: CosmicMoment | null }> = ({ sel
 
   return (
     <group position={[3, 1, 0]}>
+      {/* Cosmic spiral */}
       <mesh geometry={tubeGeometry}>
         <meshStandardMaterial 
-          color={selectedMoment ? selectedMoment.color : '#9333EA'}
-          emissive={selectedMoment ? selectedMoment.color : '#9333EA'}
-          emissiveIntensity={0.3}
+          color={selectedMoment ? selectedMoment.color : CosmicTheme.colors.cosmic}
+          emissive={selectedMoment ? selectedMoment.color : CosmicTheme.colors.love}
+          emissiveIntensity={0.5}
+          transparent opacity={0.85}
         />
       </mesh>
-      
+      {/* Spiral glow */}
+      <mesh geometry={tubeGeometry}>
+        <meshStandardMaterial color={CosmicTheme.colors.love} transparent opacity={0.18} emissive={CosmicTheme.colors.delta} emissiveIntensity={0.2} />
+      </mesh>
       <Text
         position={[0, 2.5, 0]}
-        fontSize={0.2}
-        color="#C084FC"
+        fontSize={0.22}
+        color={CosmicTheme.colors.cosmic}
         anchorX="center"
+        outlineWidth={0.01}
+        outlineColor={CosmicTheme.colors.love}
       >
         100-Year Spiral
       </Text>
       <Text
         position={[0, -2.5, 0]}
-        fontSize={0.15}
-        color="#A855F7"
+        fontSize={0.16}
+        color={CosmicTheme.colors.love}
         anchorX="center"
+        outlineWidth={0.008}
+        outlineColor={CosmicTheme.colors.delta}
       >
         1925 → 2026
       </Text>
@@ -264,28 +278,53 @@ const ClockScene: React.FC<{
 }> = ({ currentTime, selectedMoment, showCuckoo }) => {
   return (
     <>
-      {/* Ambient light */}
-      <ambientLight intensity={0.4} />
-      <pointLight position={[5, 5, 5]} intensity={0.6} color="#FFE4B5" />
-      <pointLight position={[-5, 5, -5]} intensity={0.3} color="#E6E6FA" />
+      {/* Cosmic starfield background */}
+      <Stars
+        radius={32}
+        depth={48}
+        count={CosmicTheme.starfield.count}
+        factor={6}
+        saturation={0.8}
+        fade
+        speed={0.8}
+      />
+      {/* Ambient cosmic light */}
+      <ambientLight intensity={0.5} color={CosmicTheme.colors.cosmic} />
+      <pointLight position={[5, 5, 5]} intensity={0.7} color={CosmicTheme.colors.love} />
+      <pointLight position={[-5, 5, -5]} intensity={0.4} color={CosmicTheme.colors.delta} />
 
-      {/* Clock body (wooden cabinet) */}
+      {/* Clock body (cosmic cabinet) */}
       <mesh position={[0, 2, 0]}>
         <boxGeometry args={[2, 6, 0.8]} />
-        <meshStandardMaterial color="#654321" roughness={0.8} />
+        <meshStandardMaterial color={CosmicTheme.colors.saturn} roughness={0.7} metalness={0.5} emissive={CosmicTheme.colors.cosmic} emissiveIntensity={0.12} />
+      </mesh>
+      {/* Cabinet glow */}
+      <mesh position={[0, 2, 0]}>
+        <boxGeometry args={[2.1, 6.1, 0.85]} />
+        <meshStandardMaterial color={CosmicTheme.colors.cosmic} transparent opacity={0.08} emissive={CosmicTheme.colors.love} emissiveIntensity={0.08} />
       </mesh>
 
-      {/* Clock face */}
+      {/* Clock face - cosmic gradient */}
       <mesh position={[0, 3, 0.41]}>
-        <cylinderGeometry args={[1.2, 1.2, 0.1, 32]} />
-        <meshStandardMaterial color="#F5F5DC" />
+        <cylinderGeometry args={[1.2, 1.2, 0.13, 32]} />
+        <meshStandardMaterial color={CosmicTheme.colors.delta} metalness={0.7} roughness={0.2} emissive={CosmicTheme.colors.cosmic} emissiveIntensity={0.18} />
+      </mesh>
+      {/* Face glow */}
+      <mesh position={[0, 3, 0.41]}>
+        <cylinderGeometry args={[1.25, 1.25, 0.14, 32]} />
+        <meshStandardMaterial color={CosmicTheme.colors.love} transparent opacity={0.09} emissive={CosmicTheme.colors.delta} emissiveIntensity={0.09} />
       </mesh>
 
-      {/* Clock numbers (XII, III, VI, IX) */}
-      <Text position={[0, 4.1, 0.45]} fontSize={0.2} color="#2C3E50">XII</Text>
-      <Text position={[1.1, 3, 0.45]} fontSize={0.2} color="#2C3E50">III</Text>
-      <Text position={[0, 1.9, 0.45]} fontSize={0.2} color="#2C3E50">VI</Text>
-      <Text position={[-1.1, 3, 0.45]} fontSize={0.2} color="#2C3E50">IX</Text>
+      {/* Clock numbers (XII, III, VI, IX) - cosmic */}
+      <Text position={[0, 4.1, 0.45]} fontSize={0.22} color={CosmicTheme.colors.cosmic} outlineWidth={0.01} outlineColor={CosmicTheme.colors.love}>XII</Text>
+      <Text position={[1.1, 3, 0.45]} fontSize={0.22} color={CosmicTheme.colors.love} outlineWidth={0.01} outlineColor={CosmicTheme.colors.delta}>III</Text>
+      <Text position={[0, 1.9, 0.45]} fontSize={0.22} color={CosmicTheme.colors.delta} outlineWidth={0.01} outlineColor={CosmicTheme.colors.cosmic}>VI</Text>
+      <Text position={[-1.1, 3, 0.45]} fontSize={0.22} color={CosmicTheme.colors.saturn} outlineWidth={0.01} outlineColor={CosmicTheme.colors.love}>IX</Text>
+
+      {/* Quantum ratio overlay - floating cosmic math */}
+      <Text position={[0, 5.2, 0.45]} fontSize={0.13} color={CosmicTheme.ratioOverlay.style.color} anchorX="center" anchorY="middle" outlineWidth={0.008} outlineColor={CosmicTheme.colors.love}>
+        {CosmicTheme.ratioOverlay.text}
+      </Text>
 
       {/* Clock hands */}
       <ClockHands time={currentTime} />
@@ -298,6 +337,12 @@ const ClockScene: React.FC<{
 
       {/* Timeline spiral */}
       <TimelineSpiral selectedMoment={selectedMoment} />
+
+      {/* Floating cosmic tetrahedron - playful */}
+      <mesh position={[0, 6, 0]} rotation={[Math.PI / 4, Math.PI / 4, 0]}>
+        <tetrahedronGeometry args={[0.35]} />
+        <meshStandardMaterial color={CosmicTheme.colors.cosmic} metalness={0.8} emissive={CosmicTheme.colors.love} emissiveIntensity={0.5} />
+      </mesh>
 
       {/* Camera controls */}
       <OrbitControls 
@@ -329,17 +374,14 @@ const GrandfatherClock: React.FC = () => {
     const now = currentTime;
     const currentMinute = now.getHours() * 60 + now.getMinutes();
     const isTopOfHour = now.getMinutes() === 0 && now.getSeconds() === 0;
-    
     // Check if today matches a cosmic moment
     const isCosmicAnniversary = COSMIC_MOMENTS.some(moment => 
       now.getMonth() + 1 === moment.month && now.getDate() === moment.day
     );
-
     // Only trigger if we haven't already cuckooed this minute
     if ((isTopOfHour || isCosmicAnniversary) && currentMinute !== lastCuckooMinute.current) {
       lastCuckooMinute.current = currentMinute;
-      // @ts-expect-error - Intentional: cuckoo animation triggered by time check
-      setShowCuckoo(true);
+      setTimeout(() => setShowCuckoo(true), 0); // Schedule state update after effect
       setTimeout(() => setShowCuckoo(false), 5000); // Bird out for 5 seconds
     }
   }, [currentTime]);
@@ -351,7 +393,7 @@ const GrandfatherClock: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full bg-gradient-to-b from-amber-950 via-yellow-950 to-orange-950 relative">
+    <div className="w-full h-full relative cosmic-clock-bg">
       {/* Title */}
       <div className="absolute top-4 left-4 z-10">
         <h2 className="text-3xl font-bold mb-2 text-amber-200">⏰ Grandfather's Clock</h2>
@@ -385,14 +427,11 @@ const GrandfatherClock: React.FC = () => {
               <button
                 key={`${moment.year}-${moment.month}-${moment.day}`}
                 onClick={() => timeTravel(moment)}
-                style={{
-                  background: selectedMoment === moment ? moment.color + '40' : '#78350F',
-                  borderColor: moment.color,
-                }}
-                className="px-3 py-2 rounded-lg border-2 transition-all hover:scale-105"
+                className={`px-3 py-2 rounded-lg border-2 transition-all hover:scale-105 cosmic-moment-btn${selectedMoment === moment ? ' cosmic-moment-selected' : ''}`}
+                data-color={moment.color}
               >
                 <div className="text-2xl mb-1">{moment.emoji}</div>
-                <div className="text-xs font-bold" style={{ color: moment.color }}>
+                <div className="text-xs font-bold cosmic-moment-label" data-color={moment.color}>
                   {moment.label}
                 </div>
                 <div className="text-xs text-amber-300">
@@ -406,12 +445,11 @@ const GrandfatherClock: React.FC = () => {
 
       {/* Selected moment details */}
       {selectedMoment && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-amber-900/95 backdrop-blur-sm p-6 rounded-lg max-w-md border-4"
-          style={{ borderColor: selectedMoment.color }}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 cosmic-moment-details" data-color={selectedMoment.color}
         >
           <div className="text-center">
             <div className="text-6xl mb-3">{selectedMoment.emoji}</div>
-            <h3 className="text-2xl font-bold mb-2" style={{ color: selectedMoment.color }}>
+            <h3 className="text-2xl font-bold mb-2 cosmic-moment-details-label" data-color={selectedMoment.color}>
               {selectedMoment.label}
             </h3>
             <div className="text-amber-200 mb-3">

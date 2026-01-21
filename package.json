@@ -19,13 +19,18 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
+    "@noble/post-quantum": "^0.5.4",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
+    "@webcontainer/api": "^1.6.1",
+    "framer-motion": "^12.27.5",
+    "idb-keyval": "^6.2.2",
     "lucide-react": "^0.562.0",
     "monaco-editor": "^0.55.1",
     "peerjs": "^1.5.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-router-dom": "^7.12.0",
     "three": "^0.182.0",
     "zustand": "^5.0.9"
   },

@@ -16,6 +16,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { CosmicTheme } from '../../config/cosmic-theme';
 import { useHeartbeatStore } from '../../stores/heartbeat.store';
 // Use updateSpoons from store to add/remove spoons
 
@@ -91,14 +92,15 @@ export const BubblePop: React.FC = () => {
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg, #1F2937 0%, #111827 100%)',
-      borderRadius: '16px',
-      padding: '20px',
-      border: '1px solid #374151',
+      background: CosmicTheme.cardGradient,
+      borderRadius: CosmicTheme.cardRadius,
+      padding: CosmicTheme.cardPadding,
+      border: `1px solid ${CosmicTheme.colors.delta}`,
       height: '400px',
       position: 'relative',
       overflow: 'hidden',
-      userSelect: 'none'
+      userSelect: 'none',
+      boxShadow: CosmicTheme.cosmicGlow,
     }}>
       {/* Header */}
       <div style={{ 

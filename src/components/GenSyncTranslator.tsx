@@ -26,6 +26,7 @@
  */
 
 import { useState, useCallback } from 'react';
+import './GenSyncTranslator.css';
 import GOD_CONFIG from '../god.config';
 import {
   HUMAN_OS_PROFILES,
@@ -70,86 +71,31 @@ export default function GenSyncTranslator() {
   }, [sourceOS, targetOS]);
 
   const renderOSBadge = (os: HumanOS, profile: HumanOSProfile) => (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
-        padding: '8px 12px',
-        backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-        borderRadius: 8,
-        border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-      }}
-    >
-      <span style={{ fontSize: 20 }}>{profile.emoji}</span>
+    <div className="gensync-badge">
+      <span className="gensync-badge-emoji">{profile.emoji}</span>
       <div>
-        <div style={{ fontWeight: 600, fontSize: 13, color: GOD_CONFIG.theme.text.primary }}>
-          {profile.name}
-        </div>
-        <div style={{ fontSize: 11, color: GOD_CONFIG.theme.text.muted }}>
-          {profile.spiralColor} • {profile.coreDriver}
-        </div>
+        <div className="gensync-badge-title">{profile.name}</div>
+        <div className="gensync-badge-desc">{profile.spiralColor} • {profile.coreDriver}</div>
       </div>
     </div>
   );
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 20,
-        padding: 20,
-        maxWidth: 1000,
-        margin: '0 auto',
-      }}
-    >
+    <div className="gensync-flex-col gensync-translator-root">
       {/* Header */}
-      <div
-        style={{
-          padding: 20,
-          backgroundColor: GOD_CONFIG.theme.bg.secondary,
-          borderRadius: 12,
-          border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-        }}
-      >
-        <h2
-          style={{
-            margin: 0,
-            fontSize: 24,
-            fontWeight: 700,
-            color: GOD_CONFIG.theme.text.primary,
-            fontFamily: GOD_CONFIG.typography.fontFamily.display,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-          }}
-        >
-          🔮 GenSync Translator
-        </h2>
-        <p style={{ margin: '8px 0 0 0', fontSize: 14, color: GOD_CONFIG.theme.text.secondary }}>
-          Universal Translation Matrix for Human Operating Systems
-        </p>
+      <div className="gensync-section">
+        <h2 className="gensync-section-title">🔮 GenSync Translator</h2>
+        <p className="gensync-section-desc">Universal Translation Matrix for Human Operating Systems</p>
       </div>
 
       {/* Mode Tabs */}
-      <div style={{ display: 'flex', gap: 8 }}>
+      <div className="gensync-flex">
         {(['translator', 'matrix', 'detector'] as ViewMode[]).map((mode) => (
           <button
             key={mode}
             onClick={() => setViewMode(mode)}
-            style={{
-              flex: 1,
-              padding: '12px 16px',
-              backgroundColor: viewMode === mode ? GOD_CONFIG.theme.bg.tertiary : 'transparent',
-              border: `1px solid ${viewMode === mode ? GOD_CONFIG.theme.border.default : 'transparent'}`,
-              borderRadius: 8,
-              color: viewMode === mode ? GOD_CONFIG.theme.text.primary : GOD_CONFIG.theme.text.muted,
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: 'pointer',
-              textTransform: 'capitalize',
-            }}
+            className={`gensync-btn${viewMode === mode ? ' gensync-btn-active' : ''}`}
+            data-mode={mode}
           >
             {mode === 'translator' && '🔄 '}
             {mode === 'matrix' && '📊 '}
@@ -161,13 +107,11 @@ export default function GenSyncTranslator() {
 
       {/* Translator View */}
       {viewMode === 'translator' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div className="gensync-flex-col">
           {/* OS Selection */}
-          <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-            <div style={{ flex: 1 }}>
-              <label style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, display: 'block', marginBottom: 8 }}>
-                FROM (Source OS)
-              </label>
+          <div className="gensync-flex-row">
+            <div className="gensync-os-badge-flex">
+              <label className="gensync-label">FROM (Source OS)</label>
               <select
                 value={sourceOS}
                 onChange={(e) => {
@@ -176,15 +120,7 @@ export default function GenSyncTranslator() {
                 }}
                 title="Select source Human Operating System"
                 aria-label="Select source Human Operating System"
-                style={{
-                  width: '100%',
-                  padding: 12,
-                  backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-                  border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-                  borderRadius: 8,
-                  color: GOD_CONFIG.theme.text.primary,
-                  fontSize: 14,
-                }}
+                className="gensync-select"
               >
                 {Object.values(HUMAN_OS_PROFILES).map((profile) => (
                   <option key={profile.id} value={profile.id}>
@@ -196,24 +132,13 @@ export default function GenSyncTranslator() {
 
             <button
               onClick={swapOS}
-              style={{
-                padding: '12px 16px',
-                backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-                border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-                borderRadius: 8,
-                color: GOD_CONFIG.theme.text.primary,
-                fontSize: 18,
-                cursor: 'pointer',
-                marginTop: 20,
-              }}
+              className="gensync-btn gensync-swap-btn"
             >
               ⇄
             </button>
 
-            <div style={{ flex: 1 }}>
-              <label style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, display: 'block', marginBottom: 8 }}>
-                TO (Target OS)
-              </label>
+            <div className="gensync-os-badge-flex">
+              <label className="gensync-label">TO (Target OS)</label>
               <select
                 value={targetOS}
                 onChange={(e) => {
@@ -222,15 +147,7 @@ export default function GenSyncTranslator() {
                 }}
                 title="Select target Human Operating System"
                 aria-label="Select target Human Operating System"
-                style={{
-                  width: '100%',
-                  padding: 12,
-                  backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-                  border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-                  borderRadius: 8,
-                  color: GOD_CONFIG.theme.text.primary,
-                  fontSize: 14,
-                }}
+                className="gensync-select"
               >
                 {Object.values(HUMAN_OS_PROFILES).map((profile) => (
                   <option key={profile.id} value={profile.id}>
@@ -242,99 +159,46 @@ export default function GenSyncTranslator() {
           </div>
 
           {/* OS Profiles Display */}
-          <div style={{ display: 'flex', gap: 16 }}>
-            <div style={{ flex: 1 }}>{renderOSBadge(sourceOS, HUMAN_OS_PROFILES[sourceOS])}</div>
-            <div style={{ flex: 1 }}>{renderOSBadge(targetOS, HUMAN_OS_PROFILES[targetOS])}</div>
+          <div className="gensync-flex-row gensync-os-badges-row">
+            <div className="gensync-os-badge-flex">{renderOSBadge(sourceOS, HUMAN_OS_PROFILES[sourceOS])}</div>
+            <div className="gensync-os-badge-flex">{renderOSBadge(targetOS, HUMAN_OS_PROFILES[targetOS])}</div>
           </div>
 
           {/* Input */}
           <div>
-            <label style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, display: 'block', marginBottom: 8 }}>
-              MESSAGE TO TRANSLATE
-            </label>
+            <label className="gensync-label">MESSAGE TO TRANSLATE</label>
             <textarea
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Enter a message to translate between Human Operating Systems..."
-              style={{
-                width: '100%',
-                minHeight: 100,
-                padding: 16,
-                backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-                border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-                borderRadius: 8,
-                color: GOD_CONFIG.theme.text.primary,
-                fontSize: 14,
-                resize: 'vertical',
-              }}
+              className="gensync-textarea gensync-message-textarea"
             />
           </div>
 
           <button
             onClick={handleTranslate}
             disabled={!inputText.trim()}
-            style={{
-              padding: '14px 24px',
-              backgroundColor: inputText.trim() ? '#FFD700' : GOD_CONFIG.theme.bg.tertiary,
-              border: 'none',
-              borderRadius: 8,
-              color: inputText.trim() ? '#000' : GOD_CONFIG.theme.text.muted,
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: inputText.trim() ? 'pointer' : 'not-allowed',
-            }}
+            className={`gensync-btn gensync-translate-btn${inputText.trim() ? '' : ' gensync-btn-disabled'}`}
           >
             🔮 Translate
           </button>
 
           {/* Result */}
           {translatedResult && (
-            <div
-              style={{
-                padding: 20,
-                backgroundColor: GOD_CONFIG.theme.bg.secondary,
-                borderRadius: 12,
-                border: `2px solid #FFD700`,
-              }}
-            >
-              <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, marginBottom: 8 }}>
-                TRANSLATED MESSAGE
-              </div>
-              <div
-                style={{
-                  fontSize: 16,
-                  color: GOD_CONFIG.theme.text.primary,
-                  lineHeight: 1.6,
-                  padding: 16,
-                  backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-                  borderRadius: 8,
-                }}
-              >
-                "{translatedResult.translated}"
-              </div>
+            <div className="gensync-translate-result">
+              <div className="gensync-muted">TRANSLATED MESSAGE</div>
+              <div className="gensync-translate-message">"{translatedResult.translated}"</div>
 
               {translatedResult.adaptations.length > 0 && (
-                <div style={{ marginTop: 16 }}>
-                  <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, marginBottom: 8 }}>
-                    ADAPTATIONS MADE
-                  </div>
+                <div className="gensync-translate-adaptations">
+                  <div className="gensync-muted">ADAPTATIONS MADE</div>
                   {translatedResult.adaptations.map((adaptation, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        fontSize: 13,
-                        color: GOD_CONFIG.theme.text.secondary,
-                        padding: '6px 0',
-                        borderBottom: `1px solid ${GOD_CONFIG.theme.border.default}`,
-                      }}
-                    >
-                      • {adaptation}
-                    </div>
+                    <div key={i} className="gensync-translate-adaptation">• {adaptation}</div>
                   ))}
                 </div>
               )}
 
-              <div style={{ marginTop: 16, fontSize: 12, color: GOD_CONFIG.theme.text.muted }}>
+              <div className="gensync-translate-confidence">
                 Confidence: {(translatedResult.confidence * 100).toFixed(0)}%
               </div>
             </div>
@@ -344,31 +208,18 @@ export default function GenSyncTranslator() {
 
       {/* Matrix View */}
       {viewMode === 'matrix' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div className="gensync-flex-col gensync-matrix-root">
           {/* Primitive Selector */}
           <div>
-            <label style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, display: 'block', marginBottom: 8 }}>
-              TETRAHEDRON PRIMITIVE
-            </label>
-            <div style={{ display: 'flex', gap: 8 }}>
+            <label className="gensync-label">TETRAHEDRON PRIMITIVE</label>
+            <div className="gensync-flex gensync-matrix-primitive-row">
               {Object.values(TETRAHEDRON_PRIMITIVES).map((primitive) => (
                 <button
                   key={primitive.id}
                   onClick={() => setSelectedPrimitive(primitive.id)}
-                  style={{
-                    flex: 1,
-                    padding: '12px 8px',
-                    backgroundColor: selectedPrimitive === primitive.id ? '#FFD700' : GOD_CONFIG.theme.bg.tertiary,
-                    border: `1px solid ${selectedPrimitive === primitive.id ? '#FFD700' : GOD_CONFIG.theme.border.default}`,
-                    borderRadius: 8,
-                    color: selectedPrimitive === primitive.id ? '#000' : GOD_CONFIG.theme.text.primary,
-                    fontSize: 12,
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    textAlign: 'center',
-                  }}
+                  className={`gensync-btn gensync-matrix-primitive-btn${selectedPrimitive === primitive.id ? ' gensync-matrix-primitive-btn-active' : ''}`}
                 >
-                  <div style={{ fontSize: 18 }}>{primitive.symbol}</div>
+                  <div className="gensync-matrix-primitive-symbol">{primitive.symbol}</div>
                   <div>{primitive.name.split(' / ')[0]}</div>
                 </button>
               ))}
@@ -376,87 +227,34 @@ export default function GenSyncTranslator() {
           </div>
 
           {/* Primitive Description */}
-          <div
-            style={{
-              padding: 16,
-              backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-              borderRadius: 8,
-              border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-            }}
-          >
-            <div style={{ fontSize: 14, fontWeight: 600, color: GOD_CONFIG.theme.text.primary }}>
-              {TETRAHEDRON_PRIMITIVES[selectedPrimitive].name}
-            </div>
-            <div style={{ fontSize: 13, color: GOD_CONFIG.theme.text.secondary, marginTop: 4 }}>
-              {TETRAHEDRON_PRIMITIVES[selectedPrimitive].description}
-            </div>
-            <div style={{ fontSize: 11, color: GOD_CONFIG.theme.text.muted, marginTop: 8 }}>
-              Physics: {TETRAHEDRON_PRIMITIVES[selectedPrimitive].physicsLayer}
-            </div>
+          <div className="gensync-matrix-primitive-desc">
+            <div className="gensync-matrix-primitive-title">{TETRAHEDRON_PRIMITIVES[selectedPrimitive].name}</div>
+            <div className="gensync-matrix-primitive-description">{TETRAHEDRON_PRIMITIVES[selectedPrimitive].description}</div>
+            <div className="gensync-matrix-primitive-physics">Physics: {TETRAHEDRON_PRIMITIVES[selectedPrimitive].physicsLayer}</div>
           </div>
 
           {/* Translation Matrix */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 12,
-            }}
-          >
+          <div className="gensync-matrix-grid">
             {Object.values(HUMAN_OS_PROFILES).map((profile) => {
               const translation = getTranslation(selectedPrimitive, profile.id);
               if (!translation) return null;
 
               return (
-                <div
-                  key={profile.id}
-                  style={{
-                    padding: 16,
-                    backgroundColor: GOD_CONFIG.theme.bg.secondary,
-                    borderRadius: 12,
-                    border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                    <span style={{ fontSize: 24 }}>{profile.emoji}</span>
+                <div key={profile.id} className="gensync-matrix-profile">
+                  <div className="gensync-matrix-profile-header">
+                    <span className="gensync-matrix-profile-emoji">{profile.emoji}</span>
                     <div>
-                      <div style={{ fontWeight: 600, fontSize: 14, color: GOD_CONFIG.theme.text.primary }}>
-                        {profile.name}
-                      </div>
-                      <div style={{ fontSize: 11, color: GOD_CONFIG.theme.text.muted }}>
-                        {profile.spiralColor}
-                      </div>
+                      <div className="gensync-matrix-profile-title">{profile.name}</div>
+                      <div className="gensync-matrix-profile-spiral">{profile.spiralColor}</div>
                     </div>
                   </div>
-
-                  <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, marginBottom: 4 }}>
-                    DRIVER
-                  </div>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: '#FFD700', marginBottom: 12 }}>
-                    {translation.driver}
-                  </div>
-
-                  <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, marginBottom: 4 }}>
-                    METAPHOR
-                  </div>
-                  <div style={{ fontSize: 13, color: GOD_CONFIG.theme.text.secondary, marginBottom: 12, fontStyle: 'italic' }}>
-                    "{translation.metaphor}"
-                  </div>
-
-                  <div
-                    style={{
-                      padding: 12,
-                      backgroundColor: 'rgba(255, 215, 0, 0.1)',
-                      borderRadius: 8,
-                      borderLeft: '3px solid #FFD700',
-                    }}
-                  >
-                    <div style={{ fontSize: 10, color: '#FFD700', marginBottom: 4 }}>
-                      VALIDATION SCRIPT
-                    </div>
-                    <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.primary }}>
-                      "{translation.validation}"
-                    </div>
+                  <div className="gensync-matrix-profile-label">DRIVER</div>
+                  <div className="gensync-matrix-profile-driver">{translation.driver}</div>
+                  <div className="gensync-matrix-profile-label">METAPHOR</div>
+                  <div className="gensync-matrix-profile-metaphor">"{translation.metaphor}"</div>
+                  <div className="gensync-matrix-profile-validation">
+                    <div className="gensync-matrix-profile-validation-label">VALIDATION SCRIPT</div>
+                    <div className="gensync-matrix-profile-validation-script">"{translation.validation}"</div>
                   </div>
                 </div>
               );
@@ -467,126 +265,56 @@ export default function GenSyncTranslator() {
 
       {/* Detector View */}
       {viewMode === 'detector' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div className="gensync-flex-col gensync-detector-root">
           <div>
-            <label style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, display: 'block', marginBottom: 8 }}>
-              TEXT TO ANALYZE
-            </label>
+            <label className="gensync-label">TEXT TO ANALYZE</label>
             <textarea
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Enter text to detect the speaker's likely Human Operating System..."
-              style={{
-                width: '100%',
-                minHeight: 120,
-                padding: 16,
-                backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-                border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-                borderRadius: 8,
-                color: GOD_CONFIG.theme.text.primary,
-                fontSize: 14,
-                resize: 'vertical',
-              }}
+              className="gensync-textarea gensync-detector-textarea"
             />
           </div>
 
           <button
             onClick={handleDetect}
             disabled={!inputText.trim()}
-            style={{
-              padding: '14px 24px',
-              backgroundColor: inputText.trim() ? '#9B59B6' : GOD_CONFIG.theme.bg.tertiary,
-              border: 'none',
-              borderRadius: 8,
-              color: inputText.trim() ? '#fff' : GOD_CONFIG.theme.text.muted,
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: inputText.trim() ? 'pointer' : 'not-allowed',
-            }}
+            className={`gensync-btn gensync-detect-btn${inputText.trim() ? '' : ' gensync-btn-disabled'}`}
           >
             🔍 Detect HumanOS
           </button>
 
           {detectionResult && (
-            <div
-              style={{
-                padding: 20,
-                backgroundColor: GOD_CONFIG.theme.bg.secondary,
-                borderRadius: 12,
-                border: `2px solid #9B59B6`,
-              }}
-            >
-              <div style={{ display: 'flex', gap: 20 }}>
+            <div className="gensync-detect-result">
+              <div className="gensync-detect-flex">
                 {/* Primary OS */}
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, marginBottom: 8 }}>
-                    PRIMARY DETECTION
-                  </div>
-                  <div
-                    style={{
-                      padding: 16,
-                      backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-                      borderRadius: 8,
-                      textAlign: 'center',
-                    }}
-                  >
-                    <div style={{ fontSize: 48 }}>{HUMAN_OS_PROFILES[detectionResult.primary].emoji}</div>
-                    <div style={{ fontSize: 18, fontWeight: 700, color: GOD_CONFIG.theme.text.primary, marginTop: 8 }}>
-                      {HUMAN_OS_PROFILES[detectionResult.primary].name}
-                    </div>
-                    <div style={{ fontSize: 13, color: GOD_CONFIG.theme.text.secondary }}>
-                      {HUMAN_OS_PROFILES[detectionResult.primary].spiralColor}
-                    </div>
-                    <div style={{ fontSize: 12, color: '#9B59B6', marginTop: 8 }}>
-                      Score: {detectionResult.primaryScore}
-                    </div>
+                <div className="gensync-detect-primary">
+                  <div className="gensync-muted">PRIMARY DETECTION</div>
+                  <div className="gensync-detect-primary-box">
+                    <div className="gensync-detect-primary-emoji">{HUMAN_OS_PROFILES[detectionResult.primary].emoji}</div>
+                    <div className="gensync-detect-primary-title">{HUMAN_OS_PROFILES[detectionResult.primary].name}</div>
+                    <div className="gensync-detect-primary-spiral">{HUMAN_OS_PROFILES[detectionResult.primary].spiralColor}</div>
+                    <div className="gensync-detect-primary-score">Score: {detectionResult.primaryScore}</div>
                   </div>
                 </div>
-
                 {/* Secondary OS */}
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, marginBottom: 8 }}>
-                    SECONDARY TRAIT
-                  </div>
-                  <div
-                    style={{
-                      padding: 16,
-                      backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-                      borderRadius: 8,
-                      textAlign: 'center',
-                      opacity: 0.7,
-                    }}
-                  >
-                    <div style={{ fontSize: 32 }}>{HUMAN_OS_PROFILES[detectionResult.secondary].emoji}</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: GOD_CONFIG.theme.text.primary, marginTop: 8 }}>
-                      {HUMAN_OS_PROFILES[detectionResult.secondary].name}
-                    </div>
-                    <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted }}>
-                      Score: {detectionResult.secondaryScore}
-                    </div>
+                <div className="gensync-detect-secondary">
+                  <div className="gensync-muted">SECONDARY TRAIT</div>
+                  <div className="gensync-detect-secondary-box">
+                    <div className="gensync-detect-secondary-emoji">{HUMAN_OS_PROFILES[detectionResult.secondary].emoji}</div>
+                    <div className="gensync-detect-secondary-title">{HUMAN_OS_PROFILES[detectionResult.secondary].name}</div>
+                    <div className="gensync-detect-secondary-score">Score: {detectionResult.secondaryScore}</div>
                   </div>
                 </div>
               </div>
-
               {/* All Scores */}
-              <div style={{ marginTop: 20 }}>
-                <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted, marginBottom: 8 }}>
-                  ALL SCORES
-                </div>
-                <div style={{ display: 'flex', gap: 8 }}>
+              <div className="gensync-detect-all-scores">
+                <div className="gensync-muted">ALL SCORES</div>
+                <div className="gensync-detect-all-scores-flex">
                   {Object.entries(detectionResult.allScores).map(([os, score]) => (
-                    <div
-                      key={os}
-                      style={{
-                        flex: 1,
-                        padding: 8,
-                        backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-                        borderRadius: 6,
-                        textAlign: 'center',
-                      }}
-                    >
-                      <div style={{ fontSize: 16 }}>{HUMAN_OS_PROFILES[os as HumanOS].emoji}</div>
-                      <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.secondary }}>{score}</div>
+                    <div key={os} className="gensync-detect-score-box">
+                      <div className="gensync-detect-score-emoji">{HUMAN_OS_PROFILES[os as HumanOS].emoji}</div>
+                      <div className="gensync-detect-score-value">{score}</div>
                     </div>
                   ))}
                 </div>

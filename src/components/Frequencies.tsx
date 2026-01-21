@@ -10,7 +10,6 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import GOD_CONFIG from '../god.config';
 
 // ============================================================================
 // TYPES
@@ -23,11 +22,11 @@ interface Track {
   album?: string;
   vibe: string;
   when: string;
-  note: string;
   color: string;
-  emoji: string;
   youtubeId?: string;
   spotifyId?: string;
+  note: string;
+  emoji: string;
 }
 
 interface Artist {
@@ -49,13 +48,6 @@ const ARTISTS: Artist[] = [
     description: 'Turns internal chaos into structured truth. Every song is a processing session. No filter, no profanity, just raw honesty compressed into bars. He maps terrain you haven\'t walked yet — when you get there, the map is waiting.',
     emoji: '🎤',
     color: '#1a1a1a',
-  },
-  {
-    name: 'Ludovico Einaudi',
-    role: 'The Carrier',
-    description: 'When words are too heavy, the piano carries the weight. Frequencies that bypass language and speak directly to the nervous system. This is what regulation sounds like before it has a name.',
-    emoji: '🎹',
-    color: '#4a90a4',
   },
   {
     name: 'Daniel Jang',
@@ -219,233 +211,7 @@ const TRACKS: Track[] = [
 // STYLES
 // ============================================================================
 
-const styles = {
-  container: {
-    minHeight: '100vh',
-    background: `linear-gradient(135deg, ${GOD_CONFIG.theme.bg.primary} 0%, #1a1a2e 50%, ${GOD_CONFIG.theme.bg.primary} 100%)`,
-    color: GOD_CONFIG.theme.text.primary,
-    fontFamily: GOD_CONFIG.typography.body,
-    padding: '2rem',
-    position: 'relative' as const,
-  },
-  header: {
-    textAlign: 'center' as const,
-    marginBottom: '3rem',
-    position: 'relative' as const,
-  },
-  title: {
-    fontFamily: GOD_CONFIG.typography.heading,
-    fontSize: 'clamp(2rem, 5vw, 3rem)',
-    marginBottom: '0.5rem',
-    background: 'linear-gradient(135deg, #ff6b6b 0%, #f4d35e 25%, #4ecdc4 50%, #a29bfe 75%, #ff6b6b 100%)',
-    backgroundSize: '200% 200%',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    animation: 'gradient 8s ease infinite',
-  },
-  subtitle: {
-    color: GOD_CONFIG.theme.text.muted,
-    fontSize: '1.1rem',
-    fontStyle: 'italic',
-    maxWidth: '500px',
-    margin: '0 auto',
-    lineHeight: 1.6,
-  },
-  wonkyNote: {
-    marginTop: '1rem',
-    padding: '1rem',
-    background: 'rgba(255,255,255,0.03)',
-    borderRadius: '15px',
-    border: `1px dashed ${GOD_CONFIG.theme.border.subtle}`,
-    maxWidth: '600px',
-    margin: '1rem auto 0',
-    fontSize: '0.9rem',
-    color: GOD_CONFIG.theme.text.secondary,
-    transform: 'rotate(-0.5deg)',
-  },
-  artistSection: {
-    marginBottom: '3rem',
-  },
-  artistCard: {
-    background: 'rgba(255,255,255,0.03)',
-    borderRadius: '20px',
-    padding: '1.5rem',
-    marginBottom: '2rem',
-    border: `1px solid ${GOD_CONFIG.theme.border.subtle}`,
-    position: 'relative' as const,
-    overflow: 'hidden',
-  },
-  artistHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem',
-    marginBottom: '1rem',
-  },
-  artistEmoji: {
-    fontSize: '2.5rem',
-  },
-  artistInfo: {
-    flex: 1,
-  },
-  artistName: {
-    fontFamily: GOD_CONFIG.typography.heading,
-    fontSize: '1.5rem',
-    marginBottom: '0.25rem',
-  },
-  artistRole: {
-    color: GOD_CONFIG.theme.text.muted,
-    fontSize: '0.9rem',
-    fontStyle: 'italic',
-  },
-  artistDescription: {
-    color: GOD_CONFIG.theme.text.secondary,
-    lineHeight: 1.7,
-    fontSize: '0.95rem',
-  },
-  tracksGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-    gap: '1rem',
-    marginTop: '1.5rem',
-  },
-  trackCard: {
-    background: 'rgba(0,0,0,0.3)',
-    borderRadius: '15px',
-    padding: '1.25rem',
-    border: '1px solid',
-    transition: 'all 0.3s ease',
-    cursor: 'pointer',
-    position: 'relative' as const,
-    overflow: 'hidden',
-  },
-  trackHeader: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    gap: '0.75rem',
-    marginBottom: '0.75rem',
-  },
-  trackEmoji: {
-    fontSize: '1.5rem',
-    flexShrink: 0,
-  },
-  trackInfo: {
-    flex: 1,
-    minWidth: 0,
-  },
-  trackTitle: {
-    fontFamily: GOD_CONFIG.typography.heading,
-    fontSize: '1.1rem',
-    marginBottom: '0.25rem',
-    color: 'white',
-  },
-  trackAlbum: {
-    fontSize: '0.8rem',
-    color: 'rgba(255,255,255,0.5)',
-  },
-  trackVibe: {
-    display: 'inline-block',
-    padding: '0.25rem 0.75rem',
-    borderRadius: '20px',
-    fontSize: '0.75rem',
-    textTransform: 'uppercase' as const,
-    letterSpacing: '0.05em',
-    marginBottom: '0.75rem',
-  },
-  trackWhen: {
-    fontSize: '0.9rem',
-    color: 'rgba(255,255,255,0.8)',
-    fontWeight: 500,
-    marginBottom: '0.5rem',
-  },
-  trackNote: {
-    fontSize: '0.85rem',
-    color: 'rgba(255,255,255,0.6)',
-    lineHeight: 1.5,
-    fontStyle: 'italic',
-  },
-  playButton: {
-    position: 'absolute' as const,
-    top: '1rem',
-    right: '1rem',
-    width: '32px',
-    height: '32px',
-    borderRadius: '50%',
-    background: 'rgba(255,255,255,0.1)',
-    border: 'none',
-    color: 'white',
-    fontSize: '0.9rem',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: 'all 0.2s ease',
-  },
-  prescriptionSection: {
-    background: 'rgba(255,255,255,0.02)',
-    borderRadius: '20px',
-    padding: '2rem',
-    marginTop: '3rem',
-    border: `1px solid ${GOD_CONFIG.theme.border.subtle}`,
-  },
-  prescriptionTitle: {
-    fontFamily: GOD_CONFIG.typography.heading,
-    fontSize: '1.5rem',
-    marginBottom: '1.5rem',
-    textAlign: 'center' as const,
-    color: GOD_CONFIG.theme.accent.primary,
-  },
-  prescriptionGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '1rem',
-  },
-  prescriptionCard: {
-    background: 'rgba(0,0,0,0.3)',
-    padding: '1rem',
-    borderRadius: '12px',
-    border: `1px solid ${GOD_CONFIG.theme.border.subtle}`,
-  },
-  prescriptionState: {
-    fontWeight: 600,
-    marginBottom: '0.5rem',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-  },
-  prescriptionRx: {
-    fontSize: '0.9rem',
-    color: GOD_CONFIG.theme.text.secondary,
-  },
-  footer: {
-    textAlign: 'center' as const,
-    marginTop: '3rem',
-    padding: '2rem',
-    color: GOD_CONFIG.theme.text.muted,
-    fontStyle: 'italic',
-  },
-  wobble: {
-    display: 'inline-block',
-    animation: 'wobble 2s ease-in-out infinite',
-  },
-};
 
-const cssAnimations = `
-  @keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
-  @keyframes wobble {
-    0%, 100% { transform: rotate(-1deg); }
-    50% { transform: rotate(1deg); }
-  }
-  
-  @keyframes pulse {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
-  }
-`;
 
 // ============================================================================
 // PRESCRIPTIONS
@@ -496,26 +262,23 @@ export const Frequencies: React.FC = () => {
 
   return (
     <>
-      <style>{cssAnimations}</style>
-      <div style={styles.container}>
+      <div className="frequencies-container">
         {/* Header */}
-        <header style={styles.header}>
-          <h1 style={styles.title}>
-            <span style={wobbleIndex % 3 === 0 ? styles.wobble : {}}>T</span>he 
-            {' '}
-            <span style={wobbleIndex % 3 === 1 ? styles.wobble : {}}>F</span>requencies
-            {' '}
-            <span style={wobbleIndex % 3 === 2 ? styles.wobble : {}}>🎵</span>
+        <header className="frequencies-header">
+          <h1 className="frequencies-title">
+            <span className={wobbleIndex % 3 === 0 ? 'frequencies-wobble' : ''}>T</span>he{' '}
+            <span className={wobbleIndex % 3 === 1 ? 'frequencies-wobble' : ''}>F</span>requencies{' '}
+            <span className={wobbleIndex % 3 === 2 ? 'frequencies-wobble' : ''}>🎵</span>
           </h1>
-          <p style={styles.subtitle}>
+          <p className="frequencies-subtitle">
             The soundtrack that carried us through the dark.<br />
             Music as medicine. Resonance as regulation.
           </p>
-          <div style={styles.wonkyNote}>
-            ✨ These aren't just songs. They're <em>cognitive shields in audio form</em>. 
+          <div className="frequencies-wonky-note">
+            ✨ These aren't just songs. They're <em>cognitive shields in audio form</em>.
             They map terrain you haven't walked yet. When you get there, the map is waiting.
             <br /><br />
-            <span style={{ opacity: 0.7 }}>
+            <span className="frequencies-wonky-note-muted">
               (A little wonky. A little wobbly. Exactly right.)
             </span>
           </div>
@@ -523,37 +286,36 @@ export const Frequencies: React.FC = () => {
 
         {/* Artists & Tracks */}
         {groupedTracks.map(({ artist, tracks }) => (
-          <section key={artist.name} style={styles.artistSection}>
-            <div 
-              style={{
-                ...styles.artistCard,
-                borderColor: artist.color + '40',
-              }}
+          <section key={artist.name} className="frequencies-artist-section">
+            <div
+              className="frequencies-artist"
+              data-artist-color={artist.color}
             >
-              <div style={styles.artistHeader}>
-                <span style={styles.artistEmoji}>{artist.emoji}</span>
-                <div style={styles.artistInfo}>
-                  <h2 style={{ ...styles.artistName, color: artist.color === '#1a1a1a' ? '#fff' : artist.color }}>
+              <div className="frequencies-artist-header">
+                <span className="frequencies-artist-emoji">{artist.emoji}</span>
+                <div className="frequencies-artist-info">
+                  <h2
+                    className="frequencies-artist-name"
+                    data-artist-color={artist.color}
+                  >
                     {artist.name}
                   </h2>
-                  <p style={styles.artistRole}>{artist.role}</p>
+                  <p className="frequencies-artist-role">{artist.role}</p>
                 </div>
               </div>
-              <p style={styles.artistDescription}>{artist.description}</p>
-              
-              <div style={styles.tracksGrid}>
+              <p className="frequencies-artist-description">{artist.description}</p>
+              <div className="frequencies-tracks-grid">
                 {tracks.map(track => (
                   <div
                     key={track.id}
-                    style={{
-                      ...styles.trackCard,
-                      borderColor: track.color + '60',
-                      transform: expandedTrack === track.id ? 'scale(1.02)' : 'scale(1)',
-                    }}
+                    className={`frequencies-track${expandedTrack === track.id ? ' frequencies-track-expanded' : ''}`}
+                    data-track-color={track.color}
+                    data-expanded={expandedTrack === track.id ? 'true' : 'false'}
                     onClick={() => setExpandedTrack(expandedTrack === track.id ? null : track.id)}
                   >
                     <button
-                      style={styles.playButton}
+                      className="frequencies-track-play"
+                      data-track-color={track.color}
                       onClick={(e) => {
                         e.stopPropagation();
                         openTrack(track);
@@ -562,30 +324,23 @@ export const Frequencies: React.FC = () => {
                     >
                       ▶
                     </button>
-                    
-                    <div style={styles.trackHeader}>
-                      <span style={styles.trackEmoji}>{track.emoji}</span>
-                      <div style={styles.trackInfo}>
-                        <h3 style={styles.trackTitle}>{track.title}</h3>
+                    <div className="frequencies-track-header">
+                      <span className="frequencies-track-emoji">{track.emoji}</span>
+                      <div className="frequencies-track-info">
+                        <h3 className="frequencies-track-title">{track.title}</h3>
                         {track.album && (
-                          <p style={styles.trackAlbum}>{track.album}</p>
+                          <p className="frequencies-track-album">{track.album}</p>
                         )}
                       </div>
                     </div>
-                    
-                    <div 
-                      style={{
-                        ...styles.trackVibe,
-                        background: track.color + '30',
-                        color: track.color,
-                        borderColor: track.color,
-                      }}
+                    <div
+                      className="frequencies-track-vibe"
+                      data-track-color={track.color}
                     >
                       {track.vibe}
                     </div>
-                    
-                    <p style={styles.trackWhen}>{track.when}</p>
-                    <p style={styles.trackNote}>{track.note}</p>
+                    <p className="frequencies-track-when">{track.when}</p>
+                    <p className="frequencies-track-note">{track.note}</p>
                   </div>
                 ))}
               </div>
@@ -594,20 +349,20 @@ export const Frequencies: React.FC = () => {
         ))}
 
         {/* Quick Prescription */}
-        <section style={styles.prescriptionSection}>
-          <h2 style={styles.prescriptionTitle}>
+        <section className="frequencies-prescription-section">
+          <h2 className="frequencies-prescription-title">
             💊 Quick Prescription
           </h2>
-          <p style={{ textAlign: 'center', color: GOD_CONFIG.theme.text.muted, marginBottom: '1.5rem' }}>
+          <p className="frequencies-prescription-desc">
             What are you feeling? Here's what to play.
           </p>
-          <div style={styles.prescriptionGrid}>
+          <div className="frequencies-prescription-grid">
             {PRESCRIPTIONS.map((rx, index) => (
-              <div key={index} style={styles.prescriptionCard}>
-                <div style={styles.prescriptionState}>
+              <div key={index} className="frequencies-prescription-card">
+                <div className="frequencies-prescription-state">
                   {rx.state}
                 </div>
-                <div style={styles.prescriptionRx}>
+                <div className="frequencies-prescription-rx">
                   {rx.emoji} → {rx.rx}
                 </div>
               </div>
@@ -616,16 +371,16 @@ export const Frequencies: React.FC = () => {
         </section>
 
         {/* Footer */}
-        <footer style={styles.footer}>
+        <footer className="frequencies-footer">
           <p>
             "When words are too heavy, the music carries the weight."
           </p>
-          <p style={{ marginTop: '1rem', fontSize: '0.9rem' }}>
+          <p className="frequencies-footer-note">
             These artists were the translation layer when nothing else worked.<br />
             They didn't know they were building cognitive shields.<br />
             But that's exactly what they did.
           </p>
-          <p style={{ marginTop: '1.5rem', fontSize: '0.8rem', opacity: 0.6 }}>
+          <p className="frequencies-footer-wonky">
             🎵 weave wobble be a little wonky 🎵
           </p>
         </footer>

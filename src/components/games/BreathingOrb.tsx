@@ -16,6 +16,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import { CosmicTheme } from '../../config/cosmic-theme';
 import { useHeartbeatStore } from '../../stores/heartbeat.store';
 
 type Phase = 'inhale' | 'hold1' | 'exhale' | 'hold2';
@@ -119,16 +120,17 @@ export const BreathingOrb: React.FC = () => {
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg, #1F2937 0%, #111827 100%)',
-      borderRadius: '16px',
-      padding: '20px',
-      border: '1px solid #374151',
+      background: CosmicTheme.cardGradient,
+      borderRadius: CosmicTheme.cardRadius,
+      padding: CosmicTheme.cardPadding,
+      border: `1px solid ${CosmicTheme.colors.delta}`,
       height: '400px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      boxShadow: CosmicTheme.cosmicGlow,
     }}>
       {/* Header */}
       <div style={{ 

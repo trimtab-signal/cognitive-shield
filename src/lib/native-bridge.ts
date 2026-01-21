@@ -22,8 +22,14 @@ export const isCapacitor = false; // typeof window !== 'undefined' && 'Capacitor
 export async function triggerNativeHaptic(pattern: number[]): Promise<void> {
   // Web fallback: Use Vibration API if available
   if ('vibrate' in navigator) {
-    const totalDuration = pattern.reduce((a, b) => a + b, 0) * 100;
-    navigator.vibrate(totalDuration);
+    try {
+      const totalDuration = pattern.reduce((a, b) => a + b, 0) * 100;
+      navigator.vibrate(totalDuration);
+    } catch (error) {
+      // Browser blocks vibration until user interaction
+      // This is expected behavior - silently ignore
+      console.debug('Haptic feedback blocked by browser (requires user interaction)');
+    }
   }
 }
 

@@ -1,0 +1,70 @@
+
+/* Animated cosmic background gradient */
+.cosmic-clock-bg {
+  background: radial-gradient(circle at 60% 20%, #C084FC22 0%, #64748B 100%);
+  animation: cosmic-bg-move 12s linear infinite alternate;
+}
+@keyframes cosmic-bg-move {
+  0% { background-position: 60% 20%; }
+  100% { background-position: 40% 80%; }
+}
+
+/* Cosmic button styles */
+.cosmic-moment-btn {
+  background: #78350F;
+  border-color: #C084FC;
+  box-shadow: 0 0 8px #C084FC44, 0 0 0 #fff0;
+  transition: box-shadow 0.3s, background 0.3s, border-color 0.3s;
+}
+.cosmic-moment-btn[data-color] {
+  border-color: attr(data-color);
+}
+.cosmic-moment-selected {
+  background: var(--selected-bg, #C084FC40);
+  box-shadow: 0 0 24px #C084FC88, 0 0 8px #F9731644;
+}
+.cosmic-moment-btn:hover {
+  box-shadow: 0 0 24px #C084FC88, 0 0 8px #F9731644;
+  background: #C084FC22;
+}
+
+/* Cosmic label styles */
+.cosmic-moment-label[data-color] {
+  color: attr(data-color);
+  text-shadow: 0 0 8px #fff2, 0 0 16px #C084FC44;
+}
+
+/* Cosmic details panel */
+.cosmic-moment-details[data-color] {
+  border-color: attr(data-color);
+  box-shadow: 0 0 32px #C084FC44, 0 0 8px #F9731622;
+  background: linear-gradient(135deg, #78350F 0%, #C084FC22 100%);
+  animation: cosmic-details-fade 2s ease;
+}
+@keyframes cosmic-details-fade {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.cosmic-moment-details-label[data-color] {
+  color: attr(data-color);
+  text-shadow: 0 0 12px #C084FC44, 0 0 24px #F9731622;
+}
+
+/* Quantum ratio overlay */
+.cosmic-ratio-overlay {
+  font-size: 0.95em;
+  font-weight: 700;
+  color: #C084FC;
+  text-shadow: 0 0 8px #fff, 0 0 16px #F97316;
+  background: linear-gradient(90deg, #C084FC, #FF6B9D, #34D399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+/* Magical polish: glowing borders, density, cosmic transitions */
+.cosmic-clock-bg, .cosmic-moment-details {
+  border-radius: 16px;
+  box-shadow: 0 0 64px 8px #C084FC22, 0 0 128px 32px #FF6B9D22;
+}

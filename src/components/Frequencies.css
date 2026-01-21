@@ -1,0 +1,171 @@
+/* Frequencies - Cosmic Theme External CSS */
+
+.frequencies-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0b 0%, #1a1a2e 50%, #0a0a0b 100%);
+  color: #fafafa;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  padding: 2rem;
+  position: relative;
+}
+.frequencies-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+.frequencies-title {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #ff6b6b 0%, #f4d35e 25%, #4ecdc4 50%, #a29bfe 75%, #ff6b6b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+.frequencies-wobble {
+  display: inline-block;
+  animation: frequencies-wobble 1.2s infinite alternate;
+}
+@keyframes frequencies-wobble {
+  0% { transform: rotate(-6deg) scale(1.1); }
+  100% { transform: rotate(6deg) scale(1.1); }
+}
+.frequencies-subtitle {
+  font-size: 1.1rem;
+  color: #a1a1aa;
+  margin-bottom: 1.5rem;
+}
+.frequencies-wonky-note {
+  font-size: 0.95rem;
+  color: #a1a1aa;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+.frequencies-artist-section {
+  margin-bottom: 2.5rem;
+}
+.frequencies-artist {
+  background: rgba(0,0,0,0.3);
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 0 24px #a29bfe22;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.frequencies-artist-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.frequencies-artist-emoji {
+  font-size: 2.2rem;
+}
+.frequencies-artist-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.frequencies-artist-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.frequencies-artist-role {
+  font-size: 1rem;
+  color: #a1a1aa;
+}
+.frequencies-artist-description {
+  font-size: 1rem;
+  color: #fafafa;
+  margin-bottom: 1.2rem;
+}
+.frequencies-tracks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.2rem;
+}
+.frequencies-track {
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 0 12px #4ecdc444;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.frequencies-track-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+.frequencies-track-emoji {
+  font-size: 1.5rem;
+}
+.frequencies-track-info {
+  display: flex;
+  flex-direction: column;
+}
+.frequencies-track-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.frequencies-track-album {
+  font-size: 0.95rem;
+  color: #a1a1aa;
+}
+.frequencies-track-when {
+  font-size: 0.95rem;
+  color: #a1a1aa;
+  margin-top: 0.5rem;
+}
+.frequencies-track-note {
+  font-size: 0.95rem;
+  color: #fafafa;
+  margin-top: 0.2rem;
+}
+.frequencies-prescription-section {
+  background: rgba(255,255,255,0.02);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-top: 3rem;
+  border: 1px solid #27272a;
+}
+.frequencies-prescription-title {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #a78bfa;
+}
+.frequencies-prescription-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.frequencies-prescription-card {
+  background: rgba(0,0,0,0.3);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #27272a;
+}
+.frequencies-prescription-state {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.frequencies-prescription-rx {
+  font-size: 1rem;
+  color: #fafafa;
+}
+.frequencies-footer {
+  text-align: center;
+  margin-top: 2.5rem;
+  color: #a1a1aa;
+}

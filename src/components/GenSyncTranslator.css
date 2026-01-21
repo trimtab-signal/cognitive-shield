@@ -1,0 +1,386 @@
+/* Swap OS button */
+.gensync-swap-btn {
+  padding: 12px 16px;
+  background: var(--swap-btn-bg, #222);
+  border: 1px solid var(--swap-btn-border, #444);
+  border-radius: 8px;
+  color: var(--swap-btn-color, #fff);
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.2s, border 0.2s;
+}
+
+/* OS badges row */
+.gensync-os-badges-row {
+  gap: 16px;
+}
+/* Root container for GenSyncTranslator */
+.gensync-translator-root {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+/* OS badge flex wrapper */
+.gensync-os-badge-flex {
+  flex: 1;
+}
+
+/* Textarea for message input and detector */
+.gensync-textarea {
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  resize: vertical;
+  border: 1px solid var(--textarea-border, #444);
+  background: var(--textarea-bg, #222);
+  color: var(--textarea-color, #fff);
+}
+.gensync-message-textarea {
+  min-height: 100px;
+}
+.gensync-detector-textarea {
+  min-height: 120px;
+}
+
+/* Translate button */
+.gensync-translate-btn {
+  padding: 14px 24px;
+  background: #FFD700;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.gensync-btn-disabled {
+  background: var(--btn-disabled-bg, #222) !important;
+  color: var(--btn-disabled-color, #aaa) !important;
+  cursor: not-allowed !important;
+}
+
+/* Translate result */
+.gensync-translate-result {
+  padding: 20px;
+  background: var(--result-bg, #222);
+  border-radius: 12px;
+  border: 2px solid #FFD700;
+}
+.gensync-translate-message {
+  font-size: 16px;
+  color: var(--result-color, #fff);
+  line-height: 1.6;
+  padding: 16px;
+  background: var(--result-msg-bg, #111);
+  border-radius: 8px;
+}
+.gensync-translate-adaptations {
+  margin-top: 16px;
+}
+.gensync-translate-adaptation {
+  font-size: 13px;
+  color: var(--adaptation-color, #bbb);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--adaptation-border, #444);
+}
+.gensync-translate-confidence {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--confidence-color, #aaa);
+}
+
+/* Matrix view root */
+.gensync-matrix-root {
+  gap: 16px;
+}
+.gensync-matrix-primitive-row {
+  gap: 8px;
+}
+.gensync-matrix-primitive-btn {
+  flex: 1;
+  padding: 12px 8px;
+  background: var(--primitive-btn-bg, #222);
+  border: 1px solid var(--primitive-btn-border, #444);
+  border-radius: 8px;
+  color: var(--primitive-btn-color, #fff);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s, border 0.2s;
+}
+.gensync-matrix-primitive-btn-active {
+  background: #FFD700 !important;
+  border: 1px solid #FFD700 !important;
+  color: #000 !important;
+}
+.gensync-matrix-primitive-symbol {
+  font-size: 18px;
+}
+.gensync-matrix-primitive-desc {
+  padding: 16px;
+  background: var(--primitive-desc-bg, #222);
+  border-radius: 8px;
+  border: 1px solid var(--primitive-desc-border, #444);
+}
+.gensync-matrix-primitive-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primitive-title, #fff);
+}
+.gensync-matrix-primitive-description {
+  font-size: 13px;
+  color: var(--primitive-desc, #bbb);
+  margin-top: 4px;
+}
+.gensync-matrix-primitive-physics {
+  font-size: 11px;
+  color: var(--primitive-physics, #888);
+  margin-top: 8px;
+}
+.gensync-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+.gensync-matrix-profile {
+  padding: 16px;
+  background: var(--profile-bg, #222);
+  border-radius: 12px;
+  border: 1px solid var(--profile-border, #444);
+}
+.gensync-matrix-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.gensync-matrix-profile-emoji {
+  font-size: 24px;
+}
+.gensync-matrix-profile-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--profile-title, #fff);
+}
+.gensync-matrix-profile-spiral {
+  font-size: 11px;
+  color: var(--profile-spiral, #aaa);
+}
+.gensync-matrix-profile-label {
+  font-size: 12px;
+  color: var(--profile-label, #888);
+  margin-bottom: 4px;
+}
+.gensync-matrix-profile-driver {
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFD700;
+  margin-bottom: 12px;
+}
+.gensync-matrix-profile-metaphor {
+  font-size: 13px;
+  color: var(--profile-metaphor, #bbb);
+  margin-bottom: 12px;
+  font-style: italic;
+}
+.gensync-matrix-profile-validation {
+  padding: 12px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 8px;
+  border-left: 3px solid #FFD700;
+}
+.gensync-matrix-profile-validation-label {
+  font-size: 10px;
+  color: #FFD700;
+  margin-bottom: 4px;
+}
+.gensync-matrix-profile-validation-script {
+  font-size: 12px;
+  color: var(--profile-validation, #fff);
+}
+
+/* Detector view root */
+.gensync-detector-root {
+  gap: 16px;
+}
+.gensync-detect-btn {
+  padding: 14px 24px;
+  background: #9B59B6;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.gensync-detect-result {
+  padding: 20px;
+  background: var(--detect-bg, #222);
+  border-radius: 12px;
+  border: 2px solid #9B59B6;
+}
+.gensync-detect-flex {
+  display: flex;
+  gap: 20px;
+}
+.gensync-detect-primary, .gensync-detect-secondary {
+  flex: 1;
+}
+.gensync-detect-primary-box, .gensync-detect-secondary-box {
+  padding: 16px;
+  background: var(--detect-box-bg, #111);
+  border-radius: 8px;
+  text-align: center;
+}
+.gensync-detect-primary-emoji {
+  font-size: 48px;
+}
+.gensync-detect-primary-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--detect-title, #fff);
+  margin-top: 8px;
+}
+.gensync-detect-primary-spiral {
+  font-size: 13px;
+  color: var(--detect-spiral, #bbb);
+}
+.gensync-detect-primary-score {
+  font-size: 12px;
+  color: #9B59B6;
+  margin-top: 8px;
+}
+.gensync-detect-secondary-emoji {
+  font-size: 32px;
+}
+.gensync-detect-secondary-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--detect-title, #fff);
+  margin-top: 8px;
+}
+.gensync-detect-secondary-score {
+  font-size: 12px;
+  color: var(--detect-score, #aaa);
+}
+.gensync-detect-all-scores {
+  margin-top: 20px;
+}
+.gensync-detect-all-scores-flex {
+  display: flex;
+  gap: 8px;
+}
+.gensync-detect-score-box {
+  flex: 1;
+  padding: 8px;
+  background: var(--detect-score-bg, #111);
+  border-radius: 6px;
+  text-align: center;
+}
+.gensync-detect-score-emoji {
+  font-size: 16px;
+}
+.gensync-detect-score-value {
+  font-size: 12px;
+  color: var(--detect-score-value, #bbb);
+}
+/* GenSyncTranslator.css - All styles refactored from inline style blocks for TDP compliance */
+
+.gensync-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: var(--badge-bg, #222);
+}
+.gensync-badge-emoji {
+  font-size: 20px;
+}
+.gensync-badge-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--badge-title, #fff);
+}
+.gensync-badge-desc {
+  font-size: 11px;
+  color: var(--badge-desc, #aaa);
+}
+.gensync-section {
+  margin-bottom: 24px;
+}
+.gensync-section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.gensync-section-desc {
+  font-size: 14px;
+  color: var(--section-desc, #bbb);
+  margin: 8px 0 0 0;
+}
+.gensync-flex {
+  display: flex;
+  gap: 8px;
+}
+.gensync-flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.gensync-flex-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.gensync-label {
+  font-size: 12px;
+  color: var(--label-muted, #888);
+  display: block;
+  margin-bottom: 8px;
+}
+.gensync-select {
+  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #222;
+  color: #fff;
+}
+.gensync-btn {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: #444;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.gensync-btn:hover {
+  background: #666;
+}
+.gensync-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+.gensync-mt-16 {
+  margin-top: 16px;
+}
+.gensync-mb-8 {
+  margin-bottom: 8px;
+}
+.gensync-muted {
+  color: #aaa;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
