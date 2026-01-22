@@ -164,7 +164,7 @@ export default function JitterbugDemo({ onPhaseChange }: JitterbugDemoProps) {
         </div>
 
         {/* Gentle Guidance - Only when needed */}
-        {jitterbugPhase > 0.2 && (
+        {phase > 0.2 && (
           <div style={{
             ...componentStyles.card,
             backgroundColor: COLORS.gray[900] + '40',
@@ -183,7 +183,7 @@ export default function JitterbugDemo({ onPhaseChange }: JitterbugDemoProps) {
             </div>
 
             {/* Subtle controls only appear when phase indicates need */}
-            {jitterbugPhase > 0.5 && (
+            {phase > 0.5 && (
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -223,7 +223,7 @@ export default function JitterbugDemo({ onPhaseChange }: JitterbugDemoProps) {
       </div>
 
       {/* Advanced Controls - Only when deep processing is needed */}
-      {jitterbugPhase > 0.7 && (
+      {phase > 0.7 && (
         <div style={{
           ...componentStyles.card,
           backgroundColor: COLORS.gray[900] + '60',
@@ -251,7 +251,7 @@ export default function JitterbugDemo({ onPhaseChange }: JitterbugDemoProps) {
       )}
 
       {/* Theoretical Foundation - Hidden until phase > 0.9 */}
-      {jitterbugPhase > 0.9 && (
+      {phase > 0.9 && (
         <div style={{
           ...componentStyles.card,
           backgroundColor: COLORS.gray[900] + '30',
