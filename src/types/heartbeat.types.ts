@@ -73,14 +73,37 @@ export interface HeartbeatActions {
   exportCheckInHistory: () => string; // Returns JSON string
 }
 
+// Tetrahedron Protocol Extensions
+export interface TetrahedronGroup {
+  readonly id: string; // Hash of sorted member IDs
+  readonly members: readonly [string, string, string, string]; // Exactly 4 members
+  readonly created: number;
+  readonly isActive: boolean;
+}
+
+export interface TetrahedronHeartbeat {
+  readonly senderId: string;
+  readonly timestampDelta: number;
+  readonly statusFlags: {
+    readonly spoonCount: 0 | 1 | 2 | 3; // Energy level
+    readonly panicMode: boolean;
+    readonly silentMode: boolean;
+  };
+  readonly batteryVoltage: number; // 0-255 mapped from 3.0V-4.2V
+  readonly neuralEntropy: number; // 0-100 Fisher-Escola coherence score
+}
+
 export interface MeshMessage {
-  readonly type: 'status' | 'ping' | 'pong' | 'handshake';
+  readonly type: 'status' | 'ping' | 'pong' | 'handshake' | 'tetrahedron-heartbeat' | 'tetrahedron-message';
   readonly from: string; // Peer ID
   readonly timestamp: number;
+  readonly tetrahedronId?: string; // For tetrahedron-scoped messages
   readonly payload?: {
     readonly status?: HeartbeatStatus;
     readonly name?: string;
     readonly note?: string;
+    readonly heartbeat?: TetrahedronHeartbeat;
+    readonly encryptedContent?: string; // For private tetrahedron messages
   };
 }
 

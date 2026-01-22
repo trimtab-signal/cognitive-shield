@@ -21,6 +21,17 @@ interface CognitiveJitterbugProps {
   emotionalValence?: 'positive' | 'neutral' | 'hostile' | 'anxious';
   /** Whether the transformation is actively processing */
   isProcessing?: boolean;
+  /** Quantum metrics for unworldly visualization */
+  quantumMetrics?: {
+    entanglement: number;
+    superposition: number;
+    decoherence: number;
+    waveFunction: number;
+    harmonicResonance: number;
+    fieldStrength: number;
+  };
+  /** Consciousness field strength */
+  consciousnessField?: number;
 }
 
 interface JitterbugState {
@@ -28,6 +39,175 @@ interface JitterbugState {
   cognitiveLoad: number;
   emotionalValence: 'positive' | 'neutral' | 'hostile' | 'anxious';
   isProcessing: boolean;
+}
+
+// ============================================================================
+// UNWORLDLY 3D SCENE COMPONENT
+// ============================================================================
+
+interface UnworldlySceneProps {
+  phase: number;
+  cognitiveLoad: number;
+  emotionalValence: 'positive' | 'neutral' | 'hostile' | 'anxious';
+  quantumMetrics: {
+    entanglement: number;
+    superposition: number;
+    decoherence: number;
+    waveFunction: number;
+    harmonicResonance: number;
+    fieldStrength: number;
+  };
+  consciousnessField: number;
+}
+
+function UnworldlyScene({
+  phase,
+  cognitiveLoad,
+  emotionalValence,
+  quantumMetrics,
+  consciousnessField
+}: UnworldlySceneProps) {
+  const groupRef = useRef<THREE.Group>(null);
+  const particleRef = useRef<THREE.Points>(null);
+
+  // Generate quantum particle field
+  const particleCount = 1000;
+  const positions = useMemo(() => {
+    const pos = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+      pos[i3] = (Math.random() - 0.5) * 15;
+      pos[i3 + 1] = (Math.random() - 0.5) * 15;
+      pos[i3 + 2] = (Math.random() - 0.5) * 15;
+    }
+    return pos;
+  }, []);
+
+  const colors = useMemo(() => {
+    const cols = new Float32Array(particleCount * 3);
+    const colorMap = {
+      positive: [1, 0.8, 0.6],
+      neutral: [0.6, 0.8, 1],
+      hostile: [1, 0.4, 0.4],
+      anxious: [0.8, 0.6, 1]
+    };
+    const [r, g, b] = colorMap[emotionalValence];
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+      cols[i3] = r + (Math.random() - 0.5) * 0.2;
+      cols[i3 + 1] = g + (Math.random() - 0.5) * 0.2;
+      cols[i3 + 2] = b + (Math.random() - 0.5) * 0.2;
+    }
+    return cols;
+  }, [emotionalValence]);
+
+  useFrame((state) => {
+    if (!groupRef.current || !particleRef.current) return;
+
+    const time = state.clock.elapsedTime;
+
+    // Animate quantum fields based on consciousness
+    if (groupRef.current.children.length > 0) {
+      groupRef.current.children.forEach((child, index) => {
+        const freq = quantumMetrics.harmonicResonance / 100;
+        child.rotation.x = time * freq * (index + 1) * 0.1;
+        child.rotation.y = time * freq * (index + 1) * 0.15;
+        child.position.y = Math.sin(time * freq + index) * quantumMetrics.superposition * 0.5;
+      });
+    }
+
+    // Animate consciousness particles
+    if (particleRef.current.geometry.attributes.position) {
+      const positions = particleRef.current.geometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < particleCount; i++) {
+        const i3 = i * 3;
+        positions[i3 + 1] += Math.sin(time + i * 0.01) * 0.01 * consciousnessField;
+        positions[i3] += Math.cos(time + i * 0.01) * 0.01 * cognitiveLoad;
+        positions[i3 + 2] += Math.sin(time * 0.7 + i * 0.005) * 0.005 * quantumMetrics.entanglement;
+      }
+      particleRef.current.geometry.attributes.position.needsUpdate = true;
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      {/* Consciousness Particle Field */}
+      <points ref={particleRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={particleCount}
+            array={positions}
+            itemSize={3}
+          />
+          <bufferAttribute
+            attach="attributes-color"
+            count={particleCount}
+            array={colors}
+            itemSize={3}
+          />
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.03}
+          vertexColors
+          transparent
+          opacity={0.7}
+          sizeAttenuation
+        />
+      </points>
+
+      {/* Quantum Resonance Rings */}
+      {Array.from({ length: 3 }, (_, i) => (
+        <mesh key={i} position={[0, 0, i * 0.3 - 0.3]}>
+          <ringGeometry args={[2 + i * 0.5, 2.2 + i * 0.5, 64]} />
+          <meshStandardMaterial
+            color={
+              emotionalValence === 'positive' ? '#ff6b6b' :
+              emotionalValence === 'anxious' ? '#a855f7' :
+              emotionalValence === 'hostile' ? '#f59e0b' : '#3b82f6'
+            }
+            emissive={
+              emotionalValence === 'positive' ? '#ff6b6b' :
+              emotionalValence === 'anxious' ? '#a855f7' :
+              emotionalValence === 'hostile' ? '#f59e0b' : '#3b82f6'
+            }
+            emissiveIntensity={0.2}
+            transparent
+            opacity={0.6}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      ))}
+
+      {/* Universal Constants Visualization */}
+      <mesh position={[4, 2, 0]}>
+        <sphereGeometry args={[0.1, 16, 16]} />
+        <meshStandardMaterial
+          color="#10b981"
+          emissive="#10b981"
+          emissiveIntensity={0.5}
+        />
+      </mesh>
+
+      <mesh position={[-4, 2, 0]}>
+        <octahedronGeometry args={[0.1, 0]} />
+        <meshStandardMaterial
+          color="#f59e0b"
+          emissive="#f59e0b"
+          emissiveIntensity={0.5}
+        />
+      </mesh>
+
+      <mesh position={[0, -3, 0]}>
+        <tetrahedronGeometry args={[0.15, 0]} />
+        <meshStandardMaterial
+          color="#8b5cf6"
+          emissive="#8b5cf6"
+          emissiveIntensity={0.5}
+        />
+      </mesh>
+    </group>
+  );
 }
 
 // ============================================================================
@@ -177,7 +357,10 @@ function generateTetrahedronFaces(geometry: THREE.BufferGeometry, vertexCount: n
 // JITTERBUG COMPONENT
 // ============================================================================
 
-function JitterbugMesh({ state }: { state: JitterbugState }) {
+function JitterbugMesh({ state }: { state: JitterbugState & {
+  quantumMetrics?: any;
+  consciousnessField?: number;
+} }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const geometryRef = useRef<THREE.BufferGeometry>();
 
@@ -245,7 +428,16 @@ export default function CognitiveJitterbug({
   phase = 0,
   cognitiveLoad = 1,
   emotionalValence = 'neutral',
-  isProcessing = false
+  isProcessing = false,
+  quantumMetrics = {
+    entanglement: 0,
+    superposition: 0,
+    decoherence: 0,
+    waveFunction: 1,
+    harmonicResonance: 432,
+    fieldStrength: 0.8
+  },
+  consciousnessField = 0.8
 }: CognitiveJitterbugProps) {
 
   const state: JitterbugState = {
@@ -253,6 +445,12 @@ export default function CognitiveJitterbug({
     cognitiveLoad: Math.max(0.1, Math.min(5, cognitiveLoad)),
     emotionalValence,
     isProcessing
+  };
+
+  const enhancedState = {
+    ...state,
+    quantumMetrics,
+    consciousnessField
   };
 
   return (
@@ -267,18 +465,34 @@ export default function CognitiveJitterbug({
       <Canvas
         camera={{ position: [3, 2, 3], fov: 50 }}
         style={{ background: 'transparent' }}
+        gl={{
+          antialias: false,
+          powerPreference: "high-performance",
+          alpha: true
+        }}
       >
-        <ambientLight intensity={0.6} />
-        <pointLight position={[10, 10, 10]} intensity={0.8} />
+        <ambientLight intensity={0.4} />
+        <pointLight position={[10, 10, 10]} intensity={1.2} color="#ffffff" castShadow />
 
-        <JitterbugMesh state={state} />
+        {/* Unworldly 3D Scene */}
+        <UnworldlyScene
+          phase={phase}
+          cognitiveLoad={cognitiveLoad}
+          emotionalValence={emotionalValence}
+          quantumMetrics={quantumMetrics}
+          consciousnessField={consciousnessField}
+        />
+
+        <JitterbugMesh state={enhancedState} />
 
         <OrbitControls
           enablePan={false}
           enableZoom={true}
           enableRotate={true}
           minDistance={2}
-          maxDistance={10}
+          maxDistance={15}
+          zoomSpeed={0.8}
+          rotateSpeed={0.6}
         />
       </Canvas>
 

@@ -119,7 +119,11 @@ export const useHeartbeatStore = create<HeartbeatStore>()(
 
         try {
           // Generate a truly unique peer ID to avoid conflicts
-          const uniquePeerId = myPeerId || `cognitive-shield-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+          // Include session-specific data for maximum uniqueness
+          const sessionId = btoa(Math.random().toString()).substr(10, 10);
+          const timestamp = Date.now();
+          const uniquePeerId = myPeerId || `cs-${timestamp}-${sessionId}-${Math.random().toString(36).substr(2, 6)}`;
+          console.log('[Heartbeat] Generating unique peer ID:', uniquePeerId);
           const peerId = await mesh.initialize(uniquePeerId);
           set({ mesh, myPeerId: peerId });
         } catch (error) {

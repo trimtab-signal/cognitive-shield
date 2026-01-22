@@ -5,7 +5,7 @@
  */
 
 import Peer from 'peerjs';
-import type { MeshMessage, Peer as PeerType } from '../types/heartbeat.types';
+import type { MeshMessage, Peer as PeerType, TetrahedronGroup, TetrahedronHeartbeat } from '../types/heartbeat.types';
 import GOD_CONFIG from '../god.config';
 
 // PeerJS DataConnection - use the connection object type from peer.connect()
@@ -25,6 +25,11 @@ export class MeshNetwork {
   private callbacks: MeshCallbacks;
   private reconnectTimers: Map<string, ReturnType<typeof setTimeout>> = new Map();
   private broadcastInterval: ReturnType<typeof setInterval> | null = null;
+
+  // Tetrahedron Protocol Extensions
+  private tetrahedronGroups: Map<string, TetrahedronGroup> = new Map();
+  private myTetrahedrons: Set<string> = new Set(); // Tetrahedron IDs I belong to
+  private heartbeatHistory: Map<string, TetrahedronHeartbeat[]> = new Map();
 
   constructor(callbacks: MeshCallbacks) {
     this.callbacks = callbacks;
@@ -143,6 +148,13 @@ export class MeshNetwork {
     conn.on('data', (data) => {
       try {
         const message = data as MeshMessage;
+
+        // Tetrahedron Protocol: Filter messages based on topology
+        if (!this.shouldRelayMessage(message)) {
+          console.log('[Mesh] Dropping message outside tetrahedron scope:', message.type, 'from:', peerId);
+          return;
+        }
+
         this.handleMessage(message, peerId);
       } catch (error) {
         console.error('[Mesh] Failed to parse message:', error);
@@ -182,10 +194,118 @@ export class MeshNetwork {
         statusHistory: [],
         connectionState: 'connected',
       });
+    } else if (message.type === 'tetrahedron-heartbeat') {
+      // Handle Tetrahedron heartbeat
+      const heartbeat = message.payload?.heartbeat;
+      if (heartbeat && message.tetrahedronId) {
+        this.handleTetrahedronHeartbeat(message.tetrahedronId, heartbeat, fromPeerId);
+      }
     } else {
       // Forward to callback
       this.callbacks.onMessage(message);
     }
+  }
+
+  /**
+   * Handle Tetrahedron heartbeat messages
+   */
+  private handleTetrahedronHeartbeat(tetrahedronId: string, heartbeat: TetrahedronHeartbeat, fromPeerId: string) {
+    // Store heartbeat in history
+    if (!this.heartbeatHistory.has(tetrahedronId)) {
+      this.heartbeatHistory.set(tetrahedronId, []);
+    }
+
+    const history = this.heartbeatHistory.get(tetrahedronId)!;
+    history.push(heartbeat);
+
+    // Keep only recent history (last 100 heartbeats)
+    if (history.length > 100) {
+      history.shift();
+    }
+
+    // Check for critical conditions
+    if (heartbeat.statusFlags.panicMode) {
+      console.warn('[Tetrahedron] Panic mode detected from:', fromPeerId);
+      // Could trigger haptic alert or notification
+    }
+
+    if (heartbeat.neuralEntropy > 80) {
+      console.warn('[Tetrahedron] High neural entropy from:', fromPeerId, heartbeat.neuralEntropy);
+    }
+
+    // Update peer status based on heartbeat
+    this.callbacks.onMessage({
+      type: 'tetrahedron-heartbeat',
+      from: fromPeerId,
+      timestamp: Date.now(),
+      tetrahedronId,
+      payload: { heartbeat }
+    });
+  }
+
+  // Tetrahedron Protocol Methods
+
+  /**
+   * Check if a peer is a member of any of my tetrahedrons (Simmelian Tie)
+   */
+  isTetrahedronMember(peerId: string): boolean {
+    for (const tetraId of this.myTetrahedrons) {
+      const tetra = this.tetrahedronGroups.get(tetraId);
+      if (tetra && tetra.members.includes(peerId)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Determine if message should be relayed based on Tetrahedron topology
+   */
+  shouldRelayMessage(message: MeshMessage): boolean {
+    // Always relay if no tetrahedron scoping (public messages)
+    if (!message.tetrahedronId) return true;
+
+    // Only relay if I'm a member of this tetrahedron
+    return this.myTetrahedrons.has(message.tetrahedronId);
+  }
+
+  /**
+   * Register a tetrahedron group I belong to
+   */
+  registerTetrahedron(tetrahedron: TetrahedronGroup): void {
+    this.tetrahedronGroups.set(tetrahedron.id, tetrahedron);
+    if (tetrahedron.members.includes(this.peer?.id || '')) {
+      this.myTetrahedrons.add(tetrahedron.id);
+    }
+  }
+
+  /**
+   * Send tetrahedron-scoped heartbeat
+   */
+  sendTetrahedronHeartbeat(heartbeat: TetrahedronHeartbeat, tetrahedronId: string): void {
+    const message: MeshMessage = {
+      type: 'tetrahedron-heartbeat',
+      from: this.peer?.id || '',
+      timestamp: Date.now(),
+      tetrahedronId,
+      payload: { heartbeat }
+    };
+
+    // Send to all tetrahedron members
+    const tetra = this.tetrahedronGroups.get(tetrahedronId);
+    if (tetra) {
+      tetra.members.forEach(peerId => {
+        if (peerId !== this.peer?.id) {
+          this.sendMessage(peerId, message);
+        }
+      });
+    }
+
+    // Store in history
+    if (!this.heartbeatHistory.has(tetrahedronId)) {
+      this.heartbeatHistory.set(tetrahedronId, []);
+    }
+    this.heartbeatHistory.get(tetrahedronId)!.push(heartbeat);
   }
 
   /**

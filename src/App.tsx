@@ -27,6 +27,7 @@ import DeepProcessingQueue from './components/DeepProcessingQueue';
 const TetrahedronProtocol = lazy(() => import('./components/TetrahedronProtocol'));
 const FirstLightVerification = lazy(() => import('./components/FirstLightVerification'));
 const MeshMaintenance = lazy(() => import('./components/MeshMaintenance'));
+const TetrahedronManager = lazy(() => import('./components/TetrahedronManager'));
 const KenosisCheck = lazy(() => import('./components/KenosisCheck'));
 const ForensicReconstruction = lazy(() => import('./components/ForensicReconstruction'));
 const PreLaunchSequence = lazy(() => import('./components/PreLaunchSequence'));
@@ -75,11 +76,30 @@ const SovereigntyDashboard = lazy(() => import('./components/SovereigntyDashboar
 
 // Cognitive Components
 const JitterbugDemo = lazy(() => import('./components/JitterbugDemo'));
+const GeodesicSelf = lazy(() => import('./components/GeodesicSelf'));
+const ConsciousnessResonanceNetwork = lazy(() => import('./components/ConsciousnessResonanceNetwork'));
+const TemporalImmortality = lazy(() => import('./components/TemporalImmortality'));
+const QuantumDreamNetworks = lazy(() => import('./components/QuantumDreamNetworks'));
+const InfiniteMind = lazy(() => import('./components/InfiniteMind'));
+const LoveHarmonics = lazy(() => import('./components/LoveHarmonics'));
+const PlanetaryConsciousness = lazy(() => import('./components/PlanetaryConsciousness'));
+const MobileSensorIntegration = lazy(() => import('./components/MobileSensorIntegration'));
+const CustomSensorConnection = lazy(() => import('./components/CustomSensorConnection'));
+const TranscendenceEngine = lazy(() => import('./components/TranscendenceEngine'));
+const LivingDocumentSystem = lazy(() => import('./components/LivingDocumentSystem'));
+const JLSBusinessStrategy = lazy(() => import('./components/JLSBusinessStrategy'));
+const GeodesicConvergence = lazy(() => import('./components/GeodesicConvergence'));
+const RedZoneNavigation = lazy(() => import('./components/RedZoneNavigation'));
+const GeodesicArchitecture = lazy(() => import('./components/GeodesicArchitecture'));
+const UniversalAppGuide = lazy(() => import('./components/UniversalAppGuide'));
+const EquilibriumDashboard = lazy(() => import('./components/EquilibriumDashboard'));
+const FindYourselfGuidebook = lazy(() => import('./components/FindYourselfGuidebook'));
+const TrueIdentitiesManifestation = lazy(() => import('./components/TrueIdentitiesManifestation'));
 
-type Tab = 'phenix-navigator' | 'repository' | 'library' | 'onboarding' | 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'phenix' | 'coherence-quest' | 'family-law' | 'court-docs' | 'evidence' | 'adams-challenge' | 'gensync' | 'firmware' | 'sovereignty' | 'jitterbug' | 'about';
+type Tab = 'universal-guide' | 'phenix-navigator' | 'repository' | 'library' | 'onboarding' | 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'phenix' | 'coherence-quest' | 'family-law' | 'court-docs' | 'evidence' | 'adams-challenge' | 'gensync' | 'firmware' | 'sovereignty' | 'jitterbug' | 'geodesic-self' | 'resonance' | 'temporal-immortality' | 'quantum-dreams' | 'infinite-mind' | 'love-harmonics' | 'planetary-consciousness' | 'mobile-sensors' | 'custom-sensor' | 'transcendence-engine' | 'living-documents' | 'jls-business-strategy' | 'geodesic-convergence' | 'red-zone-navigation' | 'geodesic-architecture' | 'equilibrium-dashboard' | 'find-yourself-guidebook' | 'true-identities-manifestation' | 'about';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<Tab>('jitterbug');
+  const [activeTab, setActiveTab] = useState<Tab>('universal-guide');
   const [safeMenuOpen, setSafeMenuOpen] = useState(false);
   const [phenixOpen, setPhenixOpen] = useState(false);
   const [tick, setTick] = useState(0);
@@ -291,6 +311,7 @@ function App() {
           }}
         >
           {[
+            { id: 'universal-guide' as Tab, label: '🌌 Universal Guide', icon: Star },
             { id: 'phenix-navigator' as Tab, label: '🔺 Phenix Navigator', icon: Zap },
             { id: 'repository' as Tab, label: '📦 Repository', icon: Package },
             { id: 'library' as Tab, label: '📚 Library', icon: BookOpen },
@@ -306,6 +327,24 @@ function App() {
             { id: 'firmware' as Tab, label: '🔧 Firmware', icon: Cpu },
             { id: 'sovereignty' as Tab, label: '👑 Sovereignty', icon: Crown },
             { id: 'jitterbug' as Tab, label: '🧠 Jitterbug', icon: Brain },
+            { id: 'geodesic-self' as Tab, label: '🔺 Geodesic Self', icon: Zap },
+            { id: 'resonance' as Tab, label: '🌟 Resonance Network', icon: Brain },
+            { id: 'temporal-immortality' as Tab, label: '⏰ Temporal Immortality', icon: Clock },
+            { id: 'quantum-dreams' as Tab, label: '🌌 Quantum Dreams', icon: Moon },
+            { id: 'infinite-mind' as Tab, label: '♾️ Infinite Mind', icon: Infinity },
+            { id: 'love-harmonics' as Tab, label: '💖 Love Harmonics', icon: Heart },
+            { id: 'planetary-consciousness' as Tab, label: '🌍 Planetary Mind', icon: Globe },
+            { id: 'mobile-sensors' as Tab, label: '📱 Mobile Sensors', icon: Smartphone },
+            { id: 'custom-sensor' as Tab, label: '🔗 Custom Sensors', icon: Wifi },
+            { id: 'transcendence-engine' as Tab, label: '⚡ Transcendence Engine', icon: Zap },
+            { id: 'living-documents' as Tab, label: '📄 Living Documents', icon: FileText },
+            { id: 'jls-business-strategy' as Tab, label: '🏗️ JLS Strategy', icon: TrendingUp },
+            { id: 'geodesic-convergence' as Tab, label: '🌐 Geodesic Convergence', icon: Globe },
+            { id: 'red-zone-navigation' as Tab, label: '🚨 Red Zone Navigation', icon: Shield },
+            { id: 'geodesic-architecture' as Tab, label: '🏛️ Geodesic Architecture', icon: Layers },
+            { id: 'equilibrium-dashboard' as Tab, label: '⚖️ Equilibrium Dashboard', icon: Activity },
+            { id: 'find-yourself-guidebook' as Tab, label: '📖 Find Yourself Guidebook', icon: Book },
+            { id: 'true-identities-manifestation' as Tab, label: '✨ True Identities Manifestation', icon: Sparkles },
             { id: 'stars' as Tab, label: '✨ Our Stars', icon: Sparkles },
             { id: 'shield' as Tab, label: 'Shield', icon: Shield },
             { id: 'compose' as Tab, label: 'Compose', icon: Send },
@@ -418,6 +457,14 @@ function App() {
         </nav>
 
         {/* Tab Content */}
+        {activeTab === 'universal-guide' && (
+          <div className="universal-guide-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🌌 Loading Universal Guide...</div>}>
+              <UniversalAppGuide />
+            </Suspense>
+          </div>
+        )}
+
         {activeTab === 'phenix-navigator' && (
           <div className="phenix-navigator-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🔺 Loading Phenix Navigator Demo...</div>}>
@@ -535,7 +582,7 @@ function App() {
         {activeTab === 'tetrahedron' && (
           <div className="tetrahedron-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>Loading Tetrahedron Protocol...</div>}>
-              <TetrahedronProtocol enableSimulation={true} />
+              <TetrahedronManager />
             </Suspense>
           </div>
         )}
@@ -858,6 +905,150 @@ function App() {
           <div className="jitterbug-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🧠 Loading Cognitive Jitterbug...</div>}>
               <JitterbugDemo onPhaseChange={setJitterbugPhase} />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'geodesic-self' && (
+          <div className="geodesic-self-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🔺 Loading Geodesic Self...</div>}>
+              <GeodesicSelf />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'resonance' && (
+          <div className="resonance-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🌟 Loading Consciousness Resonance...</div>}>
+              <ConsciousnessResonanceNetwork />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'temporal-immortality' && (
+          <div className="temporal-immortality-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>⏰ Loading Temporal Immortality...</div>}>
+              <TemporalImmortality />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'quantum-dreams' && (
+          <div className="quantum-dreams-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🌌 Loading Quantum Dream Networks...</div>}>
+              <QuantumDreamNetworks />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'infinite-mind' && (
+          <div className="infinite-mind-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>♾️ Loading Infinite Mind...</div>}>
+              <InfiniteMind />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'love-harmonics' && (
+          <div className="love-harmonics-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>💖 Loading Love Harmonics...</div>}>
+              <LoveHarmonics />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'planetary-consciousness' && (
+          <div className="planetary-consciousness-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🌍 Loading Planetary Consciousness...</div>}>
+              <PlanetaryConsciousness />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'mobile-sensors' && (
+          <div className="mobile-sensors-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>📱 Loading Mobile Sensor Integration...</div>}>
+              <MobileSensorIntegration />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'custom-sensor' && (
+          <div className="custom-sensor-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🔗 Loading Custom Sensor Connection...</div>}>
+              <CustomSensorConnection />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'transcendence-engine' && (
+          <div className="transcendence-engine-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>⚡ Loading Transcendence Engine...</div>}>
+              <TranscendenceEngine />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'living-documents' && (
+          <div className="living-documents-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>📄 Loading Living Document System...</div>}>
+              <LivingDocumentSystem />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'jls-business-strategy' && (
+          <div className="jls-business-strategy-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🏗️ Loading JLS Business Strategy...</div>}>
+              <JLSBusinessStrategy />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'geodesic-convergence' && (
+          <div className="geodesic-convergence-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🌐 Loading Geodesic Convergence...</div>}>
+              <GeodesicConvergence />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'red-zone-navigation' && (
+          <div className="red-zone-navigation-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🚨 Loading Red Zone Navigation...</div>}>
+              <RedZoneNavigation />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'geodesic-architecture' && (
+          <div className="geodesic-architecture-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🏛️ Loading Geodesic Architecture...</div>}>
+              <GeodesicArchitecture />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'equilibrium-dashboard' && (
+          <div className="equilibrium-dashboard-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>⚖️ Loading Equilibrium Dashboard...</div>}>
+              <EquilibriumDashboard />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'find-yourself-guidebook' && (
+          <div className="find-yourself-guidebook-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>📖 Loading Find Yourself Guidebook...</div>}>
+              <FindYourselfGuidebook />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'true-identities-manifestation' && (
+          <div className="true-identities-manifestation-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>✨ Loading True Identities Manifestation...</div>}>
+              <TrueIdentitiesManifestation />
             </Suspense>
           </div>
         )}

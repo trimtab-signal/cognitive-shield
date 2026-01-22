@@ -4,7 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/start-dev.js",
+    "dev:clean": "node scripts/start-dev.js --clean",
+    "dev:force": "node scripts/start-dev.js --force",
+    "dev:manual": "vite",
     "build": "vite build",
     "build:check": "tsc -b && vite build",
     "build:prod": "vite build --mode production",
@@ -18,6 +21,11 @@
     "tauri:build": "tauri build",
     "cap:sync": "cap sync",
     "cap:android": "cap open android",
+    "esp32:build": "cd firmware && idf.py build",
+    "esp32:flash": "node scripts/esp32-flash.js",
+    "esp32:monitor": "cd firmware && idf.py monitor",
+    "esp32:dev": "node scripts/esp32-dev.js",
+    "esp32:clean": "cd firmware && idf.py fullclean",
     "cap:ios": "cap open ios",
     "build:all": "npm run build && npm run tauri:build && npm run cap:sync"
   },
