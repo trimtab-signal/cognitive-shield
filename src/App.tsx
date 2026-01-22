@@ -73,7 +73,10 @@ const FirmwareRemediation = lazy(() => import('./components/hardware/FirmwareRem
 // Sovereignty Components
 const SovereigntyDashboard = lazy(() => import('./components/SovereigntyDashboard'));
 
-type Tab = 'phenix-navigator' | 'repository' | 'library' | 'onboarding' | 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'phenix' | 'coherence-quest' | 'family-law' | 'court-docs' | 'evidence' | 'adams-challenge' | 'gensync' | 'firmware' | 'sovereignty' | 'about';
+// Cognitive Components
+const JitterbugDemo = lazy(() => import('./components/JitterbugDemo'));
+
+type Tab = 'phenix-navigator' | 'repository' | 'library' | 'onboarding' | 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'phenix' | 'coherence-quest' | 'family-law' | 'court-docs' | 'evidence' | 'adams-challenge' | 'gensync' | 'firmware' | 'sovereignty' | 'jitterbug' | 'about';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('shield');
@@ -298,6 +301,7 @@ function App() {
             { id: 'gensync' as Tab, label: '💕 GenSync', icon: Heart },
             { id: 'firmware' as Tab, label: '🔧 Firmware', icon: Cpu },
             { id: 'sovereignty' as Tab, label: '👑 Sovereignty', icon: Crown },
+            { id: 'jitterbug' as Tab, label: '🧠 Jitterbug', icon: Brain },
             { id: 'stars' as Tab, label: '✨ Our Stars', icon: Sparkles },
             { id: 'shield' as Tab, label: 'Shield', icon: Shield },
             { id: 'compose' as Tab, label: 'Compose', icon: Send },
@@ -825,6 +829,14 @@ function App() {
           <div className="sovereignty-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>👑 Loading Sovereignty Dashboard...</div>}>
               <SovereigntyDashboard />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'jitterbug' && (
+          <div className="jitterbug-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🧠 Loading Cognitive Jitterbug...</div>}>
+              <JitterbugDemo />
             </Suspense>
           </div>
         )}
