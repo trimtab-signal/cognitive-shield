@@ -112,11 +112,15 @@ export const useHeartbeatStore = create<HeartbeatStore>()(
           },
           onError: (error) => {
             console.error('[Heartbeat] Mesh error:', error);
+            // Don't let mesh errors crash the app - they're non-critical
+            set({ meshStatus: 'disconnected' });
           },
         });
 
         try {
-          const peerId = await mesh.initialize(myPeerId || undefined);
+          // Generate a truly unique peer ID to avoid conflicts
+          const uniquePeerId = myPeerId || `cognitive-shield-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+          const peerId = await mesh.initialize(uniquePeerId);
           set({ mesh, myPeerId: peerId });
         } catch (error) {
           console.error('[Heartbeat] Failed to initialize mesh:', error);
