@@ -16,7 +16,7 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import { CosmicTheme } from '../../config/cosmic-theme';
+import { CosmicTheme } from '../../config/design-tokens';
 import { useHeartbeatStore } from '../../stores/heartbeat.store';
 
 interface Tile {

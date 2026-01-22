@@ -8,8 +8,8 @@
  */
 
 import { useState, useEffect, useMemo, lazy, Suspense } from 'react';
-import { CosmicTheme } from './config/cosmic-theme';
-import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical, Wind, Moon, Sparkles, Headphones, LifeBuoy } from 'lucide-react';
+import { CosmicTheme } from './config/design-tokens';
+import { Shield, MessageSquare, Send, Hexagon, Zap, Info, Heart, Radio, Box, CheckCircle2, Activity, Lock, Rocket, Target, Key, Code2, Package, BookOpen, Brain, Calculator, Book, HelpCircle, Star, HeartHandshake, Music, FlaskConical, Wind, Moon, Sparkles, Headphones, LifeBuoy, FileText, Cpu, Crown } from 'lucide-react';
 import GOD_CONFIG from './god.config';
 import useShieldStore from './store/shield.store';
 import { computeTabStatuses, getStatusColor, type TabStatus } from './lib/tab-status';
@@ -42,6 +42,7 @@ const TheStory = lazy(() => import('./components/TheStory'));
 const FAQ = lazy(() => import('./components/FAQ'));
 const FeatureShowcase = lazy(() => import('./components/FeatureShowcase'));
 const LoveLetterProtocol = lazy(() => import('./components/LoveLetterProtocol'));
+const AuthenticHeart = lazy(() => import('./components/AuthenticHeart'));
 const ModuleDashboard = lazy(() => import('./components/ModuleDashboard'));
 const SonicShield = lazy(() => import('./components/SonicShield'));
 const NerdLab = lazy(() => import('./components/NerdLab'));
@@ -54,8 +55,25 @@ const PhenixCompanion = lazy(() => import('./components/PhenixCompanion'));
 const CoherenceQuest = lazy(() => import('./components/CoherenceQuest'));
 const PerfectOnboarding = lazy(() => import('./components/PerfectOnboarding'));
 const CognitiveShieldLibrary = lazy(() => import('./components/CognitiveShieldLibrary'));
+const ModuleRepository = lazy(() => import('./components/ModuleRepository'));
+const PhenixNavigatorDemo = lazy(() => import('./components/PhenixNavigatorDemo'));
 
-type Tab = 'library' | 'onboarding' | 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'phenix' | 'coherence-quest' | 'about';
+// Legal Components
+const FamilyLawToolkit = lazy(() => import('./components/legal/FamilyLawToolkit'));
+const CourtDocumentGenerator = lazy(() => import('./components/legal/CourtDocumentGenerator'));
+const EvidencePreservation = lazy(() => import('./components/legal/EvidencePreservation'));
+const AdamsChallengeRequest = lazy(() => import('./components/legal/AdamsChallengeRequest'));
+
+// Relational Components
+const GenSyncTranslator = lazy(() => import('./components/relational/GenSyncTranslator'));
+
+// Hardware Components
+const FirmwareRemediation = lazy(() => import('./components/hardware/FirmwareRemediation'));
+
+// Sovereignty Components
+const SovereigntyDashboard = lazy(() => import('./components/SovereigntyDashboard'));
+
+type Tab = 'phenix-navigator' | 'repository' | 'library' | 'onboarding' | 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'phenix' | 'coherence-quest' | 'family-law' | 'court-docs' | 'evidence' | 'adams-challenge' | 'gensync' | 'firmware' | 'sovereignty' | 'about';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('shield');
@@ -266,16 +284,26 @@ function App() {
           }}
         >
           {[
+            { id: 'phenix-navigator' as Tab, label: '🔺 Phenix Navigator', icon: Zap },
+            { id: 'repository' as Tab, label: '📦 Repository', icon: Package },
             { id: 'library' as Tab, label: '📚 Library', icon: BookOpen },
             { id: 'onboarding' as Tab, label: '🎭 Onboarding', icon: Rocket },
             { id: 'survival' as Tab, label: '🆘 Survival', icon: LifeBuoy },
             { id: 'phenix' as Tab, label: '🔥 PHENIX', icon: Shield },
             { id: 'coherence-quest' as Tab, label: '🎮 Coherence Quest', icon: Box },
+            { id: 'family-law' as Tab, label: '🏛️ Family Law', icon: Shield },
+            { id: 'court-docs' as Tab, label: '⚖️ Court Docs', icon: FileText },
+            { id: 'evidence' as Tab, label: '🛡️ Evidence', icon: Shield },
+            { id: 'adams-challenge' as Tab, label: '⚔️ Adams Challenge', icon: Shield },
+            { id: 'gensync' as Tab, label: '💕 GenSync', icon: Heart },
+            { id: 'firmware' as Tab, label: '🔧 Firmware', icon: Cpu },
+            { id: 'sovereignty' as Tab, label: '👑 Sovereignty', icon: Crown },
             { id: 'stars' as Tab, label: '✨ Our Stars', icon: Sparkles },
             { id: 'shield' as Tab, label: 'Shield', icon: Shield },
             { id: 'compose' as Tab, label: 'Compose', icon: Send },
             { id: 'safe' as Tab, label: 'Safe', icon: Heart },
             { id: 'love-letter' as Tab, label: 'Love Letter', icon: HeartHandshake },
+            { id: 'authentic-heart' as Tab, label: '❤️ Authentic Heart', icon: Heart },
             { id: 'grimoire' as Tab, label: 'Grimoire', icon: Moon },
             { id: 'heartbeat' as Tab, label: 'Heartbeat', icon: Radio },
             { id: 'tetrahedron' as Tab, label: 'Tetrahedron', icon: Box },
@@ -365,6 +393,22 @@ function App() {
         </nav>
 
         {/* Tab Content */}
+        {activeTab === 'phenix-navigator' && (
+          <div className="phenix-navigator-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🔺 Loading Phenix Navigator Demo...</div>}>
+              <PhenixNavigatorDemo />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'repository' && (
+          <div className="repository-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>📦 Loading Module Repository...</div>}>
+              <ModuleRepository />
+            </Suspense>
+          </div>
+        )}
+
         {activeTab === 'library' && (
           <div className="library-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>📚 Loading Cognitive Shield Library...</div>}>
@@ -631,6 +675,14 @@ function App() {
           </div>
         )}
 
+        {activeTab === 'authentic-heart' && (
+          <div className="authentic-heart-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>Loading Authentic Heart...</div>}>
+              <AuthenticHeart />
+            </Suspense>
+          </div>
+        )}
+
         {activeTab === 'manifesto' && (
           <div className="manifesto-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>Loading Geodesic Manifesto...</div>}>
@@ -717,6 +769,62 @@ function App() {
           <div className="survival-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🆘 Loading Survival Guide...</div>}>
               <SurvivalGuide />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'family-law' && (
+          <div className="family-law-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🏛️ Loading Family Law Toolkit...</div>}>
+              <FamilyLawToolkit />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'court-docs' && (
+          <div className="court-docs-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>⚖️ Loading Court Document Generator...</div>}>
+              <CourtDocumentGenerator />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'evidence' && (
+          <div className="evidence-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🛡️ Loading Evidence Preservation...</div>}>
+              <EvidencePreservation />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'adams-challenge' && (
+          <div className="adams-challenge-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>⚔️ Loading Adams Challenge...</div>}>
+              <AdamsChallengeRequest />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'gensync' && (
+          <div className="gensync-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>💕 Loading GenSync Translator...</div>}>
+              <GenSyncTranslator />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'firmware' && (
+          <div className="firmware-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🔧 Loading Firmware Remediation...</div>}>
+              <FirmwareRemediation />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'sovereignty' && (
+          <div className="sovereignty-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>👑 Loading Sovereignty Dashboard...</div>}>
+              <SovereigntyDashboard />
             </Suspense>
           </div>
         )}

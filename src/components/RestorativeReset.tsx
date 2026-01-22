@@ -4,7 +4,7 @@
  */
 
 import { useState } from 'react';
-import { Heart, Clock, Shield, Activity, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { Clock, CheckCircle2, AlertTriangle } from 'lucide-react';
 import GOD_CONFIG from '../god.config';
 import useHeartbeatStore from '../store/heartbeat.store';
 import useShieldStore from '../store/shield.store';

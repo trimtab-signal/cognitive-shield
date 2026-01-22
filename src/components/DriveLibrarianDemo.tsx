@@ -7,7 +7,8 @@
 
 import React, { useState, useRef, useCallback } from 'react';
 import { Shield, FileText, Search, AlertTriangle, CheckCircle, Eye, EyeOff, BookOpen, Zap, BarChart3 } from 'lucide-react';
-import { DriveLibrarianService, ProcessingResult, ProcessingStats } from '../services/drive-librarian.service';
+import { DriveLibrarianService } from '../services/drive-librarian.service';
+import type { ProcessingResult, ProcessingStats } from '../types/drive-librarian.types';
 import GOD_CONFIG from '../god.config';
 
 interface DemoFile {

@@ -8,8 +8,8 @@
 import React, { useState, useMemo } from 'react';
 import {
   Library, Search, Filter, BookOpen, Shield, Zap, Brain, Clock,
-  Database, Globe, Cpu, Network, FileText, Code2, Gamepad2,
-  ChevronRight, Star, ExternalLink, Download, Eye
+  Database, Network, FileText, Code2, Gamepad2,
+  ChevronRight, Star, ExternalLink, Eye, Triangle, CircuitBoard, TrendingUp, Infinity
 } from 'lucide-react';
 import GOD_CONFIG from '../god.config';
 import CognitiveHubOSS from './CognitiveHubOSS';
@@ -38,7 +38,7 @@ const LIBRARY_ITEMS: LibraryItem[] = [
     id: 'time-infrastructure',
     title: 'The Floating Neutral: Time Infrastructure Analysis',
     description: 'Comprehensive analysis of centralized time vulnerabilities, Byzantine fault-tolerant solutions, and mesh topology resilience for temporal coordination.',
-    category: 'research',
+    category: 'legal',
     tags: ['time', 'infrastructure', 'security', 'byzantine', 'mesh'],
     icon: <Clock size={20} />,
     component: React.lazy(() => import('./TimeInfrastructureAnalysis')),
@@ -51,7 +51,7 @@ const LIBRARY_ITEMS: LibraryItem[] = [
     id: 'drive-librarian-research',
     title: 'Drive Librarian: Privacy & Intelligence Framework',
     description: 'Advanced PII detection, evidence categorization, and document organization system with cryptographic security guarantees.',
-    category: 'research',
+    category: 'legal',
     tags: ['privacy', 'PII', 'evidence', 'cryptography', 'NLP'],
     icon: <Shield size={20} />,
     difficulty: 'intermediate',
@@ -64,7 +64,7 @@ const LIBRARY_ITEMS: LibraryItem[] = [
     id: 'cognitive-hub-architecture',
     title: 'Cognitive Hub: Brain-Inspired Information Flow',
     description: 'Isomorphic architecture mirroring human cognition with capture, processing, storage, synthesis, and output layers.',
-    category: 'research',
+    category: 'legal',
     tags: ['cognition', 'architecture', 'brain', 'information-flow'],
     icon: <Brain size={20} />,
     difficulty: 'advanced',
@@ -251,6 +251,516 @@ const LIBRARY_ITEMS: LibraryItem[] = [
     estimatedTime: 'Variable',
     lastUpdated: '2026-01-19',
     status: 'available'
+  },
+  {
+    id: 'geodesic-convergence-analysis',
+    title: 'Geodesic Convergence Analysis - Master Technical Specification',
+    description: 'Forensic engineering analysis of Wye-to-Delta mobile integration, Totem Sync protocol, and the topological phase shift from centralized to distributed architecture.',
+    category: 'legal',
+    tags: ['forensic', 'engineering', 'topology', 'wye-delta', 'totem-sync', 'phenix-navigator', 'master-spec'],
+    icon: <CircuitBoard size={20} />,
+    component: () => (
+      <div style={{ padding: '2rem' }}>
+        <div style={{ marginBottom: '2rem' }}>
+          <h2 style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+            🔬 Geodesic Convergence Analysis
+          </h2>
+          <p style={{ margin: '0 0 1rem 0', color: '#00B4D8', fontSize: '1.1rem' }}>
+            The definitive forensic engineering blueprint for the topological phase shift from centralized Wye to distributed Delta architecture.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <span style={{
+              backgroundColor: '#8b5cf6',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Technical Specification
+            </span>
+            <span style={{
+              backgroundColor: '#f97316',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Forensic Engineering
+            </span>
+            <span style={{
+              backgroundColor: '#22c55e',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Master Blueprint
+            </span>
+          </div>
+        </div>
+
+        <div style={{
+          backgroundColor: '#374151',
+          border: `1px solid ${'#6B7280'}`,
+          borderRadius: '8px',
+          padding: '2rem',
+          maxHeight: '70vh',
+          overflow: 'auto'
+        }}>
+          <pre style={{
+            margin: 0,
+            whiteSpace: 'pre-wrap',
+            fontFamily: 'monospace',
+            fontSize: '0.9rem',
+            color: '#00B4D8',
+            lineHeight: '1.5'
+          }}>
+{`# The Geodesic Convergence: A Forensic Engineering Analysis of Wye-to-Delta Mobile Integration and the Totem Sync Architecture
+
+## 1. Executive Introduction: The Topological Phase Shift
+
+The digital infrastructure of the early 21st century is currently navigating a period of profound structural instability...
+
+[Complete technical specification follows - see GEODESIC_CONVERGENCE_ANALYSIS.md for full details]`}
+          </pre>
+
+          <div style={{
+            marginTop: '2rem',
+            padding: '1rem',
+            backgroundColor: '#374151',
+            borderRadius: '6px',
+            textAlign: 'center'
+          }}>
+            <p style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+              📄 This is the master technical specification for the Cognitive Shield ecosystem.
+            </p>
+            <p style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+              🔬 Forensic engineering analysis of the Wye-to-Delta topological phase shift.
+            </p>
+            <p style={{ margin: 0, color: '#6B7280', fontSize: '0.9rem' }}>
+              Full document available in: <code>GEODESIC_CONVERGENCE_ANALYSIS.md</code>
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+    difficulty: 'expert',
+    estimatedTime: 'Variable',
+    lastUpdated: '2026-01-19',
+    status: 'available',
+    externalUrl: 'GEODESIC_CONVERGENCE_ANALYSIS.md'
+  },
+  {
+    id: 'digital-soul-architecture',
+    title: 'The Architecture of the Digital Soul',
+    description: 'Cognitive partitioning, resonant keys, and the generational time machine - comprehensive framework for mapping the brain as a computer and engineering resonant trust.',
+    category: 'technical-specification',
+    tags: ['cognitive-partitioning', 'resonant-keys', 'generational-time-machine', 'digital-soul', 'wye-delta-topology', 'impedance-matching', 'kenosis', 'double-empathy-problem'],
+    icon: <Brain size={20} />,
+    component: () => <MarkdownViewer filePath="/DIGITAL_SOUL_ARCHITECTURE.md" />,
+    difficulty: 'expert',
+    estimatedTime: '45 min read',
+    lastUpdated: '2026-01-20',
+    status: 'available'
+  },
+  {
+    id: 'ip-forensic-report',
+    title: 'Intellectual Property Forensic Report - Wonky Sprout Trademarks',
+    description: 'Comprehensive trademark protection strategy for Haptic Trim Tab, Simmelian Pod, Gold Relief, and other source identifiers in the Wonky Sprout ecosystem.',
+    category: 'legal',
+    tags: ['ip', 'trademark', 'legal', 'protection', 'wonky-sprout', 'haptic-trim-tab', 'simmelian-pod'],
+    icon: <Shield size={20} />,
+    component: () => (
+      <div style={{ padding: '2rem' }}>
+        <div style={{ marginBottom: '2rem' }}>
+          <h2 style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+            🛡️ Intellectual Property Forensic Report
+          </h2>
+          <p style={{ margin: '0 0 1rem 0', color: '#00B4D8', fontSize: '1.1rem' }}>
+            Trademark protection strategy for the Wonky Sprout ecosystem's proprietary source identifiers.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <span style={{
+              backgroundColor: '#dc2626',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Legal Protection
+            </span>
+            <span style={{
+              backgroundColor: '#7c3aed',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Trademark Strategy
+            </span>
+            <span style={{
+              backgroundColor: '#059669',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Wonky Sprout IP
+            </span>
+          </div>
+        </div>
+
+        <div style={{
+          backgroundColor: '#374151',
+          border: `1px solid ${'#6B7280'}`,
+          borderRadius: '8px',
+          padding: '2rem',
+          maxHeight: '70vh',
+          overflow: 'auto'
+        }}>
+          <pre style={{
+            margin: 0,
+            whiteSpace: 'pre-wrap',
+            fontFamily: 'monospace',
+            fontSize: '0.9rem',
+            color: '#00B4D8',
+            lineHeight: '1.5'
+          }}>
+{`Intellectual Property Forensic Report: The Wonky Sprout Ecosystem...
+
+[Complete legal analysis follows - see IP_FORENSIC_REPORT.md for full details]`}
+          </pre>
+
+          <div style={{
+            marginTop: '2rem',
+            padding: '1rem',
+            backgroundColor: '#374151',
+            borderRadius: '6px',
+            textAlign: 'center'
+          }}>
+            <p style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+              📄 Master trademark protection strategy for the Cognitive Shield ecosystem.
+            </p>
+            <p style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+              🛡️ Forensic analysis of Haptic Trim Tab, Simmelian Pod, and other source identifiers.
+            </p>
+            <p style={{ margin: 0, color: '#6B7280', fontSize: '0.9rem' }}>
+              Full document available in: <code>IP_FORENSIC_REPORT.md</code>
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+    difficulty: 'expert',
+    estimatedTime: 'Variable',
+    lastUpdated: '2026-01-19',
+    status: 'available',
+    externalUrl: 'IP_FORENSIC_REPORT.md'
+  },
+  {
+    id: 'resonant-shield-copyright',
+    title: 'The Resonant Shield - Copyright & Governance Framework',
+    description: 'Strategic copyright protection and decentralized governance framework for the Wonky Sprout Master Codex using AGPLv3 and Wyoming DUNA.',
+    category: 'legal',
+    tags: ['copyright', 'agpl', 'duna', 'governance', 'legal', 'protection', 'decentralized'],
+    icon: <FileText size={20} />,
+    component: () => (
+      <div style={{ padding: '2rem' }}>
+        <div style={{ marginBottom: '2rem' }}>
+          <h2 style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+            🔄 The Resonant Shield
+          </h2>
+          <p style={{ margin: '0 0 1rem 0', color: '#00B4D8', fontSize: '1.1rem' }}>
+            Copyright protection and governance framework for sovereign decentralized ecosystems.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <span style={{
+              backgroundColor: '#dc2626',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Copyright Strategy
+            </span>
+            <span style={{
+              backgroundColor: '#7c3aed',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              AGPLv3 + DUNA
+            </span>
+            <span style={{
+              backgroundColor: '#059669',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Sovereign Governance
+            </span>
+          </div>
+        </div>
+
+        <div style={{
+          backgroundColor: '#374151',
+          border: `1px solid ${'#6B7280'}`,
+          borderRadius: '8px',
+          padding: '2rem',
+          maxHeight: '70vh',
+          overflow: 'auto'
+        }}>
+          <pre style={{
+            margin: 0,
+            whiteSpace: 'pre-wrap',
+            fontFamily: 'monospace',
+            fontSize: '0.9rem',
+            color: '#00B4D8',
+            lineHeight: '1.5'
+          }}>
+{`The Resonant Shield: A Strategic Copyright and Governance Framework...
+
+[Complete legal strategy follows - see RESONANT_SHIELD_COPYRIGHT_STRATEGY.md for full details]`}
+          </pre>
+
+          <div style={{
+            marginTop: '2rem',
+            padding: '1rem',
+            backgroundColor: '#374151',
+            borderRadius: '6px',
+            textAlign: 'center'
+          }}>
+            <p style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+              📄 Strategic framework for protecting sovereign decentralized ecosystems.
+            </p>
+            <p style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+              🔄 AGPLv3 licensing combined with Wyoming DUNA governance for maximum protection.
+            </p>
+            <p style={{ margin: 0, color: '#6B7280', fontSize: '0.9rem' }}>
+              Full document available in: <code>RESONANT_SHIELD_COPYRIGHT_STRATEGY.md</code>
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+    difficulty: 'expert',
+    estimatedTime: 'Variable',
+    lastUpdated: '2026-01-19',
+    status: 'available',
+    externalUrl: 'RESONANT_SHIELD_COPYRIGHT_STRATEGY.md'
+  },
+  {
+    id: 'delta-imperative-analysis',
+    title: 'The Delta Imperative - Complete Ecosystem Architecture',
+    description: 'Master forensic analysis of the Wonky Sprout ecosystem: Iron Dome legal engineering, Phenix Phantom infrastructure, L.O.V.E. economics, and Simmelian sociology for regulatory sovereignty.',
+    category: 'research',
+    tags: ['delta-topology', 'wye-failure', 'iron-dome', 'phenix-phantom', 'love-protocol', 'simmelian-geometry', 'sovereign-economy', 'regulatory-sovereignty'],
+    icon: <Triangle size={20} />,
+    component: () => (
+      <div style={{ padding: '2rem' }}>
+        <div style={{ marginBottom: '2rem' }}>
+          <h2 style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+            🔻 The Delta Imperative
+          </h2>
+          <p style={{ margin: '0 0 1rem 0', color: '#00B4D8', fontSize: '1.1rem' }}>
+            The complete Wonky Sprout ecosystem architecture: from Floating Neutral crisis to Delta topology sovereignty.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <span style={{
+              backgroundColor: '#dc2626',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Master Architecture
+            </span>
+            <span style={{
+              backgroundColor: '#7c3aed',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Regulatory Sovereignty
+            </span>
+            <span style={{
+              backgroundColor: '#059669',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '15px',
+              fontSize: '0.8rem',
+              fontWeight: '500'
+            }}>
+              Wye-to-Delta Transition
+            </span>
+          </div>
+        </div>
+
+        <div style={{
+          backgroundColor: '#374151',
+          border: `1px solid ${'#6B7280'}`,
+          borderRadius: '8px',
+          padding: '2rem',
+          maxHeight: '70vh',
+          overflow: 'auto'
+        }}>
+          <pre style={{
+            margin: 0,
+            whiteSpace: 'pre-wrap',
+            fontFamily: 'monospace',
+            fontSize: '0.9rem',
+            color: '#00B4D8',
+            lineHeight: '1.5'
+          }}>
+{`The Delta Imperative: A Comprehensive Forensic Analysis...
+
+[Complete ecosystem architecture follows - see DELTA_IMPERATIVE_ANALYSIS.md for full details]`}
+          </pre>
+
+          <div style={{
+            marginTop: '2rem',
+            padding: '1rem',
+            backgroundColor: '#374151',
+            borderRadius: '6px',
+            textAlign: 'center'
+          }}>
+            <p style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+              📄 The master blueprint for Wonky Sprout regulatory sovereignty and Wye-to-Delta transition.
+            </p>
+            <p style={{ margin: '0 0 1rem 0', color: '#00B4D8' }}>
+              🔻 Complete analysis of Iron Dome, Phenix Phantom, L.O.V.E. Protocol, and Simmelian Geometry.
+            </p>
+            <p style={{ margin: 0, color: '#6B7280', fontSize: '0.9rem' }}>
+              Full document available in: <code>DELTA_IMPERATIVE_ANALYSIS.md</code>
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+    difficulty: 'expert',
+    estimatedTime: 'Variable',
+    lastUpdated: '2026-01-19',
+    status: 'available',
+    externalUrl: 'DELTA_IMPERATIVE_ANALYSIS.md'
+  },
+  {
+    id: 'phenix-navigator-demo',
+    title: 'Phenix Navigator - Interactive SIC-POVM Demo',
+    description: 'Stunning 3D visualization of tetrahedral quantum cryptography, demonstrating SIC-POVM geometry, autopoiesis, and attack detection capabilities.',
+    category: 'demo',
+    tags: ['quantum', 'cryptography', 'sic-povm', 'tetrahedron', '3d', 'interactive', 'visualization'],
+    icon: <Zap size={20} />,
+    component: React.lazy(() => import('./PhenixNavigatorDemo')),
+    difficulty: 'intermediate',
+    estimatedTime: 'Variable',
+    lastUpdated: '2026-01-19',
+    status: 'available',
+    externalUrl: 'PHENIX_NAVIGATOR_README.md'
+  },
+  {
+    id: 'jitterbug-narrative-structure',
+    title: 'The Jitterbug Narrative Structure: 3-Phase Journey from Chaos to Convergence',
+    description: 'Comprehensive framework for epistemological transformation through controlled narrative architecture. Maps to the 7-phase Jitterbug entropy visualization system.',
+    category: 'research',
+    tags: ['narrative-structure', 'pedagogy', 'epistemology', 'jitterbug-entropy', 'paradigm-shift', 'cognitive-architecture'],
+    icon: <BookOpen size={20} />,
+    component: () => <MarkdownViewer filePath="/JITTERBUG_NARRATIVE_STRUCTURE.md" />,
+    difficulty: 'advanced',
+    estimatedTime: '25 min read',
+    lastUpdated: '2026-01-21',
+    status: 'available'
+  },
+  {
+    id: 'patent-strategy-gensync-matrix',
+    title: 'Confidential Strategic Report: Patentability Architecture for the GenSync Matrix (2026)',
+    description: 'Comprehensive patent strategy for affective computing amidst 2026 Section 101 reforms, analyzing Desjardins precedent and Trojan Horse filing approaches.',
+    category: 'analysis',
+    tags: ['patent-strategy', 'intellectual-property', 'affective-computing', 'section-101', 'gensync-matrix', 'desjardins-precedent'],
+    icon: <Shield size={20} />,
+    component: () => <MarkdownViewer filePath="/PATENT_STRATEGY_GEN_SYNC_MATRIX.md" />,
+    difficulty: 'expert',
+    estimatedTime: '45 min read',
+    lastUpdated: '2026-01-21',
+    status: 'available'
+  },
+  {
+    id: 'regulatory-architecture-love-economy',
+    title: 'Regulatory and Cryptographic Architecture for the Child-Centric Decentralized Love Economy',
+    description: 'Compliance analysis of PoC tokenization under GDPR/HIPAA, with Zero-Knowledge privacy solutions for biometric data on immutable ledgers.',
+    category: 'analysis',
+    tags: ['regulatory-compliance', 'gdpr', 'hipaa', 'zero-knowledge-proofs', 'love-economy', 'proof-of-care', 'biometric-privacy'],
+    icon: <Lock size={20} />,
+    component: () => <MarkdownViewer filePath="/REGULATORY_ARCHITECTURE_LOVE_ECONOMY.md" />,
+    difficulty: 'expert',
+    estimatedTime: '40 min read',
+    lastUpdated: '2026-01-21',
+    status: 'available'
+  },
+  {
+    id: 'microsoft-quantum-strategy-analysis',
+    title: 'Microsoft\'s Quantum Gambit: Majorana 1, Fisher\'s Parallel Path, and the Window for Open Alternatives',
+    description: 'Strategic assessment of Microsoft\'s topological quantum computing dominance, Fisher-Escolà independence, and opportunities for SIC-POVM-based alternatives.',
+    category: 'analysis',
+    tags: ['quantum-computing', 'microsoft-strategy', 'majorana-1', 'fisher-escola', 'sic-povm', 'topological-qubits', 'open-alternatives'],
+    icon: <Zap size={20} />,
+    component: () => <MarkdownViewer filePath="/MICROSOFT_QUANTUM_STRATEGY_ANALYSIS.md" />,
+    difficulty: 'expert',
+    estimatedTime: '35 min read',
+    lastUpdated: '2026-01-21',
+    status: 'available'
+  },
+  {
+    id: 'resonance-invisible-quantum-framework',
+    title: 'The Resonance of the Invisible: Unified Framework of Quantum Consciousness, Cultural Synchronization, and Technological Suppression',
+    description: 'Comprehensive synthesis connecting Fisher-Escolà quantum biology, Stranger Things cultural programming, and smartphone impedance mismatch suppression.',
+    category: 'research',
+    tags: ['quantum-consciousness', 'cultural-synchronization', 'technological-suppression', 'fisher-escola', 'stranger-things', 'impedance-mismatch'],
+    icon: <Brain size={20} />,
+    component: () => <MarkdownViewer filePath="/RESONANCE_INVISIBLE_QUANTUM_FRAMEWORK.md" />,
+    difficulty: 'expert',
+    estimatedTime: '50 min read',
+    lastUpdated: '2026-01-21',
+    status: 'available'
+  },
+  {
+    id: 'geodesic-swan-song',
+    title: 'The Geodesic Swan Song: How a "Floating Neutral" in a Georgia Divorce Court Exposes the Fractal Rot of the DTCC',
+    description: 'Financial market analysis revealing DTCC price suppression through electrical topology isomorphism, with Ollivier-Ricci curvature solutions.',
+    category: 'analysis',
+    tags: ['financial-markets', 'dtcc', 'floating-neutral', 'ollivier-ricci', 'game-stop', 'topology-analysis', 'price-discovery'],
+    icon: <TrendingUp size={20} />,
+    component: () => <MarkdownViewer filePath="/GEODESIC_SWAN_SONG.md" />,
+    difficulty: 'advanced',
+    estimatedTime: '30 min read',
+    lastUpdated: '2026-01-21',
+    status: 'available'
+  },
+  {
+    id: 'wonky-sprout-technical-manifest',
+    title: 'Wonky Sprout Technical & Operational Manifest',
+    description: 'Complete technical specifications for ESP32-S3 LoRa hardware, Fisher-Escolà neuroscience protocols, Iron Dome legal structures, and GenSync AI communication.',
+    category: 'tool',
+    tags: ['esp32-s3', 'lora-mesh', 'fisher-escola', 'neuroscience', 'legal-structures', 'gensync-matrix', 'technical-manifest'],
+    icon: <CircuitBoard size={20} />,
+    component: () => <MarkdownViewer filePath="/WONKY_SPROUT_TECHNICAL_MANIFEST.md" />,
+    difficulty: 'advanced',
+    estimatedTime: '60 min read',
+    lastUpdated: '2026-01-21',
+    status: 'available'
   }
 ];
 
@@ -266,7 +776,10 @@ export default function CognitiveShieldLibrary() {
     { id: 'tool', label: 'Tools', count: LIBRARY_ITEMS.filter(i => i.category === 'tool').length },
     { id: 'demo', label: 'Demos', count: LIBRARY_ITEMS.filter(i => i.category === 'demo').length },
     { id: 'analysis', label: 'Analysis', count: LIBRARY_ITEMS.filter(i => i.category === 'analysis').length },
-    { id: 'integration', label: 'Integrations', count: LIBRARY_ITEMS.filter(i => i.category === 'integration').length }
+    { id: 'integration', label: 'Integrations', count: LIBRARY_ITEMS.filter(i => i.category === 'integration').length },
+        { id: 'technical-specification', label: 'Technical Specs', count: LIBRARY_ITEMS.filter(i => i.category === 'technical-specification').length },
+        { id: 'legal-forensic-analysis', label: 'Legal & Forensic Analysis', count: LIBRARY_ITEMS.filter(i => i.category === 'legal-forensic-analysis').length },
+    { id: 'legal', label: 'Legal & IP', count: LIBRARY_ITEMS.filter(i => i.category === 'legal').length }
   ];
 
   const difficulties = [
@@ -296,7 +809,9 @@ export default function CognitiveShieldLibrary() {
       tool: '#06b6d4',
       demo: '#22c55e',
       analysis: '#ec4899',
-      integration: '#fbbf24'
+      integration: '#fbbf24',
+      'technical-specification': '#ef4444',
+      legal: '#dc2626'
     };
     return colors[category] || '#6b7280';
   };
@@ -343,7 +858,7 @@ export default function CognitiveShieldLibrary() {
           gap: '1rem',
           marginBottom: '1rem',
           padding: '1rem',
-          backgroundColor: GOD_CONFIG.theme.bg.secondary,
+          backgroundColor: '#374151',
           borderRadius: '8px'
         }}>
           <button
@@ -352,7 +867,7 @@ export default function CognitiveShieldLibrary() {
               padding: '0.5rem',
               backgroundColor: 'transparent',
               border: 'none',
-              color: GOD_CONFIG.theme.text.secondary,
+              color: '#00B4D8',
               cursor: 'pointer',
               borderRadius: '4px'
             }}
@@ -365,14 +880,14 @@ export default function CognitiveShieldLibrary() {
           <div>
             <h3 style={{
               margin: 0,
-              color: GOD_CONFIG.theme.text.primary,
+              color: '#00B4D8',
               fontSize: '1.1rem'
             }}>
               {selectedItem.title}
             </h3>
             <p style={{
               margin: '0.25rem 0 0 0',
-              color: GOD_CONFIG.theme.text.secondary,
+              color: '#00B4D8',
               fontSize: '0.9rem'
             }}>
               {selectedItem.description}
@@ -386,7 +901,7 @@ export default function CognitiveShieldLibrary() {
             justifyContent: 'center',
             alignItems: 'center',
             padding: '4rem',
-            color: GOD_CONFIG.theme.text.secondary
+            color: '#00B4D8'
           }}>
             Loading {selectedItem.title}...
           </div>
@@ -400,16 +915,16 @@ export default function CognitiveShieldLibrary() {
   return (
     <div style={{
       padding: '2rem',
-      backgroundColor: GOD_CONFIG.theme.bg.secondary,
+      backgroundColor: '#374151',
       borderRadius: '12px',
-      border: `1px solid ${GOD_CONFIG.theme.border.default}`
+      border: `1px solid ${'#6B7280'}`
     }}>
       {/* Header */}
       <div style={{ marginBottom: '2rem' }}>
         <h2 style={{
           fontSize: '1.8rem',
           fontWeight: 'bold',
-          background: GOD_CONFIG.theme.gradient.shield,
+          background: 'linear-gradient(135deg, #00B4D8 0%, #7C3AED 50%, #1F2937 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           marginBottom: '0.5rem'
@@ -417,7 +932,7 @@ export default function CognitiveShieldLibrary() {
           📚 Cognitive Shield Library
         </h2>
         <p style={{
-          color: GOD_CONFIG.theme.text.secondary,
+          color: '#00B4D8',
           fontSize: '1.1rem',
           lineHeight: '1.6'
         }}>
@@ -444,7 +959,7 @@ export default function CognitiveShieldLibrary() {
               left: '0.75rem',
               top: '50%',
               transform: 'translateY(-50%)',
-              color: GOD_CONFIG.theme.text.muted
+              color: '#6B7280'
             }} />
             <input
               type="text"
@@ -454,10 +969,10 @@ export default function CognitiveShieldLibrary() {
               style={{
                 width: '100%',
                 padding: '0.75rem 1rem 0.75rem 2.5rem',
-                backgroundColor: GOD_CONFIG.theme.bg.primary,
-                border: `1px solid ${GOD_CONFIG.theme.border.default}`,
+                backgroundColor: '#374151',
+                border: `1px solid ${'#6B7280'}`,
                 borderRadius: '8px',
-                color: GOD_CONFIG.theme.text.primary,
+                color: '#00B4D8',
                 fontSize: '0.9rem'
               }}
             />
@@ -477,9 +992,9 @@ export default function CognitiveShieldLibrary() {
               onClick={() => setSelectedCategory(id)}
               style={{
                 padding: '0.5rem 1rem',
-                backgroundColor: selectedCategory === id ? getCategoryColor(id) : GOD_CONFIG.theme.bg.primary,
-                color: selectedCategory === id ? 'white' : GOD_CONFIG.theme.text.primary,
-                border: `1px solid ${selectedCategory === id ? getCategoryColor(id) : GOD_CONFIG.theme.border.default}`,
+                backgroundColor: selectedCategory === id ? getCategoryColor(id) : '#374151',
+                color: selectedCategory === id ? 'white' : '#00B4D8',
+                border: `1px solid ${selectedCategory === id ? getCategoryColor(id) : '#6B7280'}`,
                 borderRadius: '6px',
                 fontSize: '0.85rem',
                 fontWeight: '500',
@@ -491,8 +1006,8 @@ export default function CognitiveShieldLibrary() {
             >
               {label}
               <span style={{
-                backgroundColor: selectedCategory === id ? 'rgba(255,255,255,0.2)' : GOD_CONFIG.theme.bg.secondary,
-                color: selectedCategory === id ? 'white' : GOD_CONFIG.theme.text.muted,
+                backgroundColor: selectedCategory === id ? 'rgba(255,255,255,0.2)' : '#374151',
+                color: selectedCategory === id ? 'white' : '#6B7280',
                 padding: '0.125rem 0.375rem',
                 borderRadius: '8px',
                 fontSize: '0.75rem'
@@ -515,9 +1030,9 @@ export default function CognitiveShieldLibrary() {
               onClick={() => setSelectedDifficulty(id)}
               style={{
                 padding: '0.375rem 0.75rem',
-                backgroundColor: selectedDifficulty === id ? getDifficultyColor(id) : GOD_CONFIG.theme.bg.primary,
-                color: selectedDifficulty === id ? 'white' : GOD_CONFIG.theme.text.primary,
-                border: `1px solid ${selectedDifficulty === id ? getDifficultyColor(id) : GOD_CONFIG.theme.border.default}`,
+                backgroundColor: selectedDifficulty === id ? getDifficultyColor(id) : '#374151',
+                color: selectedDifficulty === id ? 'white' : '#00B4D8',
+                border: `1px solid ${selectedDifficulty === id ? getDifficultyColor(id) : '#6B7280'}`,
                 borderRadius: '6px',
                 fontSize: '0.8rem',
                 fontWeight: '500',
@@ -533,7 +1048,7 @@ export default function CognitiveShieldLibrary() {
       {/* Results Count */}
       <div style={{
         marginBottom: '1.5rem',
-        color: GOD_CONFIG.theme.text.secondary,
+        color: '#00B4D8',
         fontSize: '0.9rem'
       }}>
         Showing {filteredItems.length} of {LIBRARY_ITEMS.length} items
@@ -549,8 +1064,8 @@ export default function CognitiveShieldLibrary() {
           <div
             key={item.id}
             style={{
-              backgroundColor: GOD_CONFIG.theme.bg.primary,
-              border: `1px solid ${GOD_CONFIG.theme.border.default}`,
+              backgroundColor: '#374151',
+              border: `1px solid ${'#6B7280'}`,
               borderRadius: '8px',
               padding: '1.5rem',
               cursor: item.component || item.externalUrl ? 'pointer' : 'default',
@@ -573,7 +1088,7 @@ export default function CognitiveShieldLibrary() {
             }}
             onMouseLeave={(e) => {
               if (item.component || item.externalUrl) {
-                e.currentTarget.style.borderColor = GOD_CONFIG.theme.border.default;
+                e.currentTarget.style.borderColor = '#6B7280';
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = 'none';
               }
@@ -606,7 +1121,7 @@ export default function CognitiveShieldLibrary() {
               <div style={{ flex: 1 }}>
                 <h3 style={{
                   margin: '0 0 0.25rem 0',
-                  color: GOD_CONFIG.theme.text.primary,
+                  color: '#00B4D8',
                   fontSize: '1rem',
                   fontWeight: '600',
                   lineHeight: '1.3'
@@ -647,7 +1162,7 @@ export default function CognitiveShieldLibrary() {
             {/* Description */}
             <p style={{
               margin: '0 0 1rem 0',
-              color: GOD_CONFIG.theme.text.secondary,
+              color: '#00B4D8',
               fontSize: '0.9rem',
               lineHeight: '1.5'
             }}>
@@ -665,8 +1180,8 @@ export default function CognitiveShieldLibrary() {
                 <span key={tag} style={{
                   fontSize: '0.7rem',
                   padding: '0.125rem 0.375rem',
-                  backgroundColor: GOD_CONFIG.theme.bg.secondary,
-                  color: GOD_CONFIG.theme.text.muted,
+                  backgroundColor: '#374151',
+                  color: '#6B7280',
                   borderRadius: '6px',
                   fontWeight: '500'
                 }}>
@@ -677,8 +1192,8 @@ export default function CognitiveShieldLibrary() {
                 <span style={{
                   fontSize: '0.7rem',
                   padding: '0.125rem 0.375rem',
-                  backgroundColor: GOD_CONFIG.theme.bg.secondary,
-                  color: GOD_CONFIG.theme.text.muted,
+                  backgroundColor: '#374151',
+                  color: '#6B7280',
                   borderRadius: '6px',
                   fontWeight: '500'
                 }}>
@@ -693,7 +1208,7 @@ export default function CognitiveShieldLibrary() {
               justifyContent: 'space-between',
               alignItems: 'center',
               fontSize: '0.8rem',
-              color: GOD_CONFIG.theme.text.muted
+              color: '#6B7280'
             }}>
               <span>{item.estimatedTime}</span>
               <span>Updated {item.lastUpdated}</span>
@@ -704,7 +1219,7 @@ export default function CognitiveShieldLibrary() {
               <div style={{
                 marginTop: '1rem',
                 paddingTop: '1rem',
-                borderTop: `1px solid ${GOD_CONFIG.theme.border.default}`
+                borderTop: `1px solid ${'#6B7280'}`
               }}>
                 <button style={{
                   width: '100%',
@@ -744,10 +1259,10 @@ export default function CognitiveShieldLibrary() {
         <div style={{
           textAlign: 'center',
           padding: '4rem 2rem',
-          color: GOD_CONFIG.theme.text.muted
+          color: '#6B7280'
         }}>
           <Library size={48} style={{ marginBottom: '1rem', opacity: 0.5 }} />
-          <h3 style={{ marginBottom: '0.5rem', color: GOD_CONFIG.theme.text.secondary }}>
+          <h3 style={{ marginBottom: '0.5rem', color: '#00B4D8' }}>
             No items found
           </h3>
           <p>Try adjusting your search terms or filters</p>
@@ -758,21 +1273,21 @@ export default function CognitiveShieldLibrary() {
       <div style={{
         marginTop: '3rem',
         padding: '1.5rem',
-        backgroundColor: GOD_CONFIG.theme.bg.primary,
-        border: `1px solid ${GOD_CONFIG.theme.border.default}`,
+        backgroundColor: '#374151',
+        border: `1px solid ${'#6B7280'}`,
         borderRadius: '8px',
         textAlign: 'center'
       }}>
         <h4 style={{
           margin: '0 0 1rem 0',
-          color: GOD_CONFIG.theme.text.primary,
+          color: '#00B4D8',
           fontSize: '1rem'
         }}>
           🧠 The Cognitive Shield Ecosystem
         </h4>
         <p style={{
           margin: '0',
-          color: GOD_CONFIG.theme.text.secondary,
+          color: '#00B4D8',
           fontSize: '0.9rem',
           lineHeight: '1.5'
         }}>

@@ -18,7 +18,7 @@ import './GrandfatherClock.css';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text, OrbitControls, Stars } from '@react-three/drei';
 import * as THREE from 'three';
-import { CosmicTheme } from '../../config/cosmic-theme';
+import { CosmicTheme } from '../../config/design-tokens';
 
 interface CosmicMoment {
   year: number;

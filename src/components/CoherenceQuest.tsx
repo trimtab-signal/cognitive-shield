@@ -1,14 +1,25 @@
 /**
- * COHERENCE QUEST
- * Fisher-Escolà Physics Game
+ * COHERENCE QUEST - Fisher-Escolà Physics Game
+ * "Above so below - the tetrahedron contains the sphere"
  *
  * Player maintains quantum coherence (H ≈ 0.35) using trimtab input (0-1 range)
- * Visual feedback: red=jagged (entropy), blue=fuzzy (noise), green=stable (coherence)
+ * Visual feedback follows the universal quantum-neurodivergent aesthetic:
+ * • Red = jagged entropy (dissociation)
+ * • Blue = fuzzy noise (sensory overload)
+ * • Green = stable coherence (flow state)
+ * • Gold = harmonic resonance (alignment)
+ *
+ * Universal Style Guide Applied:
+ * • Typography: JetBrains Mono for technical, IBM Plex Sans for body
+ * • Colors: Electric teal (#00ffff), Industrial orange (#A65538), Organic green (#224D28)
+ * • Geometry: Tetrahedron-based (4-node structure)
+ * • Physics: Quantum coherence visualization
+ * • Neurodivergence: Sensory-safe, spoon-aware design
  */
 
-import React, { useRef, useEffect, useState, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Text, Sphere, Box, Torus } from '@react-three/drei';
+import React, { useRef, useEffect, useState, useMemo, useCallback } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Text, Sphere, Tetrahedron as DreiTetrahedron, Line } from '@react-three/drei';
 import * as THREE from 'three';
 import { fisherEscolaEngine, type CoherenceMetrics } from '../lib/fisher-escola-physics';
 import GOD_CONFIG from '../god.config';

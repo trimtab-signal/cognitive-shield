@@ -13,6 +13,11 @@ export default defineConfig({
       '.tailscale.ts.net', // Allow all Tailscale domains
       '.ts.net', // Allow all Tailscale subdomains
     ],
+    headers: {
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Resource-Policy': 'cross-origin',
+    },
   },
   build: {
     rollupOptions: {

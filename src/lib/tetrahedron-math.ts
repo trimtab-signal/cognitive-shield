@@ -121,14 +121,14 @@ export function sicPOVMToPositions(sicPOVMs: SICPOVM[]): [number, number, number
   // Regular tetrahedron inscribed in unit sphere
   
   const positions: [number, number, number][] = [
-    // Vertex 0: Top
+    // Vertex 0: North Pole
     [0, 0, 1],
-    // Vertex 1: Bottom front-left
-    [Math.sqrt(8 / 9), -Math.sqrt(2 / 9), -1 / 3],
-    // Vertex 2: Bottom back-right
-    [-Math.sqrt(2 / 9), Math.sqrt(8 / 9), -1 / 3],
-    // Vertex 3: Bottom back-left
-    [-Math.sqrt(2 / 9), -Math.sqrt(2 / 9), -1 / 3],
+    // Vertex 1: Front
+    [2 * Math.sqrt(2) / 3, 0, -1 / 3],
+    // Vertex 2: Back-left
+    [-Math.sqrt(2) / 3, Math.sqrt(2 / 3), -1 / 3],
+    // Vertex 3: Back-right
+    [-Math.sqrt(2) / 3, -Math.sqrt(2 / 3), -1 / 3],
   ];
 
   return positions;
@@ -310,6 +310,63 @@ export function computeTetrahedronState(
     curvature,
     symmetry,
     ontologicalSecurity: symmetry > 0.8 && curvature.status !== 'divergent',
+  };
+}
+
+/**
+ * Perform SIC-POVM measurement on a quantum state
+ * Returns the measurement outcome and probability
+ */
+export function performSICPOVMMeasurement(quantumState: { theta: number; phi: number; purity: number }) {
+  // Generate SIC-POVM states
+  const sicPOVMs = generateSICPOVMs();
+
+  // Convert quantum state to Bloch vector
+  const blochVector = {
+    x: quantumState.purity * Math.sin(quantumState.theta) * Math.cos(quantumState.phi),
+    y: quantumState.purity * Math.cos(quantumState.theta),
+    z: quantumState.purity * Math.sin(quantumState.theta) * Math.sin(quantumState.phi)
+  };
+
+  // Calculate probabilities for each SIC-POVM outcome
+  const probabilities = sicPOVMs.map(povm => {
+    // Quantum measurement probability: Tr(ρ M) where M is the POVM element
+    // For SIC-POVM, each element is |ψ⟩⟨ψ|
+    const fidelity = Math.pow(
+      povm.vector.x * blochVector.x +
+      povm.vector.y * blochVector.y +
+      povm.vector.z * blochVector.z + 1, // +1 for the identity term
+      2
+    ) / 4; // Normalize
+
+    return Math.max(0, Math.min(1, fidelity)); // Clamp to [0,1]
+  });
+
+  // Normalize probabilities (should sum to 1, but floating point errors)
+  const totalProb = probabilities.reduce((sum, p) => sum + p, 0);
+  const normalizedProbabilities = probabilities.map(p => p / totalProb);
+
+  // Sample from the probability distribution
+  const randomValue = Math.random();
+  let cumulativeProb = 0;
+  let outcomeIndex = 0;
+
+  for (let i = 0; i < normalizedProbabilities.length; i++) {
+    cumulativeProb += normalizedProbabilities[i];
+    if (randomValue <= cumulativeProb) {
+      outcomeIndex = i;
+      break;
+    }
+  }
+
+  // Map index to outcome label
+  const outcomeLabels = ['ALPHA', 'BETA', 'GAMMA', 'DELTA'];
+
+  return {
+    outcome: outcomeLabels[outcomeIndex],
+    probability: normalizedProbabilities[outcomeIndex],
+    allProbabilities: normalizedProbabilities,
+    blochVector
   };
 }
 

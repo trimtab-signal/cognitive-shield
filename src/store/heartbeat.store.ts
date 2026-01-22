@@ -224,7 +224,7 @@ export const useHeartbeatStore = create<HeartbeatStore>()(
       },
 
       handleMissedCheckIn: () => {
-        const { missedCheckIns, currentStatus, escalationConfig } = get();
+        const { missedCheckIns, currentStatus } = get();
         const newMissed = missedCheckIns + 1;
 
         set({ missedCheckIns: newMissed });
@@ -334,9 +334,9 @@ export const useHeartbeatStore = create<HeartbeatStore>()(
         }));
       },
 
-      updatePeerConnectionState: (peerId: string, state: Peer['connectionState']) => {
+      updatePeerConnectionState: (peerId: string, _state: Peer['connectionState']) => {
         set((state) => ({
-          peers: state.peers.map((p) => (p.id === peerId ? { ...p, connectionState: state } : p)),
+          peers: state.peers.map((p) => (p.id === peerId ? { ...p, connectionState: state as Peer['connectionState'] } : p)),
         }));
       },
 
@@ -377,7 +377,7 @@ export const useHeartbeatStore = create<HeartbeatStore>()(
       // Daily Check-In Actions
       submitDailyCheckIn: (responses: CheckInResponse[]) => {
         const questions = GOD_CONFIG.dailyCheckIn.questions;
-        const percentage = calculatePercentage(responses, questions);
+        const percentage = calculatePercentage(responses, [...questions]);
         const status = getStatusFromPercentage(percentage);
         
         // Calculate resonance (for storage)

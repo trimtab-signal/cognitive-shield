@@ -1,0 +1,13 @@
+SHA-256 Hash of SIC_POVM_QKD_DEFENSIVE_PUBLICATION.md
+========================================================
+
+Hash: 2d017d7ee05c244741f0bbb3be6f82d65bbc65546096424203b7fbdd9e3906b6
+
+File: SIC_POVM_QKD_DEFENSIVE_PUBLICATION.md
+Size: 24537 bytes
+Date: January 20, 2026
+Time: 09:00:00 EST
+
+Calculated using: node -e "const crypto = require('crypto'); const fs = require('fs'); const hash = crypto.createHash('sha256').update(fs.readFileSync('SIC_POVM_QKD_DEFENSIVE_PUBLICATION.md')).digest('hex'); console.log(hash);"
+
+This hash should be used for all timestamping services to ensure cryptographic verification of document integrity.

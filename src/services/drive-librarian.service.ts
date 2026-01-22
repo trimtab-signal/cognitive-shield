@@ -8,54 +8,19 @@
 import { PiiDetector } from '../lib/pii-detector';
 import { EvidenceCategorizer } from '../lib/evidence-categorizer';
 import { DocumentProcessor } from '../lib/document-processor';
+import type { PiiMatch, EvidenceClaim, ProcessingResult, ProcessingStats } from '../types/drive-librarian.types';
 
 // Simple Google Drive service interface for now
 interface GoogleDriveService {
   getFile(fileId: string): Promise<any>;
   findOrCreateFolder(name: string): Promise<string>;
-  copyFile(fileId: string, newName: string, parentId: string): Promise<string>;
+  copyFile(fileId: string, newName: string, parentId?: string): Promise<string>;
   listFiles(folderId: string, recursive?: boolean): Promise<any[]>;
   updateDocument(docId: string, requests: any[]): Promise<void>;
   createDocument(title: string, parentId?: string): Promise<string>;
+  getRootFolderId(): Promise<string>;
 }
 
-export interface PiiMatch {
-  entityType: string;
-  text: string;
-  start: number;
-  end: number;
-  score: number;
-  redactedText?: string;
-}
-
-export interface EvidenceClaim {
-  text: string;
-  level: 'verified' | 'supported' | 'theoretical' | 'speculative' | 'unverified';
-  markersFound: string[];
-  paragraphIndex: number;
-  confidence: number;
-}
-
-export interface ProcessingResult {
-  fileId: string;
-  fileName: string;
-  fileType: string;
-  piiFound: PiiMatch[];
-  claimsFound: EvidenceClaim[];
-  category: string;
-  originalBackupId?: string;
-  errors: string[];
-  processedAt: string;
-}
-
-export interface ProcessingStats {
-  filesProcessed: number;
-  piiRedacted: number;
-  claimsCategorized: number;
-  filesOrganized: number;
-  errors: string[];
-  results: ProcessingResult[];
-}
 
 /**
  * Drive Librarian Service - Advanced document processing with PII protection and evidence analysis
@@ -100,7 +65,7 @@ export class DriveLibrarianService {
           stats.filesOrganized++;
         }
       } catch (error) {
-        const errorMsg = `Failed to process ${fileId}: ${error.message}`;
+        const errorMsg = `Failed to process ${fileId}: ${error instanceof Error ? error.message : String(error)}`;
         console.error(`[Drive Librarian] ${errorMsg}`);
         stats.errors.push(errorMsg);
       }
@@ -122,6 +87,9 @@ export class DriveLibrarianService {
    */
   async processFile(fileId: string): Promise<ProcessingResult> {
     const file = await this.driveService.getFile(fileId);
+    if (!file) {
+      throw new Error(`File ${fileId} not found`);
+    }
     const result: ProcessingResult = {
       fileId,
       fileName: file.name,
@@ -165,7 +133,7 @@ export class DriveLibrarianService {
       result.category = await this.categorizeFile(file, textContent, result.claimsFound);
 
     } catch (error) {
-      result.errors.push(error.message);
+      result.errors.push(error instanceof Error ? error.message : String(error));
     }
 
     return result;
@@ -201,7 +169,7 @@ export class DriveLibrarianService {
 
     // Create backup in _Redacted_Originals folder
     const backupFolderId = await this.ensureBackupFolder();
-    const backupId = await this.driveService.copyFile(file.id, backupName, backupFolderId);
+    const backupId = await this.driveService.copyFile(file.id, backupName, backupFolderId || undefined);
 
     console.log(`[Drive Librarian] Created backup: ${backupName}`);
     return backupId;
@@ -254,7 +222,7 @@ export class DriveLibrarianService {
     const reportName = `Librarian_Report_${new Date().toISOString().split('T')[0]}`;
     const reportContent = this.buildReportContent(stats);
 
-    const reportsFolderId = await this.driveService.findOrCreateFolder('_Validation_Reports');
+    const reportsFolderId = await this.driveService.findOrCreateFolder('_Validation_Reports') || 'root';
     const docId = await this.documentProcessor.createReportDocument(reportName, reportContent, reportsFolderId);
 
     return docId;
@@ -299,7 +267,7 @@ export class DriveLibrarianService {
    */
   async restoreFromBackup(originalFileName: string): Promise<string | null> {
     const backupFolderId = await this.ensureBackupFolder();
-    const backups = await this.driveService.listFiles(backupFolderId);
+    const backups = await this.driveService.listFiles(backupFolderId || 'root');
 
     // Find most recent backup matching the original name
     const matchingBackups = backups
@@ -328,10 +296,10 @@ export class DriveLibrarianService {
     recentProcessing: ProcessingStats[];
   }> {
     const rootFolderId = await this.driveService.getRootFolderId();
-    const allFiles = await this.driveService.listFiles(rootFolderId, true);
+    const allFiles = await this.driveService.listFiles(rootFolderId || 'root', true);
 
     const backupFolderId = await this.ensureBackupFolder();
-    const backups = await this.driveService.listFiles(backupFolderId);
+    const backups = await this.driveService.listFiles(backupFolderId || 'root');
 
     return {
       totalFiles: allFiles.length,

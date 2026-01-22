@@ -5,7 +5,7 @@
  * "From raw content to structured knowledge"
  */
 
-import { PiiMatch, EvidenceClaim } from '../services/drive-librarian.service';
+import type { PiiMatch, EvidenceClaim } from '../types/drive-librarian.types';
 
 // Simple Google Drive service interface
 interface GoogleDriveService {

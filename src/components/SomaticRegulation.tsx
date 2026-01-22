@@ -18,7 +18,6 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import {
-  Zap,
   Headphones,
   Eye,
   Cookie,
@@ -29,16 +28,10 @@ import {
   Volume2,
   VolumeX,
   AlertTriangle,
-  CheckCircle2,
   Plus,
   Minus,
   RotateCcw,
-  Play,
-  Pause,
-  Sparkles,
   Brain,
-  ThermometerSun,
-  Vibrate,
 } from 'lucide-react';
 import GOD_CONFIG from '../god.config';
 import { triggerHapticPulse, triggerVagusSignal } from '../lib/haptic-feedback';
@@ -90,9 +83,33 @@ export function SomaticRegulation() {
   const [isRoseActive, setIsRoseActive] = useState(false);
   
   // RAS Monitor
-  const [rasLevel, setRasLevel] = useState<RASLevel>('optimal');
   const [arousalScore, setArousalScore] = useState(50);
-  
+
+  // Derived RAS level from arousal score
+  const rasLevel: RASLevel = arousalScore < 30 ? 'hypo' : arousalScore > 70 ? 'hyper' : 'optimal';
+
+  // Derived sensory voids based on current state
+  const sensoryVoids: string[] = React.useMemo(() => {
+    const voids: string[] = [];
+
+    // Check for sensory gaps
+    if (sensoryStack.audio === 'off' && sensoryStack.chewing === 'off') {
+      voids.push('Low proprioceptive input - consider Heavy Work or chewing');
+    }
+
+    if (rasLevel === 'hypo' && sensoryStack.audio !== 'brown_noise') {
+      voids.push('Under-aroused state - consider Lime Drag or Brown Noise');
+    }
+
+    if (rasLevel === 'hyper' && sensoryStack.visual === 'off') {
+      voids.push('Over-aroused state - consider visual dampening');
+    }
+
+    return voids;
+  }, [sensoryStack, rasLevel]);
+
+  const showVoidWarning = sensoryVoids.length > 0;
+
   // Airlock
   const [airlock, setAirlock] = useState<AirlockState>({
     currentContext: 'rest',
@@ -114,8 +131,6 @@ export function SomaticRegulation() {
   const gainNodeRef = useRef<GainNode | null>(null);
   
   // Sensory Void Detection
-  const [sensoryVoids, setSensoryVoids] = useState<string[]>([]);
-  const [showVoidWarning, setShowVoidWarning] = useState(false);
 
   // ============================================================================
   // LIME DRAG PROTOCOL
@@ -185,7 +200,7 @@ export function SomaticRegulation() {
       setIsBrownNoiseOn(false);
     } else {
       // Start
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const audioContext = new (window.AudioContext || (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
       audioContextRef.current = audioContext;
       
       // Create brown noise (random walk)
@@ -276,16 +291,6 @@ export function SomaticRegulation() {
   // RAS MONITOR
   // ============================================================================
   
-  useEffect(() => {
-    // Determine RAS level based on arousal score
-    if (arousalScore < 30) {
-      setRasLevel('hypo');
-    } else if (arousalScore > 70) {
-      setRasLevel('hyper');
-    } else {
-      setRasLevel('optimal');
-    }
-  }, [arousalScore]);
   
   const adjustArousal = (delta: number) => {
     setArousalScore(prev => Math.max(0, Math.min(100, prev + delta)));
@@ -322,25 +327,6 @@ export function SomaticRegulation() {
   // SENSORY VOID DETECTION
   // ============================================================================
   
-  useEffect(() => {
-    const voids: string[] = [];
-    
-    // Check for sensory gaps
-    if (sensoryStack.audio === 'off' && sensoryStack.chewing === 'off') {
-      voids.push('Low proprioceptive input - consider Heavy Work or chewing');
-    }
-    
-    if (rasLevel === 'hypo' && sensoryStack.audio !== 'brown_noise') {
-      voids.push('Under-aroused state - consider Lime Drag or Brown Noise');
-    }
-    
-    if (rasLevel === 'hyper' && sensoryStack.visual === 'off') {
-      voids.push('Over-aroused state - consider visual dampening');
-    }
-    
-    setSensoryVoids(voids);
-    setShowVoidWarning(voids.length > 0);
-  }, [sensoryStack, rasLevel]);
 
   // ============================================================================
   // RENDER HELPERS

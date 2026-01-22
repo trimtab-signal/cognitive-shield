@@ -41,7 +41,7 @@ export function SettingsPanel() {
         method: 'GET',
         signal: AbortSignal.timeout(5000),
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         const models = data.models?.map((m: { name: string }) => m.name.split(':')[0]) || [];
@@ -50,7 +50,8 @@ export function SettingsPanel() {
       } else {
         setOllamaStatus('error');
       }
-    } catch {
+    } catch (error) {
+      console.warn('Ollama connection check failed (this is expected if Ollama is not running):', error);
       setOllamaStatus('offline');
     }
   };

@@ -282,12 +282,12 @@ export default function SonicShield() {
   // Clean up audio nodes
   const stopAllAudio = useCallback(() => {
     oscillatorsRef.current.forEach(osc => {
-      try { osc.stop(); } catch {}
+      try { osc.stop(); } catch { /* Oscillator may already be stopped */ }
     });
     oscillatorsRef.current = [];
 
     if (noiseSourceRef.current) {
-      try { noiseSourceRef.current.stop(); } catch {}
+      try { noiseSourceRef.current.stop(); } catch { /* Noise source may already be stopped */ }
       noiseSourceRef.current = null;
     }
 
@@ -414,16 +414,6 @@ export default function SonicShield() {
     oscillatorsRef.current.push(padOsc);
   }, [initAudio, stopAllAudio]);
 
-  // Visualizer update
-  const updateVisualizer = useCallback(() => {
-    if (analyserRef.current && isPlaying) {
-      const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
-      analyserRef.current.getByteFrequencyData(dataArray);
-      setVisualizerData(Array.from(dataArray));
-      animationFrameRef.current = requestAnimationFrame(updateVisualizer);
-    }
-  }, [isPlaying]);
-
   // Toggle play/pause
   const togglePlay = useCallback(() => {
     if (isPlaying) {
@@ -454,17 +444,34 @@ export default function SonicShield() {
     }
   }, [volume]);
 
+  // Visualizer update - using ref to avoid circular dependency
+  const updateVisualizerRef = useRef<() => void>();
+
+  const updateVisualizer = useCallback(() => {
+    if (analyserRef.current && isPlaying) {
+      const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
+      analyserRef.current.getByteFrequencyData(dataArray);
+      setVisualizerData(Array.from(dataArray));
+      animationFrameRef.current = requestAnimationFrame(updateVisualizerRef.current!);
+    }
+  }, [isPlaying]);
+
+  // Update ref when updateVisualizer changes
+  React.useEffect(() => {
+    updateVisualizerRef.current = updateVisualizer;
+  }, [updateVisualizer]);
+
   // Start visualizer when playing
   useEffect(() => {
-    if (isPlaying) {
-      updateVisualizer();
+    if (isPlaying && updateVisualizerRef.current) {
+      updateVisualizerRef.current();
     }
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isPlaying, updateVisualizer]);
+  }, [isPlaying]);
 
   // Cleanup on unmount
   useEffect(() => {

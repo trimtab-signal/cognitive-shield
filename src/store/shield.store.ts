@@ -124,17 +124,17 @@ export const useShieldStore = create<ShieldStore>()(
 
           // Calculate spoons cost
           let spoons = 1;
-          if (result.voltage > 0.66) spoons = 3;
-          else if (result.voltage > 0.33) spoons = 2;
+          if (result.voltage > 6.6) spoons = 3;
+          else if (result.voltage > 3.3) spoons = 2;
           spoons += Math.min(result.triggers.length, 2);
           spoons = Math.min(spoons, 5);
 
           // Determine emotional valence
           let emotionalValence: 'calm' | 'affection' | 'anxiety' | 'hostility' | 'neutral' = 'neutral';
-          if (result.voltage > 0.66) emotionalValence = 'hostility';
-          else if (result.voltage > 0.33) emotionalValence = 'anxiety';
+          if (result.voltage > 6.6) emotionalValence = 'hostility';
+          else if (result.voltage > 3.3) emotionalValence = 'anxiety';
           else if (/love|care|happy|joy/i.test(combinedContent)) emotionalValence = 'affection';
-          else if (result.voltage < 0.2) emotionalValence = 'calm';
+          else if (result.voltage < 2.0) emotionalValence = 'calm';
 
           const payload: ProcessedPayload = {
             ...result,
@@ -142,7 +142,7 @@ export const useShieldStore = create<ShieldStore>()(
             id: generateId(),
             spoons,
             emotionalValence,
-          } as ProcessedPayload;
+          } as unknown as ProcessedPayload;
 
           // Check if message should be gated to deep processing queue
           const heartbeatStore = useHeartbeatStore.getState();
@@ -166,15 +166,15 @@ export const useShieldStore = create<ShieldStore>()(
           
           // Calculate spoons cost (fallback)
           let spoons = 1;
-          if (result.voltage > 0.66) spoons = 3;
-          else if (result.voltage > 0.33) spoons = 2;
+          if (result.voltage > 6.6) spoons = 3;
+          else if (result.voltage > 3.3) spoons = 2;
           spoons += Math.min(result.triggers.length, 2);
           spoons = Math.min(spoons, 5);
 
           let emotionalValence: 'calm' | 'affection' | 'anxiety' | 'hostility' | 'neutral' = 'neutral';
-          if (result.voltage > 0.66) emotionalValence = 'hostility';
-          else if (result.voltage > 0.33) emotionalValence = 'anxiety';
-          else if (result.voltage < 0.2) emotionalValence = 'calm';
+          if (result.voltage > 6.6) emotionalValence = 'hostility';
+          else if (result.voltage > 3.3) emotionalValence = 'anxiety';
+          else if (result.voltage < 2.0) emotionalValence = 'calm';
 
           const payload: ProcessedPayload = {
             ...result,
@@ -182,7 +182,7 @@ export const useShieldStore = create<ShieldStore>()(
             id: generateId(),
             spoons,
             emotionalValence,
-          } as ProcessedPayload;
+          } as unknown as ProcessedPayload;
 
           // Check if message should be gated (fallback)
           const heartbeatStore = useHeartbeatStore.getState();
@@ -405,13 +405,13 @@ function processLocally(content: string): ShieldAPIResponse {
     }
   }
 
-  // Calculate voltage
-  let voltage = 0.1;
-  voltage += triggers.length * 0.15;
-  voltage += (content.match(/!/g) || []).length * 0.05;
-  voltage += (content.match(/\?/g) || []).length * 0.03;
-  voltage += content.toUpperCase() === content && content.length > 10 ? 0.3 : 0;
-  voltage = Math.min(voltage, 1.0);
+  // Calculate voltage (1-10 scale as per checklist requirement)
+  let voltage = 1; // Base voltage level 1
+  voltage += triggers.length * 1.5; // Each trigger adds 1.5
+  voltage += (content.match(/!/g) || []).length * 0.5; // Each ! adds 0.5
+  voltage += (content.match(/\?/g) || []).length * 0.3; // Each ? adds 0.3
+  voltage += content.toUpperCase() === content && content.length > 10 ? 3 : 0; // ALL CAPS adds 3
+  voltage = Math.min(Math.max(voltage, 1), 10); // Clamp between 1-10
 
   // Detect HumanOS (simple heuristics)
   let humanOS: HumanOSType = 'empath';
@@ -456,11 +456,9 @@ function processLocally(content: string): ShieldAPIResponse {
     triggers,
     humanOS,
     translation,
-    why: voltage > 0.5 
+    why: voltage > 5.0
       ? 'The sender appears stressed or overwhelmed. This is likely situational, not personal.'
       : 'The sender seems relatively calm. Standard communication patterns detected.',
-    spoons,
-    emotionalValence,
   };
 }
 

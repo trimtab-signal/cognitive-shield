@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text, Html, Sphere, Tetrahedron, Box, Torus } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -149,7 +149,7 @@ function UniverseVisual({ progress }: { progress: number }) {
 function TetrahedronVisual({ progress }: { progress: number }) {
   const meshRef = React.useRef<THREE.Mesh>(null);
 
-  React.useFrame((state) => {
+  useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
       meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
@@ -536,7 +536,7 @@ export default function PerfectOnboarding({ onComplete, onNavigateToCoherenceQue
         cancelAnimationFrame(animationFrame);
       }
     };
-  }, [currentStep, isPlaying, isLastStep, currentStepData.duration, navigate]);
+  }, [currentStep, isPlaying, isLastStep, currentStepData.duration]);
 
   // Show skip option after 3 seconds
   useEffect(() => {

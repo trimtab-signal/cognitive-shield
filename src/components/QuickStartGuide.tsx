@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from 'react';
-import { Shield, Zap, Box, Code2, Rocket, CheckCircle2, ArrowRight, ExternalLink } from 'lucide-react';
+import { Shield, Zap, Box, Code2, Rocket, CheckCircle2, ArrowRight } from 'lucide-react';
 import GOD_CONFIG from '../god.config';
 
 interface Step {

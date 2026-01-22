@@ -16,12 +16,14 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { SPACING, GRID_GAP, CARD_PADDING, SECTION_GAP, COLORS } from '../../config/design-system';
+import { SPACING, GRID_GAP, CARD_PADDING, SECTION_GAP, COLORS, OPACITY } from '../../config/design-system';
+import { CosmicTheme } from '../../config/design-tokens';
 import { MathOverlay } from '../dev/MathOverlay';
 import { navigatorService } from '../../services/navigator.service';
 import { HistoryService } from '../../services/history.service';
 import { useHeartbeatStore } from '../../stores/heartbeat.store';
 import { NavigatorConfig } from '../../config/god.config';
+import { secureStorage, insecureStorage } from '../../lib/secure-storage';
 
 type AIProvider = 'ollama' | 'openai' | 'gemini';
 
@@ -35,17 +37,33 @@ export const SettingsPanel: React.FC = () => {
   const maxSpoons = useHeartbeatStore(state => state.operator.maxSpoons);
   
   useEffect(() => {
-    setNavigatorUrl(localStorage.getItem('NAVIGATOR_URL') || NavigatorConfig.telemetryEndpoint);
-    setAiProvider((localStorage.getItem('AI_PROVIDER') as AIProvider) || 'ollama');
-    setOllamaUrl(localStorage.getItem('OLLAMA_URL') || 'http://localhost:11434');
-    setApiKey(localStorage.getItem('AI_API_KEY') || '');
+    // Load non-sensitive settings from insecure storage
+    setNavigatorUrl(insecureStorage.getItem('NAVIGATOR_URL') || NavigatorConfig.telemetryEndpoint);
+    setAiProvider((insecureStorage.getItem('AI_PROVIDER') as AIProvider) || 'ollama');
+    setOllamaUrl(insecureStorage.getItem('OLLAMA_URL') || 'http://localhost:11434');
+
+    // Load sensitive API key from secure storage
+    secureStorage.getItem('AI_API_KEY').then(encryptedKey => {
+      setApiKey(encryptedKey || '');
+    }).catch(() => {
+      setApiKey(''); // Fallback if decryption fails
+    });
   }, []);
 
-  const handleSave = () => {
-    localStorage.setItem('NAVIGATOR_URL', navigatorUrl);
-    localStorage.setItem('AI_PROVIDER', aiProvider);
-    localStorage.setItem('OLLAMA_URL', ollamaUrl);
-    localStorage.setItem('AI_API_KEY', apiKey);
+  const handleSave = async () => {
+    // Save non-sensitive settings to insecure storage
+    insecureStorage.setItem('NAVIGATOR_URL', navigatorUrl);
+    insecureStorage.setItem('AI_PROVIDER', aiProvider);
+    insecureStorage.setItem('OLLAMA_URL', ollamaUrl);
+
+    // Save sensitive API key to secure storage
+    try {
+      await secureStorage.setItem('AI_API_KEY', apiKey);
+    } catch (error) {
+      console.error('Failed to securely store API key:', error);
+      // Fallback to insecure storage if encryption fails
+      insecureStorage.setItem('AI_API_KEY', apiKey);
+    }
     
     // Trigger reconnection
     navigatorService.disconnect();

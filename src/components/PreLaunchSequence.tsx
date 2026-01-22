@@ -245,7 +245,18 @@ export function PreLaunchSequence() {
   };
 
   useEffect(() => {
-    runAllChecks();
+    let mounted = true;
+
+    const runChecks = async () => {
+      if (!mounted) return;
+      await runAllChecks();
+    };
+
+    runChecks();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const allPassed = Array.from(checkResults.values()).every((r) => r.passed);

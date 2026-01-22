@@ -16,7 +16,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { CosmicTheme } from '../../config/cosmic-theme';
+import { CosmicTheme } from '../../config/design-tokens';
 import { useHeartbeatStore } from '../../stores/heartbeat.store';
 
 type Phase = 'inhale' | 'hold1' | 'exhale' | 'hold2';

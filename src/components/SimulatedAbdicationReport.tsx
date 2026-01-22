@@ -7,7 +7,7 @@
  */
 
 import { useState, useMemo } from 'react';
-import { Lock, Key, Shield, Hexagon, Heart, Zap, AlertTriangle, CheckCircle2, XCircle, TrendingUp, TrendingDown, Minus, Copy, Radio } from 'lucide-react';
+import { Lock, Key, Shield, Hexagon, Heart, Zap, CheckCircle2, TrendingUp, TrendingDown, Minus, Copy, Radio } from 'lucide-react';
 import GOD_CONFIG from '../god.config';
 import useShieldStore from '../store/shield.store';
 import useHeartbeatStore from '../store/heartbeat.store';
@@ -15,7 +15,7 @@ import { getPlatform } from '../lib/native-bridge';
 import { writeToClipboard } from '../lib/native-bridge';
 
 export function SimulatedAbdicationReport() {
-  const { userHumanOS, provider, ollamaEndpoint, processed, deepProcessingQueue } = useShieldStore();
+  const { userHumanOS, provider, processed, deepProcessingQueue } = useShieldStore();
   const { checkInHistory, getTodayCheckIn, currentStatus, myPeerId } = useHeartbeatStore();
   const [copied, setCopied] = useState(false);
 

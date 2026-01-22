@@ -16,7 +16,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { CosmicTheme } from '../../config/cosmic-theme';
+import { CosmicTheme } from '../../config/design-tokens';
 import { useHeartbeatStore } from '../../stores/heartbeat.store';
 // Use updateSpoons from store to add/remove spoons
 

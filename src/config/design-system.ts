@@ -36,13 +36,44 @@ export const OPACITY = {
 };
 
 export const COLORS = {
-  cosmic: '#C084FC', // Violet
-  delta: '#34D399',  // Green
-  aries: '#F59E0B',  // Gold
-  saturn: '#64748B', // Gray
-  love: '#FF6B9D',   // Pink
-  unity: '#60A5FA',  // Blue
-  signal: '#F87171', // Red
+  // Core semantic colors
+  cosmic: '#C084FC', // Violet - spiritual, quantum
+  delta: '#34D399',  // Green - growth, nature, delta topology
+  aries: '#F59E0B',  // Gold - energy, fire, transformation
+  saturn: '#64748B', // Gray - structure, discipline, boundaries
+  love: '#FF6B9D',   // Pink - connection, empathy, love
+  unity: '#60A5FA',  // Blue - harmony, communication, unity
+  signal: '#F87171', // Red - warning, danger, high voltage
+
+  // Extended palette for UI states
+  success: '#10B981',    // Green - success, security
+  warning: '#F59E0B',    // Amber - caution, warning
+  error: '#EF4444',      // Red - error, danger
+  info: '#3B82F6',       // Blue - information, calm
+
+  // Neutrals
+  white: '#FFFFFF',
+  black: '#000000',
+  gray: {
+    50: '#F9FAFB',
+    100: '#F3F4F6',
+    200: '#E5E7EB',
+    300: '#D1D5DB',
+    400: '#9CA3AF',
+    500: '#6B7280',
+    600: '#4B5563',
+    700: '#374151',
+    800: '#1F2937',
+    900: '#111827',
+  },
+
+  // Quantum colors (SIC-POVM inspired)
+  quantum: {
+    psi0: '#FF6B9D',  // |ψ₀⟩ - Love state
+    psi1: '#60A5FA',  // |ψ₁⟩ - Unity state
+    psi2: '#34D399',  // |ψ₂⟩ - Delta state
+    psi3: '#F59E0B',  // |ψ₃⟩ - Aries state
+  }
 };
 
 // Magical polish: every pixel, every ratio, every color is cosmic and precise.

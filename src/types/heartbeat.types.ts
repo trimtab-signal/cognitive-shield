@@ -3,7 +3,6 @@
  * Status check-in system with peer mesh and dead man's switch
  */
 
-import type { GOD_CONFIG } from '../god.config';
 
 export type HeartbeatStatus = 'green' | 'yellow' | 'orange' | 'red';
 

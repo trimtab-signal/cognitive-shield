@@ -17,7 +17,7 @@
 
 import React, { useState } from 'react';
 import { SPACING, GRID_GAP, CARD_PADDING, SECTION_GAP, COLORS, FONT_SIZES } from '../../config/design-system';
-import { CosmicTheme } from '../../config/cosmic-theme';
+import { CosmicTheme } from '../../config/design-tokens';
 // Cosmic sparkle particle effect
 const CosmicSparkles: React.FC = () => (
   <div style={{
@@ -259,10 +259,26 @@ export const GamesHub: React.FC = () => {
 
   const selectedGame = GAMES.find(g => g.id === activeGame);
 
+  // Main function body
+  {
+
   // Show game selector if no active game
   if (!activeGame) {
+    return (
+      <div style={{
+        background: CosmicTheme.backgroundGradient,
+        borderRadius: CosmicTheme.cardRadius,
+        padding: CosmicTheme.cardPadding,
+        border: `1px solid ${CosmicTheme.colors.delta}`,
+        position: 'relative',
+        overflow: 'hidden',
+        boxShadow: CosmicTheme.cosmicGlow,
+      }}>
         <CosmicSparkles />
-      <FloatingTetrahedron />
+        <FloatingTetrahedron />
+      </div>
+    );
+  }
     return (
       <div style={{
         background: CosmicTheme.backgroundGradient,
@@ -275,9 +291,7 @@ export const GamesHub: React.FC = () => {
       }}>
         <StarfieldBG />
         {/* Cosmic Ratio Overlay */}
-        <div style={{
-          {...CosmicTheme.ratioOverlay.style}
-        >
+        <div style={CosmicTheme.ratioOverlay.style}>
           <span style={CosmicTheme.ratioOverlay.style}>
             {CosmicTheme.ratioOverlay.text}
           </span>
@@ -453,7 +467,7 @@ export const GamesHub: React.FC = () => {
       <GameComponent />
     </div>
   );
-};
+}
 
 // Export individual games for direct use
 export { BubblePop, BreathingOrb, PatternTap, ColorSort, Jitterbug, MathWizard, ScienceLab, ArtCanvas, PoetryPad, MusicMaker, DeltaProtocol, EternalStarfield, GrandfatherClock };

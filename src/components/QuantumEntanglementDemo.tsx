@@ -8,8 +8,23 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { quantumEntanglementBridge } from '../lib/quantum-entanglement-bridge';
-import { performSICPOVMMeasurement, type SICPOVMState } from '../lib/tetrahedron-math';
 import GOD_CONFIG from '../god.config';
+
+// Local SIC-POVM implementation for demo
+interface SICPOVMState {
+  theta: number;
+  phi: number;
+  purity: number;
+  measurement?: number;
+  timestamp?: number;
+}
+
+function performSICPOVMMeasurement(quantumState: { theta: number; phi: number; purity: number }) {
+  // Simplified SIC-POVM measurement for demo
+  const outcome = Math.floor(Math.random() * 4); // 4 possible outcomes for tetrahedron
+  const probability = quantumState.purity * 0.25 + (1 - quantumState.purity) * (1/4);
+  return { outcome, probability };
+}
 
 // Particle visualization
 interface EntangledParticle {

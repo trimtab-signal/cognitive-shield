@@ -7,6 +7,7 @@ import { useState, useRef } from 'react';
 import { Send, ShieldCheck, Clipboard } from 'lucide-react';
 import GOD_CONFIG from '../god.config';
 import useShieldStore from '../store/shield.store';
+import { componentStyles } from '../config/design-tokens';
 
 export function MessageInput() {
   const [message, setMessage] = useState('');
@@ -38,13 +39,10 @@ export function MessageInput() {
   };
 
   return (
-    <div 
+    <div
       className="message-input"
       style={{
-        backgroundColor: GOD_CONFIG.theme.bg.secondary,
-        border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-        borderRadius: 12,
-        padding: 16,
+        ...componentStyles.card,
         marginBottom: 16,
       }}
     >
@@ -94,15 +92,8 @@ export function MessageInput() {
           onChange={(e) => setSource(e.target.value)}
           placeholder="Source (e.g., 'Partner', 'Boss', 'Friend')"
           style={{
+            ...componentStyles.input,
             width: '100%',
-            padding: '10px 14px',
-            backgroundColor: GOD_CONFIG.theme.bg.tertiary,
-            border: `1px solid ${GOD_CONFIG.theme.border.default}`,
-            borderRadius: 6,
-            color: GOD_CONFIG.theme.text.primary,
-            fontSize: 13,
-            fontFamily: GOD_CONFIG.typography.fontFamily.body,
-            outline: 'none',
           }}
         />
       </div>

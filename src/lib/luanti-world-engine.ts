@@ -44,6 +44,9 @@ quantum = {}
 quantum.players = {}
 quantum.world_coherence = 0.35
 
+-- Global reference for debugging
+_G.quantum_status = quantum
+
 -- Coherence calculation based on player actions
 function quantum.calculate_coherence(player)
     local name = player:get_player_name()

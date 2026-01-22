@@ -26,7 +26,160 @@ export enum ErrorCategory {
   HARDWARE = 'hardware',
   PERMISSION = 'permission',
   RATE_LIMIT = 'rate_limit',
+  CONSTITUTIONAL = 'constitutional',
   UNKNOWN = 'unknown'
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// CONSTITUTIONAL VIOLATION ERROR
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * ConstitutionalViolationError - Thrown when G.O.D. Protocol constitutional rules are violated
+ *
+ * This error is thrown when:
+ * - Non-tetrahedral group sizes are attempted (must be exactly 4 vertices)
+ * - Plaintext sensitive data is passed where EncryptedBlob is required
+ * - Centralized control patterns are detected
+ * - Admin roles exist outside the geometric topology
+ * - Other violations of the G.O.D. Protocol constitution
+ */
+export class ConstitutionalViolationError extends Error {
+  public readonly category = ErrorCategory.CONSTITUTIONAL;
+  public readonly severity = ErrorSeverity.CRITICAL;
+  public readonly code: string;
+  public readonly violation: string;
+  public readonly context?: any;
+  public readonly recoverable = false; // Constitutional violations require code changes
+
+  constructor(
+    violation: string,
+    details?: string,
+    context?: any
+  ) {
+    const message = `CONSTITUTIONAL VIOLATION: ${violation}${details ? ` - ${details}` : ''}`;
+    super(message);
+
+    this.name = 'ConstitutionalViolationError';
+    this.code = 'CONSTITUTIONAL_VIOLATION';
+    this.violation = violation;
+    this.context = context;
+
+    // Maintains proper stack trace for where error was thrown
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, ConstitutionalViolationError);
+    }
+  }
+
+  /**
+   * Get a detailed explanation of the violation for logging/debugging
+   */
+  getDetailedExplanation(): string {
+    const explanations: Record<string, string> = {
+      'non_tetrahedral_group': 'The G.O.D. Protocol requires exactly 4 vertices per tetrahedron. Dynamic group sizes violate the geometric imperative.',
+      'plaintext_sensitive_data': 'Sensitive user content must be encrypted as EncryptedBlob. Plaintext transmission violates the privacy axiom.',
+      'centralized_control': 'Centralized admin roles violate the ABDICATION PRINCIPLE. All control must be tethered to abdicate.sh.',
+      'infinite_scroll': 'Infinite scroll patterns violate PROHIBITED PATTERNS. Use spatial navigation instead.',
+      'vanity_metrics': 'Like buttons and engagement metrics violate PROHIBITED PATTERNS. Focus on resilience over vanity.',
+      'unencrypted_backup': 'Cloud backups must be encrypted. Unencrypted storage violates the local-first privacy axiom.',
+      'missing_god_config': 'All configuration must be centralized in GOD_CONFIG. Hardcoded values violate the configuration system.',
+      'non_geometric_navigation': 'Navigation must be geometric/spatial. List-based navigation violates the synergetic UX philosophy.',
+      'missing_haptic_feedback': 'Digital actions must have physical recoil via haptic feedback. Missing haptics violates sensory regulation.',
+      'screen_reader_incompatible': 'Must support screen readers first. Accessibility violations break the universal accessibility requirement.',
+    };
+
+    return explanations[this.violation] ||
+      `Unknown constitutional violation: ${this.violation}. Refer to G.O.D. Protocol Constitution for details.`;
+  }
+
+  /**
+   * Get remediation steps for this violation
+   */
+  getRemediationSteps(): string[] {
+    const remediations: Record<string, string[]> = {
+      'non_tetrahedral_group': [
+        'Review Tetrahedron.form() constructor',
+        'Ensure group size validation throws this error',
+        'Consider recursive tetrahedron scaling for larger networks'
+      ],
+      'plaintext_sensitive_data': [
+        'Replace string parameters with EncryptedBlob type',
+        'Use Protocol Buffers for binary serialization',
+        'Implement zero-knowledge proofs where possible'
+      ],
+      'centralized_control': [
+        'Remove admin roles from data structures',
+        'Implement abdicate.sh script for key destruction',
+        'Ensure all governance is geometric/topological'
+      ],
+      'infinite_scroll': [
+        'Replace with 3D tetrahedron spatial navigation',
+        'Implement Ollivier-Ricci curvature visualization',
+        'Use geometric constraints for content boundaries'
+      ],
+      'vanity_metrics': [
+        'Remove like/comment counts from UI',
+        'Focus on relationship scoring via L.O.V.E. Protocol',
+        'Implement care event recording instead'
+      ],
+      'unencrypted_backup': [
+        'Encrypt all cloud sync data',
+        'Use PGLite/sqlite-wasm for local storage',
+        'Implement EncryptedBlob for all sensitive data'
+      ],
+      'missing_god_config': [
+        'Import GOD_CONFIG from @/god.config',
+        'Move hardcoded values to GOD_CONFIG object',
+        'Ensure all components reference centralized config'
+      ],
+      'non_geometric_navigation': [
+        'Implement tetrahedron-based navigation',
+        'Use spatial 3D interfaces over lists',
+        'Add Ollivier-Ricci curvature display'
+      ],
+      'missing_haptic_feedback': [
+        'Integrate LRA haptic actuators',
+        'Map digital actions to physical feedback',
+        'Test with sensory regulation modes'
+      ],
+      'screen_reader_incompatible': [
+        'Implement screen reader first design',
+        'Add high contrast mode support',
+        'Include reduced motion preferences',
+        'Test with accessibility audit tools'
+      ]
+    };
+
+    return remediations[this.violation] || [
+      'Review G.O.D. Protocol Constitution',
+      'Implement constitutional requirements',
+      'Test for compliance before deployment'
+    ];
+  }
+
+  /**
+   * Convert to WalletError format for the error handler
+   */
+  toWalletError(): WalletError {
+    return {
+      id: `const_violation_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      category: this.category,
+      severity: this.severity,
+      code: this.code,
+      message: this.message,
+      details: {
+        violation: this.violation,
+        explanation: this.getDetailedExplanation(),
+        remediation: this.getRemediationSteps(),
+        context: this.context
+      },
+      timestamp: Date.now(),
+      context: this.context,
+      stack: this.stack,
+      recoverable: this.recoverable,
+      recoveryAction: RecoveryAction.NONE
+    };
+  }
 }
 
 export enum ErrorSeverity {
@@ -149,6 +302,11 @@ export class ErrorHandler {
   private classifyError(error: Error | any, context?: WalletError['context']): WalletError {
     const errorString = error?.message || error?.toString() || 'Unknown error';
     const stack = error?.stack;
+
+    // Constitutional violations - handle specially
+    if (error instanceof ConstitutionalViolationError) {
+      return error.toWalletError();
+    }
 
     // Network errors
     if (errorString.includes('fetch') || errorString.includes('network') ||
@@ -367,6 +525,13 @@ export class ErrorHandler {
       maxAttempts: 5,
       retryDelay: 5000
     });
+
+    this.recoveryStrategies.set('CONSTITUTIONAL_VIOLATION', {
+      action: RecoveryAction.NONE,
+      description: 'Constitutional violation - requires code changes',
+      automatic: false,
+      userMessage: 'A constitutional violation has been detected. This requires developer intervention to fix the underlying code issue.'
+    });
   }
 
   /**
@@ -531,6 +696,9 @@ export class ErrorHandler {
 
       case 'RATE_LIMIT_ERROR':
         return 'Too many requests. Waiting before retrying...';
+
+      case 'CONSTITUTIONAL_VIOLATION':
+        return 'System integrity violation detected. This issue requires developer attention to maintain protocol compliance.';
 
       default:
         return 'An unexpected issue occurred. The system is attempting to recover.';

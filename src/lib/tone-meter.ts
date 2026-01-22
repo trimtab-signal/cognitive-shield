@@ -23,31 +23,31 @@ export function analyzeTone(payload: ProcessedPayload): ToneAnalysis {
   const voltage = payload.voltage;
   const emotionalValence = payload.emotionalValence;
 
-  // Determine tone level
+  // Determine tone level (using 1-10 voltage scale)
   let level: ToneLevel = 'calm';
-  if (voltage > 0.66 || emotionalValence === 'hostility') {
+  if (voltage > 6.6 || emotionalValence === 'hostility') {
     level = 'hostility';
-  } else if (voltage > 0.33 || emotionalValence === 'anxiety') {
+  } else if (voltage > 3.3 || emotionalValence === 'anxiety') {
     level = 'anxiety';
   } else if (emotionalValence === 'affection') {
     level = 'affection';
   }
 
-  // Detect Genre Error
+  // Detect Genre Error (using 1-10 voltage scale)
   // High-arousal hostility vs low-arousal technical data = mismatch
-  const genreError = 
-    (voltage > 0.66 && payload.humanOS === 'order') || // High emotion + Order OS = Physics/Poetics mismatch
-    (voltage < 0.2 && payload.humanOS === 'empath') || // Low emotion + Empath OS = potential mismatch
-    (voltage > 0.5 && payload.triggers.length === 0); // High voltage but no triggers = cognitive impedance
+  const genreError =
+    (voltage > 6.6 && payload.humanOS === 'order') || // High emotion + Order OS = Physics/Poetics mismatch
+    (voltage < 2.0 && payload.humanOS === 'empath') || // Low emotion + Empath OS = potential mismatch
+    (voltage > 5.0 && payload.triggers.length === 0); // High voltage but no triggers = cognitive impedance
 
   let genreErrorType: ToneAnalysis['genreErrorType'] = undefined;
   let message = '';
 
   if (genreError) {
-    if (voltage > 0.66 && payload.humanOS === 'order') {
+    if (voltage > 6.6 && payload.humanOS === 'order') {
       genreErrorType = 'physics-poetics';
       message = 'A Genre Error has been detected. You are speaking Physics; the sender is speaking Poetics. The disconnect is bidirectional—the Double Empathy Problem. Neither party is "wrong."';
-    } else if (voltage < 0.2 && payload.humanOS === 'empath') {
+    } else if (voltage < 2.0 && payload.humanOS === 'empath') {
       genreErrorType = 'high-low-arousal';
       message = 'A Genre Error has been detected. The sender is operating in low-arousal mode (Physics) while you are in high-arousal mode (Poetics). This is a cognitive impedance mismatch, not a personal attack.';
     } else {

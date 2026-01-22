@@ -5,7 +5,7 @@
  * "From speculation to verification - evidence-based knowledge organization"
  */
 
-import { EvidenceClaim } from '../services/drive-librarian.service';
+import type { EvidenceClaim } from '../types/drive-librarian.types';
 
 export class EvidenceCategorizer {
   private evidenceMarkers: Record<string, string[]> = {

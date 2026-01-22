@@ -5,7 +5,7 @@
  * "Privacy protection through intelligent detection"
  */
 
-import { PiiMatch } from '../services/drive-librarian.service';
+import type { PiiMatch } from '../types/drive-librarian.types';
 
 export class PiiDetector {
   private patterns: Record<string, RegExp> = {
