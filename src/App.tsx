@@ -79,7 +79,7 @@ const JitterbugDemo = lazy(() => import('./components/JitterbugDemo'));
 type Tab = 'phenix-navigator' | 'repository' | 'library' | 'onboarding' | 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'phenix' | 'coherence-quest' | 'family-law' | 'court-docs' | 'evidence' | 'adams-challenge' | 'gensync' | 'firmware' | 'sovereignty' | 'jitterbug' | 'about';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<Tab>('shield');
+  const [activeTab, setActiveTab] = useState<Tab>('jitterbug');
   const [safeMenuOpen, setSafeMenuOpen] = useState(false);
   const [phenixOpen, setPhenixOpen] = useState(false);
   const [tick, setTick] = useState(0);
@@ -89,6 +89,10 @@ function App() {
     const interval = setInterval(() => setTick(t => t + 1), 1000);
     return () => clearInterval(interval);
   }, []);
+
+  // Metaphysical Jitterbug state - determines interface complexity
+  const [jitterbugPhase, setJitterbugPhase] = useState(0);
+  const [showDepth, setShowDepth] = useState(false);
 
   // Compute tab statuses from real system state
   const tabStatuses = useMemo(() => computeTabStatuses(), [tick]);
@@ -333,7 +337,24 @@ function App() {
             { id: 'features' as Tab, label: 'Features', icon: Star },
             { id: 'manifesto' as Tab, label: 'Manifesto', icon: BookOpen },
             { id: 'about' as Tab, label: 'About', icon: Info },
-          ].map(({ id, label, icon: Icon }) => {
+          // Metaphysical Jitterbug Navigation - Only show based on cognitive phase
+          ].filter(({ id }) => {
+            // Always show Jitterbug (the core)
+            if (id === 'jitterbug') return true;
+
+            // Show essential tools when phase > 0.3 (cognitive need detected)
+            if (jitterbugPhase > 0.3) {
+              return ['gensync', 'sovereignty', 'math', 'phenix'].includes(id);
+            }
+
+            // Show all tools when phase > 0.7 (deep processing needed)
+            if (jitterbugPhase > 0.7) {
+              return ['shield', 'safe', 'heartbeat', 'authentic-heart'].includes(id);
+            }
+
+            // Show nothing else by default - keep it minimal and calming
+            return false;
+          }).map(({ id, label, icon: Icon }) => {
             const status = tabStatuses[id] as TabStatus | undefined;
             const statusColor = status ? getStatusColor(status.level) : GOD_CONFIG.theme.text.muted;
             const isActive = activeTab === id;
@@ -836,7 +857,7 @@ function App() {
         {activeTab === 'jitterbug' && (
           <div className="jitterbug-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🧠 Loading Cognitive Jitterbug...</div>}>
-              <JitterbugDemo />
+              <JitterbugDemo onPhaseChange={setJitterbugPhase} />
             </Suspense>
           </div>
         )}
