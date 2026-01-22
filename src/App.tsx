@@ -95,11 +95,12 @@ const UniversalAppGuide = lazy(() => import('./components/UniversalAppGuide'));
 const EquilibriumDashboard = lazy(() => import('./components/EquilibriumDashboard'));
 const FindYourselfGuidebook = lazy(() => import('./components/FindYourselfGuidebook'));
 const TrueIdentitiesManifestation = lazy(() => import('./components/TrueIdentitiesManifestation'));
+const UniversalInterface = lazy(() => import('./components/UniversalInterface'));
 
-type Tab = 'universal-guide' | 'phenix-navigator' | 'repository' | 'library' | 'onboarding' | 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'phenix' | 'coherence-quest' | 'family-law' | 'court-docs' | 'evidence' | 'adams-challenge' | 'gensync' | 'firmware' | 'sovereignty' | 'jitterbug' | 'geodesic-self' | 'resonance' | 'temporal-immortality' | 'quantum-dreams' | 'infinite-mind' | 'love-harmonics' | 'planetary-consciousness' | 'mobile-sensors' | 'custom-sensor' | 'transcendence-engine' | 'living-documents' | 'jls-business-strategy' | 'geodesic-convergence' | 'red-zone-navigation' | 'geodesic-architecture' | 'equilibrium-dashboard' | 'find-yourself-guidebook' | 'true-identities-manifestation' | 'about';
+type Tab = 'universal-interface' | 'universal-guide' | 'phenix-navigator' | 'repository' | 'library' | 'onboarding' | 'shield' | 'compose' | 'safe' | 'heartbeat' | 'tetrahedron' | 'first-light' | 'maintenance' | 'kenosis' | 'forensic' | 'pre-launch' | 'broadcast' | 'calibration' | 'abdication' | 'module-maker' | 'module-manager' | 'my-modules' | 'somatic' | 'breath' | 'sonic' | 'nerd-lab' | 'math' | 'story' | 'faq' | 'features' | 'love-letter' | 'manifesto' | 'grimoire' | 'stars' | 'frequencies' | 'survival' | 'phenix' | 'coherence-quest' | 'family-law' | 'court-docs' | 'evidence' | 'adams-challenge' | 'gensync' | 'firmware' | 'sovereignty' | 'jitterbug' | 'geodesic-self' | 'resonance' | 'temporal-immortality' | 'quantum-dreams' | 'infinite-mind' | 'love-harmonics' | 'planetary-consciousness' | 'mobile-sensors' | 'custom-sensor' | 'transcendence-engine' | 'living-documents' | 'jls-business-strategy' | 'geodesic-convergence' | 'red-zone-navigation' | 'geodesic-architecture' | 'equilibrium-dashboard' | 'find-yourself-guidebook' | 'true-identities-manifestation' | 'about';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<Tab>('universal-guide');
+  const [activeTab, setActiveTab] = useState<Tab>('universal-interface');
   const [safeMenuOpen, setSafeMenuOpen] = useState(false);
   const [phenixOpen, setPhenixOpen] = useState(false);
   const [tick, setTick] = useState(0);
@@ -311,6 +312,7 @@ function App() {
           }}
         >
           {[
+            { id: 'universal-interface' as Tab, label: '🌟 Universal Interface', icon: Zap },
             { id: 'universal-guide' as Tab, label: '🌌 Universal Guide', icon: Star },
             { id: 'phenix-navigator' as Tab, label: '🔺 Phenix Navigator', icon: Zap },
             { id: 'repository' as Tab, label: '📦 Repository', icon: Package },
@@ -457,6 +459,14 @@ function App() {
         </nav>
 
         {/* Tab Content */}
+        {activeTab === 'universal-interface' && (
+          <div className="universal-interface-tab">
+            <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🌟 Loading Universal Interface...</div>}>
+              <UniversalInterface />
+            </Suspense>
+          </div>
+        )}
+
         {activeTab === 'universal-guide' && (
           <div className="universal-guide-tab">
             <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: GOD_CONFIG.theme.text.secondary }}>🌌 Loading Universal Guide...</div>}>
