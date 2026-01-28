@@ -1,0 +1,22 @@
+site_name: Cognitive Shield Docs
+site_description: Universal public documentation for Cognitive Shield
+nav:
+  - Home: index.md
+  - User Guides: user-guides.md
+  - Legal & Compliance: legal-compliance.md
+  - Developer Docs: developer-docs.md
+  - FAQ & Support: faq.md
+  - Release Notes: release-notes.md
+  - API Reference: api.md
+  - Search: search.md
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: blue
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - toc.integrate

@@ -1,0 +1,28 @@
+# Phenix Navigator Test Configuration
+
+menu "Phenix Navigator Testing"
+
+    config PHENIX_ENABLE_TESTS
+        bool "Enable automated test suite"
+        default n
+        help
+            Enable the comprehensive automated test suite for TDP compliance validation.
+            When enabled, the test suite will run instead of the main application.
+
+    config PHENIX_TEST_ITERATIONS
+        int "Test iterations for performance tests"
+        default 1000
+        range 100 10000
+        depends on PHENIX_ENABLE_TESTS
+        help
+            Number of iterations for performance and stress tests.
+
+    config PHENIX_TEST_DURATION_MS
+        int "Test duration for performance tests (ms)"
+        default 5000
+        range 1000 30000
+        depends on PHENIX_ENABLE_TESTS
+        help
+            Duration in milliseconds for performance tests.
+
+endmenu

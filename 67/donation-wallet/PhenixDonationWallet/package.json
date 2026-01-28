@@ -1,0 +1,48 @@
+{
+  "name": "phenix-donation-wallet",
+  "version": "1.0.0",
+  "description": "Sovereign donation receiver with ERC-5564 stealth addresses and hardware signing",
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "tsc && vite build",
+    "build:robust": "tsc --noEmit && vite build --mode production",
+    "build:check": "tsc --noEmit",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "clean": "rm -rf dist node_modules/.vite",
+    "type-check": "tsc --noEmit",
+    "security-audit": "npm audit --audit-level moderate",
+    "test": "echo 'Tests not implemented yet - run manual testing'",
+    "validate": "npm run type-check && npm run lint && npm run security-audit"
+  },
+  "dependencies": {
+    "@noble/curves": "^1.4.0",
+    "@noble/hashes": "^1.4.0",
+    "micro-eth-signer": "^0.10.0",
+    "zustand": "^4.5.0",
+    "tweetnacl": "^1.0.3",
+    "scrypt-js": "^3.0.1",
+    "bip39": "^3.1.0",
+    "hdkey": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "@types/node": "^20.11.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12"
+  },
+  "author": "Phenix Family",
+  "license": "MIT",
+  "keywords": [
+    "ethereum",
+    "stealth-addresses",
+    "erc-5564",
+    "hardware-wallet",
+    "privacy",
+    "donation",
+    "phenix"
+  ]
+}

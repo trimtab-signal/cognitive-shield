@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=400, height=600" />
+  <title>Phenix Donation Wallet</title>
+  <style>
+    /* 
+     * Phenix Donation Wallet - Built with Love
+     * Neurodivergent-first design: high contrast, reduced motion, calm colors
+     */
+    
+    :root {
+      --bg-primary: #1a1a2e;
+      --bg-secondary: #16213e;
+      --bg-tertiary: #0f3460;
+      --text-primary: #e6e6e6;
+      --text-secondary: #a0a0a0;
+      --accent-primary: #ff6b35;
+      --accent-secondary: #f7c59f;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --border-radius: 12px;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      width: 400px;
+      min-height: 500px;
+      overflow-x: hidden;
+    }
+    
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .logo {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+    
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--accent-secondary);
+    }
+    
+    .subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+    
+    /* Main Content */
+    .main {
+      padding: 20px;
+    }
+    
+    /* Status Card */
+    .status-card {
+      background: var(--bg-secondary);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .status-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .status-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+    
+    .status-dot.scanning {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .status-text {
+      font-size: 12px;
+      color: var(--success);
+    }
+    
+    /* Balance Display */
+    .balance {
+      text-align: center;
+      margin: 16px 0;
+    }
+    
+    .balance-amount {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+    
+    .balance-unit {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-left: 4px;
+    }
+    
+    .balance-fiat {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+    
+    /* Meta Address */
+    .meta-address {
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 16px;
+    }
+    
+    .meta-address-label {
+      font-size: 10px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    
+    .meta-address-value {
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      color: var(--accent-secondary);
+      word-break: break-all;
+      line-height: 1.5;
+    }
+    
+    /* Buttons */
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .btn {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.2s;
+    }
+    
+    .btn:hover {
+      opacity: 0.9;
+    }
+    
+    .btn:active {
+      transform: scale(0.98);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary), #ff8c5a);
+      color: white;
+    }
+    
+    .btn-secondary {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Donation List */
+    .donations-section {
+      margin-top: 20px;
+    }
+    
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .donation-count {
+      background: var(--accent-primary);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+    
+    .donation-list {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    
+    .donation-item {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .donation-address {
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .donation-amount {
+      font-weight: 600;
+      color: var(--success);
+    }
+    
+    /* Footer */
+    .footer {
+      padding: 16px 20px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .footer-text {
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+    
+    /* Onboarding State */
+    .onboarding {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    
+    .onboarding-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+    
+    .onboarding-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    
+    .onboarding-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    
+    .onboarding-input {
+      width: 100%;
+      padding: 14px;
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--border-radius);
+      color: var(--text-primary);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+    
+    .onboarding-input::placeholder {
+      color: var(--text-secondary);
+    }
+    
+    .onboarding-input:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+    
+    /* Hardware Connection */
+    .hardware-section {
+      background: var(--bg-secondary);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      margin-top: 16px;
+      text-align: center;
+    }
+    
+    .hardware-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .hardware-status {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .hardware-connected {
+      color: var(--success);
+    }
+    
+    /* Hidden state */
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">🐦‍🔥</div>
+    <div class="title">Phenix Donation Wallet</div>
+    <div class="subtitle">Sovereign • Private • Unstoppable</div>
+  </header>
+
+  <!-- Onboarding View (shown when uninitialized) -->
+  <div id="onboarding" class="onboarding hidden">
+    <div class="onboarding-icon">🔐</div>
+    <div class="onboarding-title">Create Your Sovereign Wallet</div>
+    <div class="onboarding-text">
+      Generate stealth keys that allow you to receive private donations.
+      Your meta-address can be shared publicly - donations will be unlinkable.
+    </div>
+    <input 
+      type="password" 
+      class="onboarding-input" 
+      id="password-input"
+      placeholder="Enter encryption password"
+    />
+    <input 
+      type="password" 
+      class="onboarding-input" 
+      id="password-confirm"
+      placeholder="Confirm password"
+    />
+    <button class="btn btn-primary" id="create-wallet-btn">
+      🔥 Create Wallet
+    </button>
+  </div>
+
+  <!-- Main Wallet View -->
+  <main id="wallet-view" class="main">
+    <!-- Status Card -->
+    <div class="status-card">
+      <div class="status-header">
+        <span class="status-label">Scanner Status</span>
+        <div class="status-indicator">
+          <div class="status-dot scanning" id="status-dot"></div>
+          <span class="status-text" id="status-text">Scanning...</span>
+        </div>
+      </div>
+      
+      <!-- Balance -->
+      <div class="balance">
+        <span class="balance-amount" id="balance-amount">0.000</span>
+        <span class="balance-unit">ETH</span>
+        <div class="balance-fiat" id="balance-fiat">≈ $0.00 USD</div>
+      </div>
+      
+      <!-- Meta Address -->
+      <div class="meta-address">
+        <div class="meta-address-label">Your Stealth Meta-Address</div>
+        <div class="meta-address-value" id="meta-address">
+          st:eth:0x...
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="button-group">
+      <button class="btn btn-primary" id="copy-btn">
+        📋 Copy Address
+      </button>
+      <button class="btn btn-secondary" id="scan-btn">
+        🔍 Scan Now
+      </button>
+    </div>
+
+    <!-- Hardware Section -->
+    <div class="hardware-section">
+      <div class="hardware-icon">📱</div>
+      <div class="hardware-status" id="hardware-status">
+        Phenix Navigator: Not Connected
+      </div>
+      <button class="btn btn-secondary" id="connect-hardware-btn" style="margin-top: 12px;">
+        Connect Hardware
+      </button>
+    </div>
+
+    <!-- Donations List -->
+    <div class="donations-section">
+      <div class="section-title">
+        Recent Donations
+        <span class="donation-count" id="donation-count">0</span>
+      </div>
+      <div class="donation-list" id="donation-list">
+        <!-- Donation items will be inserted here -->
+        <div class="donation-item" style="justify-content: center; color: var(--text-secondary);">
+          No donations yet
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-text">
+      🐦‍🔥 Built with love for the neurodivergent community<br>
+      "The Phoenix does not ask permission to rise."
+    </div>
+  </footer>
+
+  <script type="module" src="./popup.js"></script>
+</body>
+</html>

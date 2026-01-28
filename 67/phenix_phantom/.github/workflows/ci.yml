@@ -1,0 +1,177 @@
+name: Phenix Navigator CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Cache ESP-IDF
+      uses: actions/cache@v3
+      with:
+        path: ~/esp-idf
+        key: esp-idf-${{ hashFiles('**/sdkconfig') }}
+
+    - name: Install ESP-IDF
+      run: |
+        mkdir -p ~/esp-idf
+        cd ~/esp-idf
+        git clone -b v5.1.2 --recursive https://github.com/espressif/esp-idf.git .
+        ./install.sh
+
+    - name: Build main application
+      run: |
+        source ~/esp-idf/export.sh
+        cd phenix_phantom
+        idf.py set-target esp32s3
+        idf.py build
+
+    - name: Build test suite
+      run: |
+        source ~/esp-idf/export.sh
+        cd phenix_phantom
+        idf.py set-target esp32s3
+        idf.py menuconfig --enable PHENIX_ENABLE_TESTS
+        idf.py build
+
+    - name: Run static analysis
+      run: |
+        source ~/esp-idf/export.sh
+        cd phenix_phantom
+        # Check for common issues
+        find main components -name "*.cpp" -o -name "*.h" | xargs grep -l "malloc\|free\|strcpy\|sprintf" || true
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: phenix-navigator-build
+        path: |
+          phenix_phantom/build/
+          !phenix_phantom/build/**/*.o
+          !phenix_phantom/build/**/*.d
+
+  tdp-compliance-check:
+    name: TDP Compliance Validation
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Validate TDP compliance
+      run: |
+        # Check for required TDP components
+        required_files=(
+          "main/sic_povm.h"
+          "main/sic_povm.cpp"
+          "main/ollivier_ricci.h"
+          "main/tdoa_sync.h"
+          "main/audio_processor.h"
+          "main/haptic_controller.h"
+          "main/ble_quantum_service.h"
+          "components/test_suite/test_suite.cpp"
+          "Kconfig"
+        )
+
+        for file in "${required_files[@]}"; do
+          if [ ! -f "phenix_phantom/$file" ]; then
+            echo "❌ Missing required TDP component: $file"
+            exit 1
+          fi
+        done
+
+        echo "✅ All TDP components present"
+
+        # Check for TDP compliance markers in code
+        if ! grep -q "TDP.*compliance" phenix_phantom/main/*.h phenix_phantom/main/*.cpp; then
+          echo "⚠️  TDP compliance markers not found in code"
+        else
+          echo "✅ TDP compliance markers found"
+        fi
+
+    - name: Check test coverage
+      run: |
+        # Count test functions
+        test_count=$(grep -c "RUN_TEST" phenix_phantom/components/test_suite/test_suite.cpp)
+        if [ $test_count -lt 10 ]; then
+          echo "❌ Insufficient test coverage: $test_count tests found"
+          exit 1
+        fi
+        echo "✅ Test coverage: $test_count test functions"
+
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Security scan
+      run: |
+        cd phenix_phantom
+
+        # Check for insecure functions
+        insecure_functions=("strcpy" "strcat" "sprintf" "gets" "rand")
+        for func in "${insecure_functions[@]}"; do
+          if grep -r "$func" main components --include="*.cpp" --include="*.h" | grep -v "test_"; then
+            echo "⚠️  Potentially insecure function usage: $func"
+          fi
+        done
+
+        # Check for hardcoded secrets
+        if grep -r "password\|secret\|key.*=.*\"" main components --include="*.cpp" --include="*.h"; then
+          echo "⚠️  Potential hardcoded secrets found"
+        fi
+
+        # Check for proper entropy sources
+        if ! grep -q "esp_random\|esp_fill_random" main/*.cpp; then
+          echo "⚠️  No hardware RNG usage detected"
+        fi
+
+        echo "✅ Security audit completed"
+
+  performance-baseline:
+    name: Performance Baseline
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python for analysis
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Analyze code complexity
+      run: |
+        # Install complexity analysis tools
+        pip install radon
+
+        cd phenix_phantom
+
+        # Check code complexity
+        echo "=== Code Complexity Analysis ==="
+        radon cc main components -a -s | head -20
+
+        # Check maintainability index
+        echo "=== Maintainability Index ==="
+        radon mi main components | head -10
+
+        echo "✅ Code analysis completed"
