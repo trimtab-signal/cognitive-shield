@@ -50,3 +50,43 @@ coverage/
 *.pem
 *.key
 secrets/
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHENIX NAVIGATOR — Personal/Sensitive Data
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Credentials (use .example files as templates)
+config/credentials.json
+
+# Local data directories
+phenix_data/db/
+phenix_data/input/
+phenix_data/clean_stream/
+data/postgres/
+data/redis/
+data/prometheus/
+data/grafana/
+
+# Forensics and audit results (may contain personal info)
+forensics/*.json
+!forensics/.gitkeep
+
+# Backups
+backups/
+
+# ESP-IDF build artifacts
+phenix_phantom/build/
+phenix_phantom/managed_components/
+phenix_phantom/sdkconfig.old
+
+# Python virtual environments
+backend_env/
+venv/
+__pycache__/
+*.pyc
+
+# Tauri build
+src-tauri/target/
+
+# Donation wallet builds (contains compiled extension)
+donation-wallet/PhenixDonationWallet.zip
